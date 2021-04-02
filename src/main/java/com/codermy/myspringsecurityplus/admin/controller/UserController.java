@@ -38,6 +38,13 @@ public class UserController {
         return "system/user/user";
     }
 
+    //  注册
+    @PostMapping("/register")
+    public Result register(@RequestBody MyUser myUser) {
+        userService.save(myUser,myUser.getRoleId());
+        return Result.ok();
+    }
+
     @GetMapping
     @ResponseBody
     @ApiOperation(value = "用户列表")

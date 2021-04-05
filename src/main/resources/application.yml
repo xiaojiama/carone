@@ -51,6 +51,10 @@ spring:
       enabled: true
       additional-paths: src/main/java
       exclude: WEB-INF/**
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 #mybatis配置
 mybatis:
   type-aliases-package: com.codermy.myspringsecurityplus.entity

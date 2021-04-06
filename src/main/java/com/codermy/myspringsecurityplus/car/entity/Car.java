@@ -1,56 +1,50 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * 汽车型号
+ */
 @Entity
 @Data
 @Table(name = "t_car")
-public class Car {
+public class Car{
     @Id
-    private String id;
-
-    private Integer carid;
-
-    private String carname;
-
-    private Integer ctypeid;
-
-    private Integer brandid;
+    private Integer id;
+    //汽车名称
+    private String name;
+    //汽车类型
+    private Integer typeId;
+    //汽车类型名称
+    private String typeName;
+    //汽车品牌
+    private Integer brandId;
+    //汽车品牌名称
+    private String brandName;
 
     private String plate;
-
-    private String pictures;
-
+    //汽车图片地址
+    private String imgUrl;
+    //详情
     private String detail;
-
+    //价格
     private BigDecimal price;
 
     private Integer isonline;
 
     private Integer isdeleted;
 
-    private String files;
+    //位置
+    private Long locationId;
 
-    private Integer lid;
+    private Date createTime;
 
-    /*@DBRef
-    private CarBrand carBrand;
+    private Date updateTime;
 
-    @DBRef
-    private CarType carType;
-
-    @Transient
-    private User owner;
-
-    @DBRef
-    private Location location;*/
-
-    private Date recordDate;
 }

@@ -2,11 +2,10 @@ package com.codermy.myspringsecurityplus.car.entity;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Set;
 
 /**
  * 汽车型号
@@ -16,7 +15,7 @@ import java.util.Date;
 @Table(name = "t_car")
 public class Car{
     @Id
-    private Integer id;
+    private Long id;
     //汽车名称
     private String name;
     //汽车类型
@@ -46,5 +45,10 @@ public class Car{
     private Date createTime;
 
     private Date updateTime;
+
+    @OneToMany(mappedBy = "car",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    //级联保存、更新、删除、刷新;延迟加载。当删除汽车品牌，会级联删除该汽车品牌的所有汽车
+    //拥有mappedBy注解的实体类为关系被维护端
+    private Set<CarDetail> carDetailSet;//汽车列表
 
 }

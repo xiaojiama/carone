@@ -1,10 +1,14 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import com.codermy.myspringsecurityplus.car.entity.Car;
+import com.codermy.myspringsecurityplus.car.entity.CarBrand;
+import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -28,20 +32,34 @@ import java.util.UUID;
 public class CarController {
     @Resource
     private CarService carService;
+    @Resource
+    private CarBrandRepository carBrandRepository;
+
+    @GetMapping("/brand")
+    @ResponseBody
+    public Result brand(){
+        List<CarBrand> brandList = carBrandRepository.findAll();
+        return Result.ok().code(0).data(brandList);
+    }
 
     @GetMapping("/index")
-    @PreAuthorize("hasAnyAuthority('user:list')")
     public String index(){
         return "system/car/car";
     }
 
+    @GetMapping(value = "/toAdd")
+    @ApiOperation(value = "添加汽车页面")
+    public String addCar(Model model) {
+        model.addAttribute("Car",new Car());
+        return "/system/car/car-add";
+    }
     //查询所有操作
     @GetMapping("/selectAll")
     @ResponseBody
     public Result listResource() {
-        List<Car> urlResource = carService.list();
+        List<Car> carList = carService.list();
 
-        return Result.ok().data(urlResource);
+        return Result.ok().code(0).data(carList);
     }
 
    //  查询操作，分页展示

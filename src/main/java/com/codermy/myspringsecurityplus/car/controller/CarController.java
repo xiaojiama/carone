@@ -3,6 +3,7 @@ package com.codermy.myspringsecurityplus.car.controller;
 import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -23,10 +24,16 @@ import java.util.UUID;
  * @date 2021/02
  */
 @Controller
-@RequestMapping("/api/admin/car")
+@RequestMapping("/api/car")
 public class CarController {
     @Resource
     private CarService carService;
+
+    @GetMapping("/index")
+    @PreAuthorize("hasAnyAuthority('user:list')")
+    public String index(){
+        return "system/car/car";
+    }
 
     //查询所有操作
     @GetMapping("/selectAll")

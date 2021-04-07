@@ -16,16 +16,19 @@ public class CarDetail {
     @GeneratedValue
     private Long id;
 
-    //汽车品牌
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)//可选属性optional=false,表示author不能为空。删除文章，不影响用户
+    //汽车型号
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="car_id")
     private Car car;
 
-    //车牌号
-    private String number;
-
     //汽车年款
     private String productYear;
+
+    //车辆颜色
+    private String color;
+
+    //车牌号
+    private String number;
 
     //配置款
     private String level;
@@ -73,16 +76,11 @@ public class CarDetail {
 
     private Integer isonline;
 
-    //日租价格
-    private Double dayPrice;
-
-    //月租价格
-    private Double monthPrice;
 
     //管理人员
     private Integer userId;
 
-
+    //创建时间
     private Date createTime;
 
     private Date updateTime;

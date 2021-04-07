@@ -18,18 +18,15 @@ public class Car{
     private Long id;
     //汽车名称
     private String name;
-    //汽车类型
-    private Integer typeId;
     //汽车类型名称
     private String typeName;
-    //汽车品牌
-    private Integer brandId;
     //汽车品牌名称
     private String brandName;
 
-    private String plate;
     //汽车图片地址
     private String imgUrl;
+    //文件
+    private String files;
     //详情
     private String detail;
     //价格
@@ -41,9 +38,9 @@ public class Car{
 
     //位置
     private Long locationId;
-
+    //创建时间
     private Date createTime;
-
+    //更新时间
     private Date updateTime;
 
     @OneToMany(mappedBy = "car",cascade=CascadeType.ALL,fetch=FetchType.LAZY)

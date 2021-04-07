@@ -67,16 +67,12 @@ public class CarDetailService {
 
     /**
      * 编辑操作
-     * @param id
-     * @param name 操作名称
-     * @param url 接口
-     * @param description   操作描述
      * @return
      */
-    public int editResourceData(Long id, String name, String url,String description) {
-        Optional<CarDetail> p = carDetailRepository.findById(id);
+    public int editResourceData(CarDetail cd) {
+        Optional<CarDetail> p = carDetailRepository.findById(cd.getId());
         if (p.isPresent()) {
-            p.get().setNumber(name);
+            p.get().setNumber(cd.getNumber());
             carDetailRepository.save(p.get());
         }else{
             return 1;

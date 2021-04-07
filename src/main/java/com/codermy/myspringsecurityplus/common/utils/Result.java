@@ -2,6 +2,7 @@ package com.codermy.myspringsecurityplus.common.utils;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.springframework.data.domain.Page;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -85,7 +86,10 @@ public class Result<T> implements Serializable {
         this.setCode(code);
         return this;
     }
-
+    public Result data(Page<T> page){
+        this.data.add((T) page);
+        return this;
+    }
 
     public Result data(List<T> list){
         this.data.addAll(list);

@@ -51,10 +51,17 @@ spring:
       enabled: true
       additional-paths: src/main/java
       exclude: WEB-INF/**
+  #Jpa
   jpa:
     hibernate:
       ddl-auto: update
     show-sql: true
+  #文件上传
+  servlet:
+    multipart:
+      max-file-size: 50MB  # 设置单个文件最大内存
+      max-request-size: 200MB # 设置所有文件最大内存
+      enabled: false
 #mybatis配置
 mybatis:
   type-aliases-package: com.codermy.myspringsecurityplus.entity

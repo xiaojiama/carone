@@ -3,9 +3,8 @@ package com.codermy.myspringsecurityplus.car.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Set;
 
 /**
  * 具体门店
@@ -20,7 +19,12 @@ public class Location {
     //门店名称
     private String name;
     //所在城市
-    private Integer cId;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="city_id")
+    private City city;
 
+    /*@OneToMany(mappedBy = "location",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<Car> carSet;
+*/
 
 }

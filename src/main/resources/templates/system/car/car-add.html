@@ -48,15 +48,20 @@
                         </select>
                     </div>
                 </div>
-                <button type="button" class="layui-btn" id="test1">
-                    <i class="layui-icon">&#xe67c;</i>上传图片
-                </button>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1" style="width: 100px;height: 100px">
+                        <p id="demoText"></p>
+                        <input type="hidden" id="imgUrl" th:value="${Car.imgUrl}" name="imgUrl" >
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <div class="bottom">
         <div class="button-container">
-            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="role-save">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="car-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -69,42 +74,56 @@
 </form>
 <script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
 <script>
-    layui.use(['dtree','form','jquery'],function(){
+    layui.use(['upload','form','jquery'],function(){
         getClassify();
         let form = layui.form;
         let $ = layui.jquery;
-        let dtree = layui.dtree;
-        let Dtree = null;
-        let roleId = $("#roleId").val();
-        Dtree = dtree.render({
-            elem: "#dataTree",
-            initLevel: "1",
-            width: "100%",
-            method: 'get',
-            dataStyle: "layuiStyle",  //使用layui风格的数据格式
-            response:{message:"msg",statusCode:200},  //修改response中返回数据的定义
-            url: "/api/menu/build",
-            dataFormat: "list",  //配置data的风格为list
-            checkbar: true,  //开启复选框
-            checkbarType: "p-casc"
+        let upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            ,url: '/api/car/upload'
+            ,before: function(obj){
+                obj.preview(function(index, file, result){
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                });
+            }
+            ,done: function(res){
+                //如果上传失败
+                if(res.code > 0){
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                $('#imgUrl').attr('value',res.data);
+            }
+            ,error: function(){
+                //演示失败状态，并实现重传
+                var demoText = $('#demoText');
+                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                demoText.find('.demo-reload').on('click', function(){
+                    uploadInst.upload();
+                });
+            }
         });
         form.verify({
             name: function(value){
                 if(value.length < 2){
-                    return '角色名至少2个字符';
+                    return '汽车名至少2个字符';
                 }
             }
         });
-        form.on('submit(role-save)', function(data){
-            // 获取复选框数组数据
-            var paramJsonArr = Dtree.getCheckbarJsonArrParam();
-            var ids = paramJsonArr["nodeId"]
-            var datas = data.field
-            datas['menuIds'] = ids
-            datas['roleId'] = roleId
+        form.on('submit(car-save)', function(data){
+            debugger
+            /*var data = {
+                name : $("#name").val(),
+                typeName : $("#typeName").val(),
+                price : $("#price").val(),
+                brandName : $("#brandName").val(),
+                imgUrl : $("#imgUrl").val()
+            };*/
             $.ajax({
-                url:'/api/role',
-                data:JSON.stringifytree(datas),
+                url:'/api/car/add',
+                data:data.field,
                 dataType:'json',
                 contentType:'application/json',
                 type:'post',

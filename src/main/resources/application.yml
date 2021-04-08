@@ -1,6 +1,9 @@
 server:
   port: 8088
 spring:
+  http:
+    multipart:
+      location: /data/upload_tmp
   profiles:
     active: dev
   application:

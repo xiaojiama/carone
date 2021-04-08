@@ -1,12 +1,12 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
+import cn.hutool.core.lang.Assert;
 import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarBrand;
 import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /*
  * car controller
@@ -81,30 +81,45 @@ public class CarController {
         Car r = carService.findByNumber(name);
         return  Result.ok().data((List) r);
     }
+    @ResponseBody
+    @RequestMapping("/upload")
+    public Map<String,Object> addlunbo(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+        Assert.notNull(file, "上传文件不能为空");
+        String filepath = request.getServletContext().getRealPath("/img");
+        String filename = System.currentTimeMillis()+file.getOriginalFilename();
+        //确保路径存在
+        File file2 = new File(filepath);
+        if (!file2.exists()) {
+            file2.mkdirs();
+        }
+        String savepath = filepath+"\\"+filename;
+        System.out.println("图片保存路径:"+savepath);
+        Map map = new HashMap<String,Object>();
+        try {
+            //保存文件到服务器
+            file.transferTo(new File(savepath));
+            //返回json
+            map.put("msg","ok");
+            map.put("code",0);
+            map.put("data",savepath);
+
+        } catch (Exception e) {
+            map.put("msg","error");
+            map.put("code",500);
+            e.printStackTrace();
+        }
+
+        return map;
+    }
     //  新增操作
+    @ResponseBody
     @PostMapping("/add")
-    public Result addResource(@Valid @ModelAttribute Car r,
-                              @RequestParam(value="file") MultipartFile uploadFile,
-                              HttpSession session, BindingResult bindingResult) throws IOException {
+    public Result addResource(@Valid @ModelAttribute Car r, BindingResult bindingResult) throws IOException {
         //校验数据，判断是否符合参数注解要求
         if(bindingResult.hasErrors()){
             String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
             return Result.ok().message(defaultMessage).data(carService.list());
         }else{
-            //获取上传文件名称
-            String fileName = uploadFile.getOriginalFilename();
-            //uuid+后缀名，给文件重新取名
-            String finalFileName = UUID.randomUUID() + fileName.substring(fileName.lastIndexOf("."));
-            //最后存储的路径，是本地的服务器中
-            String path = session.getServletContext().getRealPath("img")+ File.separator + finalFileName;
-            System.out.println(path);
-            //上传
-            File file = new File(path);
-            uploadFile.transferTo(file);
-
-            //上传成功后，将地址存入数据库，让前端可以直接拿图片
-            String idPic = "/img/" + finalFileName;
-            r.setImgUrl(idPic);
             //新增
             int status = carService.addCarData(r);
             switch (status) {

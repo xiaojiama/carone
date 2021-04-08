@@ -15,6 +15,7 @@ import java.util.Set;
 @Table(name = "t_car")
 public class Car{
     @Id
+    @GeneratedValue
     private Long id;
     //汽车名称
     private String name;

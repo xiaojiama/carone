@@ -49,7 +49,11 @@
 			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
 
-
+		<script type="text/html" id="picImg">
+			<div>
+				<img src="{{ d.imgUrl }}" onclick="showBigImage(this)"  width="80px" height="45px"/>
+			</div>
+		</script>
 		<script>
 		    layui.use(['table','form','jquery'],function () {
 		        let table = layui.table;
@@ -62,7 +66,7 @@
 		            [
 		                {type:'checkbox'},
 		                {title: '汽车名', field: 'name', align:'center', width:100},
-		                {title: '图片', field: 'imgUrl', align:'center'},
+		                {title: '图片', field: 'imgUrl', align:'center',templet:'#picImg'},
 						{title: '价格', field: 'price', align:'center'},
 		                {title: '操作', toolbar: '#car-bar', align:'center', width:195}
 		            ]
@@ -212,6 +216,10 @@
 		        window.refresh = function(){
 		            table.reload('car-table');
 		        }
+				//点击图片放大
+				window.showBigImage = function showBigImage(e){
+					func.previewImage(e)
+				}
 		    })
 		</script>
 	</body>

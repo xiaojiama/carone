@@ -121,9 +121,10 @@
                 brandName : $("#brandName").val(),
                 imgUrl : $("#imgUrl").val()
             };*/
+            var datas = data.field;
             $.ajax({
                 url:'/api/car/add',
-                data:data.field,
+                data:JSON.stringify(datas),
                 dataType:'json',
                 contentType:'application/json',
                 type:'post',

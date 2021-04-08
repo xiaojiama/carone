@@ -5,6 +5,7 @@ import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarBrand;
 import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
 import com.codermy.myspringsecurityplus.car.service.CarService;
+import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -83,22 +84,25 @@ public class CarController {
     }
     @ResponseBody
     @RequestMapping("/upload")
-    public Map<String,Object> addlunbo(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+    public Map<String,Object> addlunbo(@RequestParam("file") MultipartFile file) {
         Assert.notNull(file, "上传文件不能为空");
-        String filepath = request.getServletContext().getRealPath("/img");
+        // 拿到文件名
         String filename = System.currentTimeMillis()+file.getOriginalFilename();
-        //确保路径存在
-        File file2 = new File(filepath);
-        if (!file2.exists()) {
-            file2.mkdirs();
-        }
-        String savepath = filepath+"\\"+filename;
-        System.out.println("图片保存路径:"+savepath);
+
+        // 存放上传图片的文件夹
+        File fileDir = UploadUtils.getImgDirFile();
+        // 输出文件夹绝对路径  -- 这里的绝对路径是相当于当前项目的路径而不是“容器”路径
+        System.out.println(fileDir.getAbsolutePath());
         Map map = new HashMap<String,Object>();
         try {
-            //保存文件到服务器
-            file.transferTo(new File(savepath));
-            //返回json
+            // 构建真实的文件路径
+            File newFile = new File(fileDir.getAbsolutePath() + File.separator +filename);
+            String savepath = newFile.getAbsolutePath();
+            System.out.println(savepath);
+
+            // 上传图片到 -》 “绝对路径”
+            file.transferTo(newFile);
+
             map.put("msg","ok");
             map.put("code",0);
             map.put("data",savepath);
@@ -112,24 +116,18 @@ public class CarController {
         return map;
     }
     //  新增操作
-    @ResponseBody
     @PostMapping("/add")
-    public Result addResource(@Valid @ModelAttribute Car r, BindingResult bindingResult) throws IOException {
-        //校验数据，判断是否符合参数注解要求
-        if(bindingResult.hasErrors()){
-            String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
-            return Result.ok().message(defaultMessage).data(carService.list());
-        }else{
-            //新增
-            int status = carService.addCarData(r);
-            switch (status) {
-                case 0:
-                    return Result.ok().data(carService.list());
-                case 1:
-                    return Result.error().data(carService.list());
-                default:
-                    return Result.error().data(carService.list());
-            }
+    @ResponseBody
+    public Result addResource(@RequestBody Car r) throws IOException {
+        //新增
+        int status = carService.addCarData(r);
+        switch (status) {
+            case 0:
+                return Result.ok().data(carService.list());
+            case 1:
+                return Result.error().data(carService.list());
+            default:
+                return Result.error().data(carService.list());
         }
     }
     ///编辑操作

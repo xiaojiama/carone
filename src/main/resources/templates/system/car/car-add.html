@@ -51,7 +51,7 @@
                 <div class="layui-upload">
                     <button type="button" class="layui-btn" id="test1">上传图片</button>
                     <div class="layui-upload-list">
-                        <img class="layui-upload-img" id="demo1" style="width: 100px;height: 100px">
+                        <img class="layui-upload-img" id="demo1" style="width: 100px;">
                         <p id="demoText"></p>
                         <input type="hidden" id="imgUrl" th:value="${Car.imgUrl}" name="imgUrl" >
                     </div>
@@ -110,17 +110,10 @@
                 if(value.length < 2){
                     return '汽车名至少2个字符';
                 }
-            }
+            },
+            price:[/^$|^[0-9]{0,5}$/, '只能是数字且范围0~99999！']
         });
         form.on('submit(car-save)', function(data){
-            debugger
-            /*var data = {
-                name : $("#name").val(),
-                typeName : $("#typeName").val(),
-                price : $("#price").val(),
-                brandName : $("#brandName").val(),
-                imgUrl : $("#imgUrl").val()
-            };*/
             var datas = data.field;
             $.ajax({
                 url:'/api/car/add',

@@ -1,6 +1,7 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
+import com.codermy.myspringsecurityplus.admin.entity.MyRole;
 import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarBrand;
 import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
@@ -8,6 +9,7 @@ import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -53,6 +55,12 @@ public class CarController {
     public String addCar(Model model) {
         model.addAttribute("Car",new Car());
         return "/system/car/car-add";
+    }
+    @GetMapping(value = "/edit")
+    @ApiOperation(value = "修改汽车页面")
+    public String editRole(Model model, Car car) {
+        model.addAttribute("Car",carService.findById(car.getId()));
+        return "system/car/car-edit";
     }
     //查询所有操作
     @GetMapping("/selectAll")
@@ -105,7 +113,7 @@ public class CarController {
 
             map.put("msg","ok");
             map.put("code",0);
-            map.put("data",savepath);
+            map.put("data",filename);
 
         } catch (Exception e) {
             map.put("msg","error");

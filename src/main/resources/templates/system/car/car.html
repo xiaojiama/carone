@@ -49,11 +49,6 @@
 			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
 
-		<!--<script type="text/html" id="picImg">
-			<div>
-				<img src="{{ d.imgUrl }}" onclick="showBigImage(this)"  width="40px" />
-			</div>
-		</script>-->
 		<script>
 		    layui.use(['table','form','jquery'],function () {
 		        let table = layui.table;
@@ -160,13 +155,12 @@
 		
 		        window.remove = function(obj){
 					var data = obj.data;
-		            layer.confirm('确定要删除该角色', {icon: 3, title:'提示'}, function(index){
+		            layer.confirm('确定要删除该汽车信息', {icon: 3, title:'提示'}, function(index){
 		                layer.close(index);
 		                let loading = layer.load();
 		                $.ajax({
-		                    url: '/api/role',
+		                    url: '/api/car/delete/'+data.id,
 		                    dataType:'json',
-							data:{roleId:data.roleId},
 		                    type:'delete',
 		                    success:function(result){
 		                        layer.close(loading);

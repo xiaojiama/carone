@@ -1,7 +1,7 @@
 package com.codermy.myspringsecurityplus.car.service;
 
-import com.codermy.myspringsecurityplus.car.entity.Car;
-import com.codermy.myspringsecurityplus.car.repository.CarRepository;
+import com.codermy.myspringsecurityplus.car.entity.*;
+import com.codermy.myspringsecurityplus.car.repository.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,6 +17,16 @@ import java.util.Optional;
 public class CarService {
     @Resource
     private CarRepository carRepository;
+    @Resource
+    private CarTypeRepository carTypeRepository;
+    @Resource
+    private CarBrandRepository carBrandRepository;
+    @Resource
+    private ProvinceRepository provinceRepository;
+    @Resource
+    private CityRepository cityRepository;
+    @Resource
+    private LocationRepository locationRepository;
 
     //根据id查询
     public Car findById(Long id) {
@@ -32,6 +43,27 @@ public class CarService {
     public List<Car> list(){
        return  carRepository.findAll();
     }
+    //查询汽车类型全部内容
+    public List<CarType> typeList(){
+        return  carTypeRepository.findAll();
+    }
+    //查询汽车品牌全部内容
+    public List<CarBrand> brandList(){
+        return  carBrandRepository.findAll();
+    }
+    //查询省级信息全部内容
+    public List<Province> provinceList(){
+        return  provinceRepository.findAll();
+    }
+    //查询该省级下城市的全部内容
+    public List<City> cityList(int pid){
+        return  cityRepository.findCityData(pid);
+    }
+    //查询该城市下门店的全部内容
+    public List<Location> locationList(int cityId){
+        return  locationRepository.findLocationData(cityId);
+    }
+
     //查询全部内容,实现分页
     public Page<Car> list(int page, int limit, String sortType) {
         //判断排序类型及排序字段
@@ -59,8 +91,25 @@ public class CarService {
             c.setName(car.getName());//汽车名称
             c.setDetail(car.getDetail());//车辆描述
             c.setPrice(car.getPrice());//价格
-            c.setTypeName(car.getTypeName());//汽车类型
-            c.setBrandName(car.getBrandName()); //汽车品牌名称
+            c.setCreateTime(new Date());
+            c.setUpdateTime(new Date());
+            //根据类型id，获取类型对象
+            Optional<CarType> t = carTypeRepository.findById(car.getTypeId());
+            if(t.isPresent()){
+                //添加汽车类型
+                c.setCarType(t.get());
+            }
+            Optional<CarBrand> d = carBrandRepository.findById(car.getBrandId());
+            if(d.isPresent()){
+                //添加汽车品牌
+                c.setCarBrand(d.get());
+            }
+            Optional<Location> l = locationRepository.findById(car.getLocationId());
+            if(l.isPresent()){
+                //添加汽车品牌
+                c.setLocation(l.get());
+            }
+
             c.setImgUrl(car.getImgUrl());
             /*c.setColor(car.getColor()); //车辆颜色
             c.setNumber(car.getNumber());//车牌号
@@ -100,13 +149,13 @@ public class CarService {
     }
 
     //删除
-    public String deleteResourceData(Long id) {
-        Car r = findById(id);
-        if (r == null) {
-            return "1";
+    public int deleteCarData(Long id) {
+        Car c = findById(id);
+        if (c == null) {
+            return 1;
         } else {
-            carRepository.deleteById(r.getId());
-            return "0";
+            carRepository.deleteById(c.getId());
+            return 0;
         }
 
     }

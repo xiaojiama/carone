@@ -1,12 +1,10 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
-import com.codermy.myspringsecurityplus.admin.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 /**
  * 汽车类型
@@ -20,6 +18,10 @@ public class CarType{
     private Integer id;
     //汽车类型名称
     private String name;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "carType",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Car> carList;
 
 
 }

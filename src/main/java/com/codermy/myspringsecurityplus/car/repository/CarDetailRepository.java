@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.repository;
 
+import com.codermy.myspringsecurityplus.car.entity.CarBrand;
 import com.codermy.myspringsecurityplus.car.entity.CarDetail;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

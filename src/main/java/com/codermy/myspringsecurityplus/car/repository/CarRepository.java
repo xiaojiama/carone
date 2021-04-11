@@ -16,7 +16,8 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
      * @param id 汽车id
      * @return 汽车
      */
-    Optional<Car> findById(Long id);/**
+    Optional<Car> findById(Long id);
+    /**
      * 根据名称获得汽车
      *
      * @param name 汽车名

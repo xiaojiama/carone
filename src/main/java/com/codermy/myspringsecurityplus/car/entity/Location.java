@@ -1,10 +1,10 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 具体门店
@@ -19,12 +19,14 @@ public class Location {
     //门店名称
     private String name;
     //所在城市
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    /*@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="city_id")
-    private City city;
+    private City city;*/
+    @JoinColumn(name="city_id")
+    private int cityId;
 
-    /*@OneToMany(mappedBy = "location",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<Car> carSet;
-*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "location",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Car> carList;
 
 }

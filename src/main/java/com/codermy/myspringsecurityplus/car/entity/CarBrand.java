@@ -1,13 +1,11 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
-import com.codermy.myspringsecurityplus.admin.entity.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
+import java.util.List;
 
 /**
  * 汽车品牌
@@ -21,8 +19,10 @@ public class CarBrand{
     private Integer id;
     //汽车品牌名称
     private String name;
-   /* @OneToMany(mappedBy = "carBrand",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<Car> carSet;*/
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "carBrand",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Car> carList;
 
 
 }

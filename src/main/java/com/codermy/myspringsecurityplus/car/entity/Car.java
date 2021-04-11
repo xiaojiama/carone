@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,9 +21,19 @@ public class Car{
     //汽车名称
     private String name;
     //汽车类型名称
-    private String typeName;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="type_id")
+    private CarType carType;
+
     //汽车品牌名称
-    private String brandName;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="brand_id")
+    private CarBrand carBrand;
+
+    //位置
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="location_id")
+    private Location location;
 
     //汽车图片地址
     private String imgUrl;
@@ -37,16 +48,19 @@ public class Car{
 
     private Integer isdeleted;
 
-    //位置
-    private Long locationId;
+
     //创建时间
     private Date createTime;
     //更新时间
     private Date updateTime;
 
-    @OneToMany(mappedBy = "car",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
-    //级联保存、更新、删除、刷新;延迟加载。当删除汽车品牌，会级联删除该汽车品牌的所有汽车
-    //拥有mappedBy注解的实体类为关系被维护端
-    private Set<CarDetail> carDetailSet;//汽车列表
-
+    //不存入表,类型保存时用
+    @Transient
+    private int typeId;
+    //不存入表
+    @Transient
+    private int brandId;
+    //不存入表
+    @Transient
+    private int locationId;
 }

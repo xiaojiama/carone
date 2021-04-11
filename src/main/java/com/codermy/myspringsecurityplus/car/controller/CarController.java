@@ -2,8 +2,7 @@ package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
 import com.codermy.myspringsecurityplus.admin.entity.MyRole;
-import com.codermy.myspringsecurityplus.car.entity.Car;
-import com.codermy.myspringsecurityplus.car.entity.CarBrand;
+import com.codermy.myspringsecurityplus.car.entity.*;
 import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
@@ -35,17 +34,45 @@ import java.util.*;
 public class CarController {
     @Resource
     private CarService carService;
-    @Resource
-    private CarBrandRepository carBrandRepository;
 
+    //查询所有汽车品牌
     @GetMapping("/brand")
     @ResponseBody
     public Result brand(){
-        List<CarBrand> brandList = carBrandRepository.findAll();
-        return Result.ok().code(0).data(brandList);
+        List<CarBrand> carBrands = carService.brandList();
+        return Result.ok().code(0).data(carBrands);
+    }
+    //查询所有汽车类型
+    @GetMapping("/type")
+    @ResponseBody
+    public Result type(){
+        List<CarType> carTypes = carService.typeList();
+        return Result.ok().code(0).data(carTypes);
+    }
+    //查询所有省份
+    @GetMapping("/province")
+    @ResponseBody
+    public Result province(){
+        List<Province> provinceList = carService.provinceList();
+        return Result.ok().code(0).data(provinceList);
+    }
+    //  查询该省级下城市的全部内容
+    @GetMapping("/city/{provinceId}")
+    @ResponseBody
+    public Result getCity(@PathVariable("provinceId") int provinceId){
+        List<City> cityList = carService.cityList(provinceId);
+        return  Result.ok().data(cityList);
+    }
+    //  查询该城市下门店的全部内容
+    @GetMapping("/location/{cityId}")
+    @ResponseBody
+    public Result getLocation(@PathVariable("cityId") int cityId){
+        List<Location> locationList = carService.locationList(cityId);
+        return  Result.ok().data(locationList);
     }
 
     @GetMapping("/index")
+    @ApiOperation(value = "汽车列表页面")
     public String index(){
         return "system/car/car";
     }
@@ -159,12 +186,13 @@ public class CarController {
     }
     //  删除操作
     @DeleteMapping("/delete/{id}")
-    public Result deleteResource(@PathVariable("id") Long id){
-        String status = carService.deleteResourceData(id);
+    @ResponseBody
+    public Result deleteCar(@PathVariable("id") Long id){
+        int status = carService.deleteCarData(id);
         switch (status) {
-            case "0":
+            case 0:
                 return Result.ok().data(carService.list());
-            case "1":
+            case 1:
                 return Result.error().data(carService.list());
             default:
                 return Result.error().data(carService.list());

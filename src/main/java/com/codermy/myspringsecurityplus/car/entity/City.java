@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -19,11 +20,13 @@ public class City {
     //城市名称
     private String name;
     //省份
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    /*@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="p_id")
-    private Province province;
+    private Province province;*/
+    @JoinColumn(name="p_id")
+    private int pId;
 
-    @OneToMany(mappedBy = "city",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
-    private Set<Location> locationSet;
+    /*@OneToMany(mappedBy = "city",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Location> locationList;*/
 
 }

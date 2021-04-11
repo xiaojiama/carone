@@ -11,6 +11,24 @@
         <div class="main-container">
             <div class="main-container">
                 <div class="layui-form-item">
+                    <label class="layui-form-label">选择地区</label>
+                    <div class="layui-input-inline">
+                        <select id="provinceId" name="provinceId" lay-filter="provinceId">
+                            <option value="">请选择省</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline" >
+                        <select id="cityId" name="cityId" lay-filter="cityId" >
+                            <option value="">请选择市</option>
+                        </select>
+                    </div>
+                    <div class="layui-input-inline">
+                        <select id="locationId" name="locationId" lay-filter="locationId">
+                            <option value="">请选择门店</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label">
                         <span style="color: red">*</span>汽车名称
                     </label>
@@ -21,16 +39,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">汽车类型</label>
                     <div class="layui-input-block">
-                        <select name="typeName" lay-verify="required" th:value="${Car.typeName}">
-                            <option value=""></option>
-                            <option value="1">经凑型</option>
-                            <option value="2">经济型</option>
-                            <option value="3">商务型</option>
-                            <option value="4">豪华型</option>
-                            <option value="5">SUV</option>
-                            <option value="6">6至15座商务车</option>
-                            <option value="7">个性车</option>
-                            <option value="8">电动车</option>
+                        <select name="typeId" id="typeId" th:value="${{Car.carType}}">
+                            <option value="">请选择</option>
                         </select>
                     </div>
                 </div>
@@ -43,7 +53,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">汽车品牌</label>
                     <div class="layui-input-block">
-                        <select name="brandName" id="brandName" th:value="${Car.brandName}">
+                        <select name="brandId" id="brandId" th:value="${{Car.carBrand}}">
                             <option value="">请选择</option>
                         </select>
                     </div>
@@ -75,7 +85,11 @@
 <script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
 <script>
     layui.use(['upload','form','jquery'],function(){
-        getClassify();
+        getCarType();
+        getCarBrand();
+        getProvince();
+       /* getCity();
+        getLocation();*/
         let form = layui.form;
         let $ = layui.jquery;
         let upload = layui.upload;
@@ -134,16 +148,50 @@
             })
             return false;
         });
+        form.on('select(provinceId)',function(data){
+            debugger
+            var provinceId = data.value;
+            $.ajax({
+                url:'/api/car/city/'+provinceId,
+                success:function(res){
+                    if(res.success){
+                        for(var i =0;i<res.data.length;i++){
+                            $("#cityId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        }
+                        //重新渲染
+                        layui.form.render("select");
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            })
+        });
+        form.on('select(cityId)',function(data){
+            debugger
+            var cityId = data.value;
+            $.ajax({
+                url:'/api/car/location/'+cityId,
+                success:function(res){
+                    if(res.success){
+                        for(var i =0;i<res.data.length;i++){
+                            $("#locationId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        }
+                        //重新渲染
+                        layui.form.render("select");
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            })
+        });
     })
-
-    function getClassify(){
-        debugger
+    function getCarType(){
         $.ajax({
-            url:'/api/car/brand',
+            url:'/api/car/type',
             success:function(res){
                 if(res.success){
                     for(var i =0;i<res.data.length;i++){
-                        $("#brandName").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        $("#typeId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
                     }
                     //重新渲染
                     layui.form.render("select");
@@ -153,6 +201,119 @@
             }
         });
     }
+    function getCarBrand(){
+        $.ajax({
+            url:'/api/car/brand',
+            success:function(res){
+                if(res.success){
+                    for(var i =0;i<res.data.length;i++){
+                        $("#brandId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                    }
+                    //重新渲染
+                    layui.form.render("select");
+                }else{
+                    layer.msg(res.message);
+                }
+            }
+        });
+    }
+    function getProvince(){
+        debugger
+        $.ajax({
+            url:'/api/car/province',
+            success:function(res){
+                if(res.success){
+                    for(var i =0;i<res.data.length;i++){
+                        $("#provinceId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                    }
+                    //重新渲染
+                    layui.form.render("select");
+                }else{
+                    layer.msg(res.message);
+                }
+            }
+        });
+    }
+
+    function getCity() {
+        debugger
+        var provinceId = $("#provinceId").val();
+        if(provinceId==''){
+            return "请先选择省";
+        }
+        $.ajax({
+            url:'/api/car/city/'+provinceId,
+            success:function(res){
+                if(res.success){
+                    for(var i =0;i<res.data.length;i++){
+                        $("#cityId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                    }
+                    //重新渲染
+                    layui.form.render("select");
+                }else{
+                    layer.msg(res.message);
+                }
+            }
+        })
+    }
+    function getLocation() {
+        debugger
+        var cityId = $("#cityId").val();
+        if(cityId==''){
+            return "请先选择市";
+        }
+        $.ajax({
+            url:'/api/car/location/'+cityId,
+            success:function(res){
+                if(res.success){
+                    for(var i =0;i<res.data.length;i++){
+                        $("#locationId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                    }
+                    //重新渲染
+                    layui.form.render("select");
+                }else{
+                    layer.msg(res.message);
+                }
+            }
+        })
+    }
+    $(document).ready(function() {
+        $("#provinceId").change(function(){
+            debugger
+            $.ajax({
+                url:'/api/car/city/'+provinceId,
+                success:function(res){
+                    if(res.success){
+                        for(var i =0;i<res.data.length;i++){
+                            $("#cityId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        }
+                        //重新渲染
+                        layui.form.render("select");
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            })
+
+        });
+        $("#cityId").change(function(){
+            debugger
+            $.ajax({
+                url:'/api/car/location/'+cityId,
+                success:function(res){
+                    if(res.success){
+                        for(var i =0;i<res.data.length;i++){
+                            $("#locationId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        }
+                        //重新渲染
+                        layui.form.render("select");
+                    }else{
+                        layer.msg(res.message);
+                    }
+                }
+            })
+        });
+    }); 
 </script>
 <script>
 </script>

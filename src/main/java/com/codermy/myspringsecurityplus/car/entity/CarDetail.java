@@ -16,10 +16,8 @@ public class CarDetail {
     @GeneratedValue
     private Long id;
 
-    //汽车型号
-    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
-    @JoinColumn(name="car_id")
-    private Car car;
+    //该条详情对应的汽车id
+    private Long carId;
 
     //汽车年款
     private String productYear;
@@ -40,16 +38,14 @@ public class CarDetail {
     private Integer doors;
 
     //燃料类型
-    private Integer energyId;
-
-    //燃料类型名称
-    private String energyName;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="energy_id")
+    private Energy energy;
 
     //变速箱类型
-    private Integer gearId;
-
-    //变速箱类型名称
-    private String gearName;
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @JoinColumn(name="gear_id")
+    private Gear gear;
 
     //排量
     private String displacement;

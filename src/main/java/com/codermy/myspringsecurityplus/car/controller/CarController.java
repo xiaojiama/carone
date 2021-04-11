@@ -83,9 +83,9 @@ public class CarController {
         model.addAttribute("Car",new Car());
         return "/system/car/car-add";
     }
-    @GetMapping(value = "/edit")
+    @GetMapping(value = "/toEdit")
     @ApiOperation(value = "修改汽车页面")
-    public String editRole(Model model, Car car) {
+    public String editCar(Model model, Car car) {
         model.addAttribute("Car",carService.findById(car.getId()));
         return "system/car/car-edit";
     }
@@ -153,9 +153,9 @@ public class CarController {
     //  新增操作
     @PostMapping("/add")
     @ResponseBody
-    public Result addResource(@RequestBody Car r) throws IOException {
+    public Result addCar(@RequestBody Car c) throws IOException {
         //新增
-        int status = carService.addCarData(r);
+        int status = carService.addCarData(c);
         switch (status) {
             case 0:
                 return Result.ok().data(carService.list());
@@ -167,22 +167,18 @@ public class CarController {
     }
     ///编辑操作
     @PutMapping("/edit")
-    public Result editResource(@Valid @ModelAttribute Car c, BindingResult bindingResult) {
-        //校验数据，判断是否符合参数注解要求
-        if(bindingResult.hasErrors()){
-            String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
-            return Result.ok().message(defaultMessage).data(carService.list());
-        }else{
-            int status = carService.editResourceData(c);
-            switch (status) {
-                case 0:
-                    return Result.ok().data(carService.list());
-                case 1:
-                    return Result.error().data(carService.list());
-                default:
-                    return Result.error().data(carService.list());
-            }
+    @ResponseBody
+    public Result editCar(@RequestBody Car c) {
+        int status = carService.editCarData(c);
+        switch (status) {
+            case 0:
+                return Result.ok().data(carService.list());
+            case 1:
+                return Result.error().data(carService.list());
+            default:
+                return Result.error().data(carService.list());
         }
+
     }
     //  删除操作
     @DeleteMapping("/delete/{id}")
@@ -191,11 +187,11 @@ public class CarController {
         int status = carService.deleteCarData(id);
         switch (status) {
             case 0:
-                return Result.ok().data(carService.list());
+                return Result.ok();
             case 1:
-                return Result.error().data(carService.list());
+                return Result.error().message("未找到该汽车信息");
             default:
-                return Result.error().data(carService.list());
+                return Result.error().message("未知错误");
         }
     }
 }

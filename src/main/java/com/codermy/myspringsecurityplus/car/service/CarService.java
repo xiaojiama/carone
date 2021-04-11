@@ -136,11 +136,32 @@ public class CarService {
      * 编辑操作
      * @return
      */
-    public int editResourceData(Car car) {
-        Optional<Car> p = carRepository.findById(car.getId());
-        if (p.isPresent()) {
-            p.get().setName(car.getName());
-            carRepository.save(p.get());
+    public int editCarData(Car car) {
+        Optional<Car> c = carRepository.findById(car.getId());
+        if (c.isPresent()) {
+            c.get().setName(car.getName());//汽车名称
+            c.get().setDetail(car.getDetail());//车辆描述
+            c.get().setPrice(car.getPrice());//价格
+            c.get().setImgUrl(car.getImgUrl());//图片
+            c.get().setUpdateTime(new Date());//更新时间
+            //根据类型id，获取类型对象
+            Optional<CarType> t = carTypeRepository.findById(car.getTypeId());
+            if(t.isPresent()){
+                //添加汽车类型
+                c.get().setCarType(t.get());
+            }
+            Optional<CarBrand> d = carBrandRepository.findById(car.getBrandId());
+            if(d.isPresent()){
+                //添加汽车品牌
+                c.get().setCarBrand(d.get());
+            }
+            Optional<Location> l = locationRepository.findById(car.getLocationId());
+            if(l.isPresent()){
+                //添加汽车品牌
+                c.get().setLocation(l.get());
+            }
+            //保存
+            carRepository.save(c.get());
         }else{
             return 1;
         }

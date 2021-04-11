@@ -1,7 +1,7 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,7 +12,11 @@ import java.util.Set;
  * 汽车型号
  */
 @Entity
-@Data
+@Setter
+@Getter
+@EqualsAndHashCode// 自动生成get、set、toString、equals方法
+@AllArgsConstructor // 全参构造方法
+@NoArgsConstructor // 无参构造方法
 @Table(name = "t_car")
 public class Car{
     @Id
@@ -63,4 +67,20 @@ public class Car{
     //不存入表
     @Transient
     private int locationId;
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", imgUrl='" + imgUrl + '\'' +
+                ", files='" + files + '\'' +
+                ", detail='" + detail + '\'' +
+                ", price=" + price +
+                ", isonline=" + isonline +
+                ", isdeleted=" + isdeleted +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }

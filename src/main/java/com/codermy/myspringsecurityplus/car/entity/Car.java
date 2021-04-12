@@ -39,12 +39,19 @@ public class Car{
     @JoinColumn(name="location_id")
     private Location location;
 
+    //详情
+    @OneToOne(cascade=CascadeType.ALL)
+    //级联保存、更新、删除、刷新;延迟加载。当删除汽车品牌，会级联删除该汽车品牌的所有汽车
+    //拥有mappedBy注解的实体类为关系被维护端
+    @JoinColumn(name="detail_id")
+    private CarDetail carDetail;
+
     //汽车图片地址
     private String imgUrl;
     //文件
     private String files;
-    //详情
-    private String detail;
+    //描述
+    private String description;
     //价格
     private BigDecimal price;
 
@@ -75,7 +82,7 @@ public class Car{
                 ", name='" + name + '\'' +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", files='" + files + '\'' +
-                ", detail='" + detail + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 ", isonline=" + isonline +
                 ", isdeleted=" + isdeleted +

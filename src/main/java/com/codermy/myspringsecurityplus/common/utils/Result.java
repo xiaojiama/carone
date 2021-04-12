@@ -90,6 +90,10 @@ public class Result<T> implements Serializable {
         this.data.add((T) page);
         return this;
     }
+    public Result data(T t){
+        this.data.add(t);
+        return this;
+    }
 
     public Result data(List<T> list){
         this.data.addAll(list);

@@ -1,7 +1,6 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -12,19 +12,19 @@
             <div class="main-container">
                 <div class="layui-form-item">
                     <label class="layui-form-label">选择地区</label>
-                    <div class="layui-input-inline">
+                    <div class="layui-input-block">
                         <select id="provinceId" name="provinceId" lay-filter="provinceId">
-                            <option value="">请选择省</option>
+                            <option th:value="${Car.location.city.province.id}" th:text="${Car.location.city.province.name}">请选择省</option>
                         </select>
                     </div>
-                    <div class="layui-input-inline" >
+                    <div class="layui-input-block" >
                         <select id="cityId" name="cityId" lay-filter="cityId" >
-                            <option value="">请选择市</option>
+                            <option th:value="${Car.location.city.id}" th:text="${Car.location.city.name}">请选择市</option>
                         </select>
                     </div>
-                    <div class="layui-input-inline">
-                        <select id="locationId" name="locationId" lay-filter="locationId">
-                            <option value="">请选择门店</option>
+                    <div class="layui-input-block">
+                        <select id="locationId" name="locationId" lay-filter="locationId" >
+                            <option th:value="${Car.location.id}" th:text="${Car.location.name}" >请选择门店</option>
                         </select>
                     </div>
                 </div>
@@ -39,8 +39,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">汽车类型</label>
                     <div class="layui-input-block">
-                        <select name="typeId" id="typeId" th:value="${{Car.carType.name}}">
-                            <option value="">请选择</option>
+                        <select name="typeId" id="typeId">
+                            <option th:value="${Car.carType.id}" th:text="${Car.carType.name}" >请选择</option>
                         </select>
                     </div>
                 </div>
@@ -53,17 +53,18 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">汽车品牌</label>
                     <div class="layui-input-block">
-                        <select name="brandId" id="brandId" th:value="${Car.carBrand.name}">
-                            <option value="">请选择</option>
+                        <select name="brandId" id="brandId" >
+                            <option th:value="${Car.carBrand.id}" th:text="${Car.carBrand.name}" >请选择</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-upload">
                     <button type="button" class="layui-btn" id="test1">上传图片</button>
                     <div class="layui-upload-list">
-                        <img class="layui-upload-img" id="demo1" src="'/image/'+${Car.imgUrl}" style="width: 100px;">
+                        <img class="layui-upload-img" id="demo1" th:src="@{'/image/'+${Car.imgUrl}}" style="width: 100px;">
                         <p id="demoText"></p>
                         <input type="hidden" id="imgUrl" th:value="${Car.imgUrl}" name="imgUrl" >
+                        <input type="hidden" id="id" th:value="${Car.id}" name="id" >
                     </div>
                 </div>
             </div>
@@ -134,7 +135,7 @@
                 data:JSON.stringify(datas),
                 dataType:'json',
                 contentType:'application/json',
-                type:'post',
+                type:'put',
                 success:function(result){
                     if(result.success){
                         layer.msg(result.msg,{icon:1,time:1000},function(){

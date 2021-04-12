@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,13 +21,14 @@ public class City {
     //城市名称
     private String name;
     //省份
-    /*@ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
+    @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="p_id")
-    private Province province;*/
-    @JoinColumn(name="p_id")
-    private int pId;
+    private Province province;
+    /*@JoinColumn(name="p_id")
+    private int pId;*/
 
-    /*@OneToMany(mappedBy = "city",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<Location> locationList;*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "city",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<Location> locationList;
 
 }

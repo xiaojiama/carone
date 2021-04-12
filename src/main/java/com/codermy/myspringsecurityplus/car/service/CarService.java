@@ -35,7 +35,7 @@ public class CarService {
     }
 
     //根据name查询
-    public Car findByNumber(String name) {
+    public Car findByName(String name) {
         Optional<Car> r = carRepository.findByName(name);
         return r.orElse(null);
     }
@@ -89,7 +89,6 @@ public class CarService {
         if(!exist){
             Car c = new Car();
             c.setName(car.getName());//汽车名称
-            c.setDetail(car.getDetail());//车辆描述
             c.setPrice(car.getPrice());//价格
             c.setCreateTime(new Date());
             c.setUpdateTime(new Date());
@@ -140,7 +139,6 @@ public class CarService {
         Optional<Car> c = carRepository.findById(car.getId());
         if (c.isPresent()) {
             c.get().setName(car.getName());//汽车名称
-            c.get().setDetail(car.getDetail());//车辆描述
             c.get().setPrice(car.getPrice());//价格
             c.get().setImgUrl(car.getImgUrl());//图片
             c.get().setUpdateTime(new Date());//更新时间

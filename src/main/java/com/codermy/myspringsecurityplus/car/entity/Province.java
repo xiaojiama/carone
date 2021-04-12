@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,8 +19,9 @@ public class Province {
     //省份名称
     private String name;
 
-    /*@OneToMany(mappedBy = "province",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
-    private List<City> cityList;*/
+    @JsonIgnore
+    @OneToMany(mappedBy = "province",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
+    private List<City> cityList;
 
 
 }

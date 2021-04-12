@@ -1,24 +1,18 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
-import com.codermy.myspringsecurityplus.admin.entity.MyRole;
 import com.codermy.myspringsecurityplus.car.entity.*;
-import com.codermy.myspringsecurityplus.car.repository.CarBrandRepository;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
+import com.codermy.myspringsecurityplus.common.utils.PageTableRequest;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -113,13 +107,13 @@ public class CarController {
     }
     //  根据name查询操作
     @GetMapping("/selectByName")
-    public Result getResourceName(@RequestParam(value = "name", required = false, defaultValue = "0") String name){
-        Car r = carService.findByNumber(name);
-        return  Result.ok().data((List) r);
+    public Result getResourceName(Car car){
+        Car r = carService.findByName(car.getName());
+        return  Result.ok().data(r);
     }
     @ResponseBody
     @RequestMapping("/upload")
-    public Map<String,Object> addlunbo(@RequestParam("file") MultipartFile file) {
+    public Map<String,Object> addPicture(@RequestParam("file") MultipartFile file) {
         Assert.notNull(file, "上传文件不能为空");
         // 拿到文件名
         String filename = System.currentTimeMillis()+file.getOriginalFilename();

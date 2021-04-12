@@ -4,7 +4,6 @@ import cn.hutool.core.lang.Assert;
 import com.codermy.myspringsecurityplus.car.entity.*;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
-import com.codermy.myspringsecurityplus.common.utils.PageTableRequest;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -69,6 +68,12 @@ public class CarController {
     @ApiOperation(value = "汽车列表页面")
     public String index(){
         return "system/car/car";
+    }
+
+    @GetMapping("/home")
+    @ApiOperation(value = "首页")
+    public String tohome(){
+        return "home";
     }
 
     @GetMapping(value = "/toAdd")

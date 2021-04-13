@@ -179,12 +179,12 @@
 					if (restjson.success) {
 						if(roleName=="ADMIN"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "/";
+								location.href = "/toIndex";
 							});
 						}
 						if(roleName=="USER"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "/";
+								location.href = "/toIndex";
 							});
 						}
 
@@ -252,12 +252,12 @@
 					if (restjson.success) {
 						if(roleName=="ADMIN"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "/";
+								location.href = "templates/index.html";
 							});
 						}
 						if(roleName=="USER"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "/";
+								location.href = "/index.html";
 							});
 						}
 

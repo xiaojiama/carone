@@ -1,8 +1,12 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
+import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarDetail;
 import com.codermy.myspringsecurityplus.car.service.CarDetailService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,12 +20,25 @@ import java.util.List;
  * @author ma
  * @date 2021/02
  */
-@RestController
-@RequestMapping("/api/admin/carDetail")
+@Controller
+@RequestMapping("/api/carDetail")
 public class CarDetailController {
     @Resource
     private CarDetailService carDetailService;
 
+    @GetMapping(value = "/toAdd")
+    @ApiOperation(value = "添加汽车详情页面")
+    public String addCarRecord(Model model,Car car) {
+        Long id = car.getId();
+        model.addAttribute("CarId",car.getId());
+        return "system/car/car-detail-add";
+    }
+    @GetMapping(value = "/toEdit")
+    @ApiOperation(value = "修改汽车页面")
+    public String editCarRecord(Model model, CarDetail carDetail) {
+        model.addAttribute("CarRecord",carDetailService.findById(carDetail.getId()));
+        return "system/car/car-detail-edit";
+    }
 
     //查询所有操作
     @GetMapping("/selectAll")

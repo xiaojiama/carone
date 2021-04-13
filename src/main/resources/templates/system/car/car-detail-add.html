@@ -10,60 +10,114 @@
     <div class="mainBox">
         <div class="main-container">
             <div class="main-container">
+
                 <div class="layui-form-item">
-                    <label class="layui-form-label"><span style="color: red">*</span>选择地区</label>
-                    <div class="layui-input-block">
-                        <select id="provinceId" name="provinceId" lay-filter="provinceId">
-                            <option value="">请选择省</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-block" >
-                        <select id="cityId" name="cityId" lay-filter="cityId" >
-                            <option value="">请选择市</option>
-                        </select>
-                    </div>
-                    <div class="layui-input-block">
-                        <select id="locationId" name="locationId" lay-filter="locationId">
-                            <option value="">请选择门店</option>
-                        </select>
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>配置款
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="level"  name="level" required="" placeholder="请输入配置款" lay-verify="level" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label">
-                        <span style="color: red">*</span>汽车名称
+                        <span style="color: red">*</span>汽车年款
                     </label>
-                    <div class="layui-input-block">
-                        <input type="text" id="name" th:value="${Car.name}" name="name" required="" placeholder="请输入汽车名" lay-verify="name" autocomplete="off" class="layui-input">
+                    <div class="layui-input-inline">
+                        <input type="text" id="productYear"  name="productYear" required="" placeholder="请输入汽车年款" lay-verify="productYear" autocomplete="off" class="layui-input">
+                    </div>
+
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>车牌
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="number"  name="number" required="" placeholder="请输入车牌号" lay-verify="number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">汽车类型</label>
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>颜色
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="color"  name="color" required="" placeholder="请输入汽车颜色" lay-verify="color" autocomplete="off" class="layui-input">
+                    </div>
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>排量
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="displacement"  name="displacement" required="" placeholder="请输入汽车排量" lay-verify="displacement" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>座位数</label>
                     <div class="layui-input-block">
-                        <select name="typeId" id="typeId" th:value="${{Car.carType}}">
+                        <input type="radio" name="seats" value="两座" title="两座" checked="">
+                        <input type="radio" name="seats" value="四座" title="四座">
+                        <input type="radio" name="seats" value="五座" title="五座">
+                        <input type="radio" name="seats" value="六座" title="六座">
+                        <input type="radio" name="seats" value="七座" title="七座">
+                        <input type="radio" name="seats" value="七座以上" title="七座以上">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>门数</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="doors" value="双门" title="双门" checked="">
+                        <input type="radio" name="doors" value="三门" title="三门">
+                        <input type="radio" name="doors" value="四门" title="四门">
+                        <input type="radio" name="doors" value="五门" title="五门">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>燃料类型</label>
+                    <div class="layui-input-inline">
+                        <select name="energyId" id="energyId" >
+                            <option value="">请选择</option>
+                        </select>
+                    </div>
+                    <label class="layui-form-label"><span style="color: red">*</span>变速箱类型</label>
+                    <div class="layui-input-inline">
+                        <select name="gearId" id="gearId">
                             <option value="">请选择</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">单价</label>
+                    <label class="layui-form-label"><span style="color: red">*</span>驱动方式</label>
                     <div class="layui-input-block">
-                        <input type="text" id="price" th:value="${Car.price}" name="price" required="" lay-verify="price" autocomplete="off" class="layui-input">
+                        <input type="radio" name="drive" value="前驱" title="前驱" checked="">
+                        <input type="radio" name="drive" value="后驱" title="后驱">
+                        <input type="radio" name="drive" value="四驱" title="四驱">
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">汽车品牌</label>
+                    <label class="layui-form-label"><span style="color: red">*</span>是否有天窗</label>
                     <div class="layui-input-block">
-                        <select name="brandId" id="brandId" th:value="${{Car.carBrand}}">
-                            <option value="">请选择</option>
-                        </select>
+                        <input type="radio" name="upwindow" value="有" title="有" checked="">
+                        <input type="radio" name="upwindow" value="无" title="无">
                     </div>
                 </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>是否有雷达</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="radar" value="有" title="有" checked="">
+                        <input type="radio" name="radar" value="无" title="无">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>是否有GPS</label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="gps" value="有" title="有" checked="">
+                        <input type="radio" name="gps" value="无" title="无">
+                    </div>
+                </div>
+
                 <div class="layui-upload">
                     <button type="button" class="layui-btn" id="test1">上传图片</button>
                     <div class="layui-upload-list">
                         <img class="layui-upload-img" id="demo1" style="width: 100px;">
                         <p id="demoText"></p>
-                        <input type="hidden" id="imgUrl" th:value="${Car.imgUrl}" name="imgUrl" >
+                        <input type="type" id="carId" th:value="${CarId}" name="carId" >
                     </div>
                 </div>
             </div>

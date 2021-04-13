@@ -73,7 +73,7 @@ public class CarController {
     @GetMapping("/home")
     @ApiOperation(value = "首页")
     public String tohome(){
-        return "home";
+        return "redirect:index.html";
     }
 
     @GetMapping(value = "/toAdd")

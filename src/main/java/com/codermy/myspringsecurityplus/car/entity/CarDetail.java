@@ -47,26 +47,33 @@ public class CarDetail {
     @JoinColumn(name="gear_id")
     private Gear gear;
 
+    //不存入表,类型保存时用
+    @Transient
+    private int energyId;
+    //不存入表
+    @Transient
+    private int gearId;
+
     //排量
     private String displacement;
 
     //驱动方式：1/前驱 2/后驱 3/四驱
-    private Integer drive;
+    private String drive;
 
     //是否有天窗
-    private Integer upwindow;
+    private String upwindow;
 
     //是否有雷达
-    private Integer radar;
+    private String radar;
 
     //是否有gps
-    private Integer gps;
+    private String gps;
 
     //证件
-    private Integer lisence;
+    private String lisence;
 
     //保养记录
-    private Integer fsfile;
+    private String fsfile;
 
     private Integer isdeleted;
 

@@ -31,14 +31,19 @@ public class CarRecord {
     private String timeLong;
 
     /**
-     * 此订单是否已完成
+     * 此订单状态 进行中，申请中，已完成
      */
-    private Boolean status;
+    private int status;
 
     /**
      * 押金
      */
     private Double deposit;
+
+    /**
+     * 租金
+     */
+    private Double rent;
 
     private Long userId;
 

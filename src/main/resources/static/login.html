@@ -219,16 +219,14 @@
 				contentType:'application/json',
 				type:'post',
 				success:function(result){
-					if(result.success){
-						layer.msg(result.msg,{icon:1,time:1000},function(){
-							parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-							parent.location.reload();
-						});
-					}else{
-						layer.msg(result.msg,{icon:2,time:1000});
-					}
+					debugger
+					layer.msg(result.msg,{icon:1,time:1000},function () {
+							location.href = "/";
+					});
+
 				}
 			})
+
 		});
 		form.on('submit(formReset)', function() {
 			$.ajax({
@@ -252,12 +250,12 @@
 					if (restjson.success) {
 						if(roleName=="ADMIN"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "templates/index.html";
+								location.href = "/toIndex";
 							});
 						}
 						if(roleName=="USER"){
 							layer.msg(restjson.msg,{icon:1,time:1000},function () {
-								location.href = "/index.html";
+								location.href = "/toIndex";
 							});
 						}
 

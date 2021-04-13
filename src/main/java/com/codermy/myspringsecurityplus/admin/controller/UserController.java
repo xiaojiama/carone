@@ -40,6 +40,7 @@ public class UserController {
 
     //  注册
     @PostMapping("/register")
+    @ResponseBody
     public Result register(@RequestBody MyUser myUser) {
         userService.save(myUser,myUser.getRoleId());
         return Result.ok();

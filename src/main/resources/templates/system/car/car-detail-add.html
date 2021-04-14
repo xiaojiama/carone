@@ -16,7 +16,7 @@
                         <span style="color: red">*</span>配置款
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="level"  name="level" required="" placeholder="请输入配置款" lay-verify="level" autocomplete="off" class="layui-input">
+                        <input type="text" id="level"  name="level" th:value="${CarDetail.level}" required="" placeholder="请输入配置款" lay-verify="level" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -24,14 +24,14 @@
                         <span style="color: red">*</span>汽车年款
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="productYear"  name="productYear" required="" placeholder="请输入汽车年款" lay-verify="productYear" autocomplete="off" class="layui-input">
+                        <input type="text" id="productYear"  name="productYear" th:value="${CarDetail.productYear}" required="" placeholder="请输入汽车年款" lay-verify="productYear" autocomplete="off" class="layui-input">
                     </div>
 
                     <label class="layui-form-label">
                         <span style="color: red">*</span>车牌
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="number"  name="number" required="" placeholder="请输入车牌号" lay-verify="number" autocomplete="off" class="layui-input">
+                        <input type="text" id="number"  name="number" th:value="${CarDetail.number}" required="" placeholder="请输入车牌号" lay-verify="number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -39,19 +39,19 @@
                         <span style="color: red">*</span>颜色
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="color"  name="color" required="" placeholder="请输入汽车颜色" lay-verify="color" autocomplete="off" class="layui-input">
+                        <input type="text" id="color"  name="color" th:value="${CarDetail.color}" required="" placeholder="请输入汽车颜色" lay-verify="color" autocomplete="off" class="layui-input">
                     </div>
                     <label class="layui-form-label">
                         <span style="color: red">*</span>排量
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="displacement"  name="displacement" required="" placeholder="请输入汽车排量" lay-verify="displacement" autocomplete="off" class="layui-input">
+                        <input type="text" id="displacement"  name="displacement" th:value="${CarDetail.displacement}" required="" placeholder="请输入汽车排量" lay-verify="displacement" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>座位数</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="seats" value="两座" title="两座" checked="">
+                        <input type="radio" name="seats" value="两座" title="两座" >
                         <input type="radio" name="seats" value="四座" title="四座">
                         <input type="radio" name="seats" value="五座" title="五座">
                         <input type="radio" name="seats" value="六座" title="六座">
@@ -62,7 +62,7 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>门数</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="doors" value="双门" title="双门" checked="">
+                        <input type="radio" name="doors" value="双门" title="双门" >
                         <input type="radio" name="doors" value="三门" title="三门">
                         <input type="radio" name="doors" value="四门" title="四门">
                         <input type="radio" name="doors" value="五门" title="五门">
@@ -72,20 +72,20 @@
                     <label class="layui-form-label"><span style="color: red">*</span>燃料类型</label>
                     <div class="layui-input-inline">
                         <select name="energyId" id="energyId" >
-                            <option value="">请选择</option>
+                            <option  th:value="${CarDetail.energy.id}" th:text="${CarDetail.energy.name}">请选择</option>
                         </select>
                     </div>
                     <label class="layui-form-label"><span style="color: red">*</span>变速箱类型</label>
                     <div class="layui-input-inline">
                         <select name="gearId" id="gearId">
-                            <option value="">请选择</option>
+                            <option th:value="${CarDetail.gear.id}" th:text="${CarDetail.gear.name}">请选择</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>驱动方式</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="drive" value="前驱" title="前驱" checked="">
+                        <input type="radio" name="drive" value="前驱" title="前驱" >
                         <input type="radio" name="drive" value="后驱" title="后驱">
                         <input type="radio" name="drive" value="四驱" title="四驱">
                     </div>
@@ -93,31 +93,32 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有天窗</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="upwindow" value="有" title="有" checked="">
-                        <input type="radio" name="upwindow" value="无" title="无">
+                        <input type="radio" name="upWindow" value="有" title="有" >
+                        <input type="radio" name="upWindow" value="无" title="无">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有雷达</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="radar" value="有" title="有" checked="">
+                        <input type="radio" name="radar" value="有" title="有" >
                         <input type="radio" name="radar" value="无" title="无">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有GPS</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="gps" value="有" title="有" checked="">
+                        <input type="radio" name="gps" value="有" title="有" >
                         <input type="radio" name="gps" value="无" title="无">
                     </div>
                 </div>
 
                 <div class="layui-upload">
-                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <button type="button" class="layui-btn" id="test3"><i class="layui-icon"></i>上传文件</button>
                     <div class="layui-upload-list">
                         <img class="layui-upload-img" id="demo1" style="width: 100px;">
                         <p id="demoText"></p>
-                        <input type="type" id="carId" th:value="${CarId}" name="carId" >
+                        <input type="hidden" id="carId" th:value="${CarId}" name="carId" >
+                        <input type="hidden" id="id" th:value="${CarDetail.id}" name="id" >
                     </div>
                 </div>
             </div>
@@ -139,40 +140,59 @@
 <script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
 <script>
     layui.use(['upload','form','jquery'],function(){
-        getCarType();
-        getCarBrand();
-        getProvince();
-       /* getCity();
-        getLocation();*/
+        getEnergy();
+        getGear();
+        //getOn();
         let form = layui.form;
         let $ = layui.jquery;
         let upload = layui.upload;
-        //普通图片上传
-        var uploadInst = upload.render({
-            elem: '#test1'
-            ,url: '/api/car/upload'
-            ,before: function(obj){
-                obj.preview(function(index, file, result){
-                    $('#demo1').attr('src', result); //图片链接（base64）
-                });
-            }
-            ,done: function(res){
-                //如果上传失败
-                if(res.code > 0){
-                    return layer.msg('上传失败');
+        var carId = $("#carId").val();
+
+        $.ajax({
+            url:'/api/carDetail/selectByCarId/'+carId,
+            dataType:'json',
+            type:'get',
+            success:function(result){
+                for(var i =0;i<result.data.length;i++){
+                    if(result.data[i]==null){
+                        $("input[name='seats'][value='两座']").attr("checked", true);
+                        $("input[name='doors'][value='双门']").attr("checked", true);
+                        $("input[name='drive'][value='前驱']").attr("checked", true);
+                        $("input[name='upWindow'][value='有']").attr("checked", true);
+                        $("input[name='radar'][value='有']").attr("checked", true);
+                        $("input[name='gps'][value='有']").attr("checked", true);
+
+                    }else{
+                        $("input[name='seats'][value='" + result.data[i].seats + "']").attr("checked", true);
+                        $("input[name='doors'][value='" +  result.data[i].doors + "']").attr("checked", true);
+                        $("input[name='drive'][value='" +  result.data[i].drive + "']").attr("checked", true);
+                        $("input[name='upWindow'][value='" + result.data[i].upWindow + "']").attr("checked", true);
+                        $("input[name='radar'][value='" +  result.data[i].radar + "']").attr("checked", true);
+                        $("input[name='gps'][value='" + result.data[i].gps + "']").attr("checked", true);
+                    }
+
                 }
-                //上传成功
-                $('#imgUrl').attr('value',res.data);
+                form.render();
+            }
+        })
+        //普通文件上传
+        var uploadInst =upload.render({
+            elem: '#test3'
+            ,url: '/api/document/upload'
+            ,accept: 'file' //普通文件
+            ,method: 'POST'
+            ,done: function(res){
+                layui.use('layer', function(){
+                    var layer = layui.layer;
+
+                    layer.msg(res.data);
+                });
             }
             ,error: function(){
-                //演示失败状态，并实现重传
-                var demoText = $('#demoText');
-                demoText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
-                demoText.find('.demo-reload').on('click', function(){
-                    uploadInst.upload();
-                });
+                //请求异常回调
             }
         });
+
         form.verify({
             name: function(value){
                 if(value.length < 2){
@@ -184,7 +204,7 @@
         form.on('submit(car-save)', function(data){
             var datas = data.field;
             $.ajax({
-                url:'/api/car/add',
+                url:'/api/carDetail/add',
                 data:JSON.stringify(datas),
                 dataType:'json',
                 contentType:'application/json',
@@ -202,50 +222,14 @@
             })
             return false;
         });
-        form.on('select(provinceId)',function(data){
-            debugger
-            var provinceId = data.value;
-            $.ajax({
-                url:'/api/car/city/'+provinceId,
-                success:function(res){
-                    if(res.success){
-                        for(var i =0;i<res.data.length;i++){
-                            $("#cityId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
-                        }
-                        //重新渲染
-                        layui.form.render("select");
-                    }else{
-                        layer.msg(res.message);
-                    }
-                }
-            })
-        });
-        form.on('select(cityId)',function(data){
-            debugger
-            var cityId = data.value;
-            $.ajax({
-                url:'/api/car/location/'+cityId,
-                success:function(res){
-                    if(res.success){
-                        for(var i =0;i<res.data.length;i++){
-                            $("#locationId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
-                        }
-                        //重新渲染
-                        layui.form.render("select");
-                    }else{
-                        layer.msg(res.message);
-                    }
-                }
-            })
-        });
     })
-    function getCarType(){
+    function getEnergy(){
         $.ajax({
-            url:'/api/car/type',
+            url:'/api/carDetail/energy',
             success:function(res){
                 if(res.success){
                     for(var i =0;i<res.data.length;i++){
-                        $("#typeId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        $("#energyId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
                     }
                     //重新渲染
                     layui.form.render("select");
@@ -255,13 +239,13 @@
             }
         });
     }
-    function getCarBrand(){
+    function getGear(){
         $.ajax({
-            url:'/api/car/brand',
+            url:'/api/carDetail/gear',
             success:function(res){
                 if(res.success){
                     for(var i =0;i<res.data.length;i++){
-                        $("#brandId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+                        $("#gearId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
                     }
                     //重新渲染
                     layui.form.render("select");
@@ -271,24 +255,22 @@
             }
         });
     }
-    function getProvince(){
-        debugger
+    function getOn(){
         $.ajax({
-            url:'/api/car/province',
-            success:function(res){
-                if(res.success){
-                    for(var i =0;i<res.data.length;i++){
-                        $("#provinceId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
-                    }
-                    //重新渲染
-                    layui.form.render("select");
-                }else{
-                    layer.msg(res.message);
-                }
+            url:'/api/carDetail/selectByCarId/'+$("#carId").val(),
+            dataType:'json',
+            type:'get',
+            success:function(result){
+                $("input[name='seats'][value='" + result.data.seats + "']").next().click();
+                $("input[name='doors'][value='" +  result.data.doors + "']").next().click();
+                $("input[name='drive'][value='" +  result.data.drive + "']").next().click();
+                $("input[name='upWindow'][value='" + result.data.upWindow + "']").next().click();
+                $("input[name='radar'][value='" +  result.data.radar + "']").next().click();
+                $("input[name='gps'][value='" + result.data.gps + "']").next().click();
+                form.render();
             }
-        });
+        })
     }
-
 </script>
 <script>
 </script>

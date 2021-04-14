@@ -17,14 +17,14 @@ public interface CarDetailRepository extends JpaRepository<CarDetail, Integer> {
      * @param id 汽车id
      * @return 汽车
      */
-    Optional<CarDetail> findById(Long id);
+    Optional<CarDetail> findById(int id);
      /**
-     * 根据汽车名称获得汽车
+     * 根据汽车id获得汽车详情信息
      *
-     * @param name 汽车名
+     * @param carId 汽车名
      * @return 汽车
      */
-     Optional<CarDetail> findByNumber(String name);
+     Optional<CarDetail> findByCarId(Long carId);
     /**
      * 根据汽车id删除汽车
      *

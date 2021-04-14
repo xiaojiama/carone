@@ -14,7 +14,7 @@ import java.util.Date;
 public class CarDetail {
     @Id
     @GeneratedValue
-    private Long id;
+    private int id;
 
     //该条详情对应的汽车id
     private Long carId;
@@ -32,20 +32,20 @@ public class CarDetail {
     private String level;
 
     //座位数
-    private Integer seats;
+    private String seats;
 
     //门数
-    private Integer doors;
+    private String doors;
 
     //燃料类型
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="energy_id")
-    private Energy energy;
+    private Energy energy = new Energy();
 
     //变速箱类型
     @ManyToOne(cascade={CascadeType.MERGE,CascadeType.REFRESH},optional=false)
     @JoinColumn(name="gear_id")
-    private Gear gear;
+    private Gear gear = new Gear();
 
     //不存入表,类型保存时用
     @Transient
@@ -61,7 +61,7 @@ public class CarDetail {
     private String drive;
 
     //是否有天窗
-    private String upwindow;
+    private String upWindow;
 
     //是否有雷达
     private String radar;

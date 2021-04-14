@@ -110,19 +110,7 @@ public class CarService {
             }
 
             c.setImgUrl(car.getImgUrl());
-            /*c.setColor(car.getColor()); //车辆颜色
-            c.setNumber(car.getNumber());//车牌号
-            c.setLevel(car.getLevel());//配置款
-            c.setSeats(car.getSeats());//座位数
-            c.setDoors(car.getDoors());//门数
-            c.setDrive(c.getDrive());//驱动方式：1/前驱 2/后驱 3/四驱
-            c.setDisplacement(car.getDisplacement());//排量
-            c.setEnergyName(car.getEnergyName());//燃料类型名称
-            c.setGearName(car.getGearName());//变速箱类型名称
-            c.setUpWindow(car.getUpWindow());//是否有天窗
-            c.setRadar(car.getRadar());//是否有雷达
-            c.setGps(car.getGps());//是否有gps
-            c.setStatus(0);//出租状态：0/未出租 1/已出租*/
+
 
             carRepository.save(c);
             return 0;

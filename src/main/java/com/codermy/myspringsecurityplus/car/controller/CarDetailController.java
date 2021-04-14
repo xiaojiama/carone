@@ -1,17 +1,23 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
-import com.codermy.myspringsecurityplus.car.entity.Car;
-import com.codermy.myspringsecurityplus.car.entity.CarDetail;
+import com.alibaba.fastjson.JSONObject;
+import com.codermy.myspringsecurityplus.car.entity.*;
 import com.codermy.myspringsecurityplus.car.service.CarDetailService;
+import com.codermy.myspringsecurityplus.car.utils.COSClientUtil;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 /*
@@ -26,27 +32,40 @@ public class CarDetailController {
     @Resource
     private CarDetailService carDetailService;
 
+    //查询燃料类型全部内容
+    @GetMapping("/energy")
+    @ResponseBody
+    public Result brand(){
+        List<Energy> energy = carDetailService.energyList();
+        return Result.ok().code(0).data(energy);
+    }
+    //查询变速类型全部内容
+    @GetMapping("/gear")
+    @ResponseBody
+    public Result type(){
+        List<Gear> gears = carDetailService.gearList();
+        return Result.ok().code(0).data(gears);
+    }
+
     @GetMapping(value = "/toAdd")
     @ApiOperation(value = "添加汽车详情页面")
     public String addCarRecord(Model model,Car car) {
-        Long id = car.getId();
+        CarDetail carDetail = carDetailService.findByCarId(car.getId());
+        if(carDetail==null){
+            carDetail= new CarDetail();
+        }
+        model.addAttribute("CarDetail",carDetail);
         model.addAttribute("CarId",car.getId());
         return "system/car/car-detail-add";
-    }
-    @GetMapping(value = "/toEdit")
-    @ApiOperation(value = "修改汽车页面")
-    public String editCarRecord(Model model, CarDetail carDetail) {
-        model.addAttribute("CarRecord",carDetailService.findById(carDetail.getId()));
-        return "system/car/car-detail-edit";
     }
 
     //查询所有操作
     @GetMapping("/selectAll")
     @ResponseBody
-    public Result listResource() {
-        List<CarDetail> urlResource = carDetailService.list();
+    public Result carDetailList() {
+        List<CarDetail> carDetailList = carDetailService.list();
 
-        return Result.ok().data(urlResource);
+        return Result.ok().data(carDetailList);
     }
 
    //  查询操作，分页展示
@@ -57,66 +76,39 @@ public class CarDetailController {
         return Result.ok().data(carDetailService.list(page,limit,sort));
     }
     //  根据id查询操作
-    @GetMapping("/selectById/{id}")
-    public Result getResourceId(@PathVariable("id") Long id){
-        CarDetail r = carDetailService.findById(id);
-        return  Result.ok().data((List) r);
-    }
-    //  根据name查询操作
-    @GetMapping("/selectByName")
-    public Result getResourceName(@RequestParam(value = "name", required = false, defaultValue = "0") String name){
-        CarDetail r = carDetailService.findByNumber(name);
-        return  Result.ok().data((List) r);
+    @GetMapping("/selectByCarId/{id}")
+    @ResponseBody
+    public Result getCarDetail(@PathVariable("id") Long id){
+        CarDetail r = carDetailService.findByCarId(id);
+        return  Result.ok().data(r);
     }
     //  新增操作
-    @PostMapping("/add")
-    public Result addResource(@Valid @ModelAttribute CarDetail r, BindingResult bindingResult) {
-        //校验数据，判断是否符合参数注解要求
-        if(bindingResult.hasErrors()){
-            String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
-            return Result.ok().message(defaultMessage).data(carDetailService.list());
-        }else{
-            int status = carDetailService.addResourceData(r);
-            switch (status) {
-                case 0:
-                    return Result.ok().data(carDetailService.list());
-                case 1:
-                    return Result.error().data(carDetailService.list());
-                default:
-                    return Result.error().data(carDetailService.list());
-            }
-        }
-    }
-    ///编辑操作
-    @PutMapping("/edit")
-    public Result editResource(@Valid @ModelAttribute CarDetail c, BindingResult bindingResult) {
-        //校验数据，判断是否符合参数注解要求
-        if(bindingResult.hasErrors()){
-            String defaultMessage = bindingResult.getFieldError().getDefaultMessage();
-            return Result.ok().message(defaultMessage).data(carDetailService.list());
-        }else{
-            int status = carDetailService.editResourceData(c);
-            switch (status) {
-                case 0:
-                    return Result.ok().data(carDetailService.list());
-                case 1:
-                    return Result.error().data(carDetailService.list());
-                default:
-                    return Result.error().data(carDetailService.list());
-            }
-        }
-    }
-    //  删除操作
-    @DeleteMapping("/delete/{id}")
-    public Result deleteResource(@PathVariable("id") Long id){
-        String status = carDetailService.deleteResourceData(id);
+    @RequestMapping("/add")
+    @ResponseBody
+    public Result addCarDetail(@RequestBody CarDetail c) {
+        int status = carDetailService.addCarDetailData(c);
         switch (status) {
-            case "0":
+            case 0:
                 return Result.ok().data(carDetailService.list());
-            case "1":
+            case 1:
                 return Result.error().data(carDetailService.list());
             default:
                 return Result.error().data(carDetailService.list());
         }
     }
+
+    //  删除操作
+    @DeleteMapping("/delete/{id}")
+    public Result deleteResource(@PathVariable("id") int id){
+        int status = carDetailService.deleteCarDetailData(id);
+        switch (status) {
+            case 0:
+                return Result.ok().data(carDetailService.list());
+            case 1:
+                return Result.error().data(carDetailService.list());
+            default:
+                return Result.error().data(carDetailService.list());
+        }
+    }
+
 }

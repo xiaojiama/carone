@@ -18,6 +18,7 @@ public class Document {
     @Id
     @GeneratedValue
     private Integer id;
+    private Long carId;
     private String name;
     private String path;
     private int createBy;//创建人

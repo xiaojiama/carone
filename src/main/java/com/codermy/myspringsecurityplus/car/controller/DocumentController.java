@@ -1,6 +1,8 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.codermy.myspringsecurityplus.car.entity.Document;
 import com.codermy.myspringsecurityplus.car.repository.DocumentRepository;
 import com.codermy.myspringsecurityplus.car.utils.FileUtils;
@@ -31,7 +33,7 @@ public class DocumentController {
     //上传文件
     @PostMapping("/upload")
     @ResponseBody
-    public Map<String,Object> upload(@RequestParam("file") MultipartFile file, String id){
+    public JSON upload(@RequestParam("file") MultipartFile file, Long carId){
         Assert.notNull(file, "上传文件不能为空");
         // 拿到文件名
         String filename = System.currentTimeMillis()+file.getOriginalFilename();
@@ -40,7 +42,7 @@ public class DocumentController {
         File fileDir = UploadUtils.getImgDirFile();
         // 输出文件夹绝对路径  -- 这里的绝对路径是相当于当前项目的路径而不是“容器”路径
         System.out.println(fileDir.getAbsolutePath());
-        Map map = new HashMap<String,Object>();
+        JSONObject json = new JSONObject();
         try {
             // 构建真实的文件路径
             File newFile = new File(fileDir.getAbsolutePath() + File.separator +filename);
@@ -48,6 +50,7 @@ public class DocumentController {
             System.out.println(savepath);
             //将上传的文件信息写入数据库
             Document documentFile=new Document();
+            documentFile.setCarId(carId);
             documentFile.setName(file.getOriginalFilename());
             documentFile.setPath(savepath);
             documentFile.setTime(new Timestamp(new Date().getTime()));
@@ -55,16 +58,16 @@ public class DocumentController {
             // 上传图片到 -》 “绝对路径”
             file.transferTo(newFile);
 
-            map.put("msg","ok");
-            map.put("code",0);
-            map.put("data",filename);
+            json.put("msg","success");
+            json.put("code",0);
+            json.put("data",filename);
 
         } catch (Exception e) {
-            map.put("msg","error");
-            map.put("code",500);
+            json.put("msg","error");
+            json.put("code",500);
             e.printStackTrace();
         }
-       return map;
+       return json;
     }
     @RequestMapping(value="/down", produces = {"application/text;charset=UTF-8"})
     @ResponseBody

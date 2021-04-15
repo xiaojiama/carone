@@ -45,7 +45,8 @@
 		
 		<script type="text/html" id="car-bar">
 			<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
-			<button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="power"><i class="layui-icon layui-icon-vercode"></i></button>
+			<button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="power"><i class="layui-icon layui-icon">&#xe654;</i></button>
+			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="goDetail"><i class="layui-icon layui-icon">&#xe602;</i></button>
 			<button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i></button>
 		</script>
 
@@ -60,7 +61,8 @@
 		        let cols = [
 		            [
 		                {type:'checkbox'},
-		                {title: '汽车名', field: 'name', align:'center', width:100},
+						{title: "编号", field: "id", align:'center', width:80},
+						{title: "汽车名", field: "name", align:'center', width:100},
 		                {title: '图片', field: 'imgUrl', align:'center',templet: function (d) {
 								return "<div onclick='showBigImage(this)'><img src=\"/image/" + d.imgUrl + "\"  style=\"width: 40px\" lay-event=\"showPic\" ></div>";}},
 						{title: '价格', field: 'price', align:'center'},
@@ -79,7 +81,6 @@
 		                icon: 'layui-icon-refresh',
 		            }, 'filter', 'print', 'exports']
 		        });
-		
 		        table.on('tool(car-table)', function(obj){
 		            if(obj.event === 'remove'){
 		                window.remove(obj);
@@ -89,8 +90,10 @@
 					else if(obj.event === 'power'){
 						window.power(obj);
 					}
+					else if(obj.event === 'goDetail'){
+						window.goDetail(obj);
+					}
 		        });
-		
 		        table.on('toolbar(car-table)', function(obj){
 		            if(obj.event === 'add'){
 		                window.add();
@@ -131,6 +134,16 @@
 		                content: '/api/car/toAdd'
 		            });
 		        }
+		        window.goDetail= function(obj){
+					var data = obj.data;
+					layer.open({
+						type: 2,
+						title: '汽车详情',
+						shade: 0.1,
+						area: ['100%', '100%'],
+						content: '/api/car/detail/'+data.id
+					});
+				}
 
 		        window.edit = function(obj){
 					var data = obj.data;

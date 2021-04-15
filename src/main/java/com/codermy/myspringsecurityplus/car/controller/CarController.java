@@ -2,6 +2,9 @@ package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
 import com.codermy.myspringsecurityplus.car.entity.*;
+import com.codermy.myspringsecurityplus.car.repository.CarDetailRepository;
+import com.codermy.myspringsecurityplus.car.repository.DocumentRepository;
+import com.codermy.myspringsecurityplus.car.service.CarDetailService;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.car.utils.UploadUtils;
 import com.codermy.myspringsecurityplus.common.utils.Result;
@@ -27,6 +30,10 @@ import java.util.*;
 public class CarController {
     @Resource
     private CarService carService;
+    @Resource
+    private CarDetailRepository carDetailRepository;
+    @Resource
+    private DocumentRepository documentRepository;
 
     //查询所有汽车品牌
     @GetMapping("/brand")
@@ -87,6 +94,32 @@ public class CarController {
     public String editCar(Model model, Car car) {
         model.addAttribute("Car",carService.findById(car.getId()));
         return "system/car/car-edit";
+    }
+    //  查询该汽车下详情的全部内容
+    @GetMapping("/detail/{id}")
+    @ApiOperation(value = "汽车+详情页面")
+    public String getCarDetail(@PathVariable("id") Long id,Model model){
+        Car car = carService.findById(id);
+        Optional<CarDetail> det = carDetailRepository.findByCarId(id);
+
+        CarDetail carDetail = new CarDetail();
+
+        if(det.isPresent()){
+            carDetail = det.get();
+        }
+
+
+        model.addAttribute("car",car);
+        model.addAttribute("detail",carDetail);
+        return "system/car/car-detail";
+    }
+    //查询所有操作
+    @GetMapping("/document/{id}")
+    @ResponseBody
+    public Result listDocument(@PathVariable("id") Long id) {
+        List<Document> documentList = documentRepository.findByCarId(id);
+
+        return Result.ok().code(0).data(documentList);
     }
     //查询所有操作
     @GetMapping("/selectAll")

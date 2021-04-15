@@ -19,7 +19,7 @@ public class MyWebConfig implements WebMvcConfigurer {
         //当前项目下路径
         File directory = new File("");// 参数为空
         String courseFile = directory.getCanonicalPath().replaceAll("\\\\", "/");
-        String s = "file:"+courseFile+"/src/main/resources/static/upload/imgs/";
+        String s = "file:"+courseFile+"/src/main/resources/static/upload/file/";
         //registry.addResourceHandler("/image/**").addResourceLocations("file:C:/Users/maxiaojia/IdeaProjects/carone/src/main/resources/static/upload/imgs/");
         registry.addResourceHandler("/image/**").addResourceLocations(s);
     }

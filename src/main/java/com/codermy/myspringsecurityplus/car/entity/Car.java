@@ -59,6 +59,7 @@ public class Car{
 
     private Integer isdeleted;
 
+    private Integer userId;
 
     //创建时间
     private Date createTime;

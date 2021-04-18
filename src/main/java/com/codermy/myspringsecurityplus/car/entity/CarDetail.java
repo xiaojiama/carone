@@ -80,9 +80,6 @@ public class CarDetail {
     private Integer isonline;
 
 
-    //管理人员
-    private Integer userId;
-
     //创建时间
     private Date createTime;
 

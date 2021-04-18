@@ -9,7 +9,7 @@ import javax.persistence.Table;
 import java.util.Date;
 
 /**
- * 汽车型号
+ * 汽车相关文件
  */
 @Entity
 @Data
@@ -21,7 +21,6 @@ public class Document {
     private Long carId;
     private String name;
     private String path;
-    private int createBy;//创建人
     private Date time;
 
 }

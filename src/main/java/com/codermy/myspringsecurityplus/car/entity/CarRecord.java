@@ -44,13 +44,15 @@ public class CarRecord {
      * 租金
      */
     private Double rent;
-
-    private Long userId;
+    /**
+     * 工作人员id
+     */
+    private Integer userId;
 
 
     private Date createTime;
 
-    private Date updateTime;
+    private Date endTime;
 
 
 }

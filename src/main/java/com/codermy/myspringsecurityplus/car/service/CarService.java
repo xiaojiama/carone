@@ -92,6 +92,7 @@ public class CarService {
             c.setPrice(car.getPrice());//价格
             c.setCreateTime(new Date());
             c.setUpdateTime(new Date());
+            c.setUserId(car.getUserId());
             //根据类型id，获取类型对象
             Optional<CarType> t = carTypeRepository.findById(car.getTypeId());
             if(t.isPresent()){
@@ -130,6 +131,7 @@ public class CarService {
             c.get().setPrice(car.getPrice());//价格
             c.get().setImgUrl(car.getImgUrl());//图片
             c.get().setUpdateTime(new Date());//更新时间
+            c.get().setUserId(car.getUserId());
             //根据类型id，获取类型对象
             Optional<CarType> t = carTypeRepository.findById(car.getTypeId());
             if(t.isPresent()){

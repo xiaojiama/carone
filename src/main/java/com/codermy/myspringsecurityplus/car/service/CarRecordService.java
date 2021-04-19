@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.service;
 
+import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import com.codermy.myspringsecurityplus.car.repository.CarRecordRepository;
 import org.springframework.stereotype.Service;
@@ -39,16 +40,23 @@ public class CarRecordService {
     }*/
 
     //新增操作
-    public int addCarRecordData(CarRecord r) {
-        /*boolean exist = isExist(r.getNumber());
-        if(!exist){
-            CarDetail ur = new CarDetail();
-            //ur.setNumber(r.getNumber());
+    public int add(CarRecord cr) {
+        long endTime = cr.getEndTime().getTime();
+        long createTime = cr.getCreateTime().getTime();
+        int days = (int) ((endTime - createTime) / (1000*3600*24));
+        CarRecord c = new CarRecord();
+        c.setCustomerId(cr.getCustomerId());
+        c.setCarId(cr.getCarId());
+        c.setTimeLong(days);
+        c.setStatus(cr.getStatus());
+        c.setDeposit(cr.getDeposit());
+        c.setRent(cr.getRent());
+        c.setUserId(cr.getUserId());
+        c.setCreateTime(cr.getCreateTime());
+        c.setEndTime(cr.getEndTime());
+        carRecordRepository.save(c);
+        return 0;
 
-            carRecordRepository.save(r);
-            return 0;
-        }*/
-        return 1;
 
     }
 
@@ -56,11 +64,22 @@ public class CarRecordService {
      * 编辑操作
      * @return
      */
-    public int editCarRecordData(CarRecord cd) {
-        Optional<CarRecord> p = carRecordRepository.findById(cd.getId());
-        if (p.isPresent()) {
-            //p.get().setName(cd.getNumber());
-            carRecordRepository.save(p.get());
+    public int edit(CarRecord cr) {
+        Optional<CarRecord> c = carRecordRepository.findById(cr.getId());
+        long endTime = cr.getEndTime().getTime();
+        long createTime = cr.getCreateTime().getTime();
+        int days = (int) ((endTime - createTime) / (1000*3600*24));
+        if (c.isPresent()) {
+            c.get().setCustomerId(cr.getCustomerId());
+            c.get().setCarId(cr.getCarId());
+            c.get().setTimeLong(days);
+            c.get().setStatus(cr.getStatus());
+            c.get().setDeposit(cr.getDeposit());
+            c.get().setRent(cr.getRent());
+            c.get().setUserId(cr.getUserId());
+            c.get().setCreateTime(cr.getCreateTime());
+            c.get().setEndTime(cr.getEndTime());
+            carRecordRepository.save(c.get());
         }else{
             return 1;
         }
@@ -69,7 +88,7 @@ public class CarRecordService {
     }
 
     //删除
-    public int deleteCarRecordData(Long id) {
+    public int delete(Long id) {
         CarRecord r = findById(id);
         if (r == null) {
             return 1;

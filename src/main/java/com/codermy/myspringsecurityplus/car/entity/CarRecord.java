@@ -1,6 +1,9 @@
 package com.codermy.myspringsecurityplus.car.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,7 +31,7 @@ public class CarRecord {
     /**
      * 租赁时长
      */
-    private String timeLong;
+    private int timeLong;
 
     /**
      * 此订单状态 进行中，申请中，已完成
@@ -49,9 +52,14 @@ public class CarRecord {
      */
     private Integer userId;
 
-
+    @JSONField(format = "yyyy-MM-dd")  //FastJson包使用注解
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8") //Jackson包使用注解
+    @DateTimeFormat(pattern = "yyyy-MM-dd")   //格式化前台日期参数注解
     private Date createTime;
 
+    @JSONField(format = "yyyy-MM-dd")  //FastJson包使用注解
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8") //Jackson包使用注解
+    @DateTimeFormat(pattern = "yyyy-MM-dd")   //格式化前台日期参数注解
     private Date endTime;
 
 

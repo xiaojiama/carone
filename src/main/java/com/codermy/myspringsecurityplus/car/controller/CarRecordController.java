@@ -74,21 +74,15 @@ public class CarRecordController {
     @ResponseBody
     public Result addCarRecord(@RequestBody CarRecord c) throws IOException {
         //新增
-        int status = carRecordService.addCarRecordData(c);
-        switch (status) {
-            case 0:
-                return Result.ok().data(carRecordService.list());
-            case 1:
-                return Result.error().data(carRecordService.list());
-            default:
-                return Result.error().data(carRecordService.list());
-        }
+        int status = carRecordService.add(c);
+        return Result.ok().data(carRecordService.list());
+
     }
     ///编辑操作
     @PutMapping("/edit")
     @ResponseBody
     public Result editCarRecord(@RequestBody CarRecord c) {
-        int status = carRecordService.editCarRecordData(c);
+        int status = carRecordService.edit(c);
         switch (status) {
             case 0:
                 return Result.ok().data(carRecordService.list());
@@ -103,7 +97,7 @@ public class CarRecordController {
     @DeleteMapping("/delete/{id}")
     @ResponseBody
     public Result deleteCarRecord(@PathVariable("id") Long id){
-        int status = carRecordService.deleteCarRecordData(id);
+        int status = carRecordService.delete(id);
         switch (status) {
             case 0:
                 return Result.ok();

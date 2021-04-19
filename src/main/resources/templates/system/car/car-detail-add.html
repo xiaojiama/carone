@@ -84,29 +84,25 @@
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>驱动方式</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="radio" name="drive" value="前驱" title="前驱" >
                         <input type="radio" name="drive" value="后驱" title="后驱">
                         <input type="radio" name="drive" value="四驱" title="四驱">
                     </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有天窗</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="radio" name="upWindow" value="有" title="有" >
                         <input type="radio" name="upWindow" value="无" title="无">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有雷达</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="radio" name="radar" value="有" title="有" >
                         <input type="radio" name="radar" value="无" title="无">
                     </div>
-                </div>
-                <div class="layui-form-item">
                     <label class="layui-form-label"><span style="color: red">*</span>是否有GPS</label>
-                    <div class="layui-input-block">
+                    <div class="layui-input-inline">
                         <input type="radio" name="gps" value="有" title="有" >
                         <input type="radio" name="gps" value="无" title="无">
                     </div>
@@ -117,7 +113,14 @@
                    <input type="hidden" id="id" th:value="${CarDetail.id}" name="id" >
                 </div>
                 <div class="layui-upload">
-                    <button type="button" class="layui-btn layui-btn-normal" id="testList">选择多文件</button>
+                    <button type="button" class="layui-btn" id="test2">多图片上传</button>
+                    <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
+                        预览图：
+                        <div class="layui-upload-list" id="demo2"></div>
+                    </blockquote>
+                </div>
+                <div class="layui-upload">
+                    <button type="button" class="layui-btn" id="testList">选择多文件</button>
                     <div class="layui-upload-list">
                         <table class="layui-table">
                             <thead>
@@ -159,8 +162,28 @@
         let $ = layui.jquery;
         let upload = layui.upload;
         var carId = $("#carId").val();
-        var demoListView = $('#demoList')
-            , uploadListIns = upload.render({
+        //多图片上传
+        upload.render({
+            elem: '#test2'
+            ,url: '/api/document/upload' //改成您自己的上传接口
+            ,data:{
+                carDetailId:function () {
+                    return $('#id').val();
+                }
+            }
+            ,multiple: true
+            ,before: function(obj){
+                //预读本地文件示例，不支持ie8
+                obj.preview(function(index, file, result){
+                    $('#demo2').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img" width="50%">')
+                });
+            }
+            ,done: function(res){
+                //上传完毕
+            }
+        });
+        var demoListView = $('#demoList'),
+            uploadListIns = upload.render({
             elem: '#testList'
             //, url: window.location.host+'/api/uploadfile'
             , url: '/api/document/upload'

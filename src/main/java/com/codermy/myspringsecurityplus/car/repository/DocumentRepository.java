@@ -14,5 +14,12 @@ public interface DocumentRepository extends JpaRepository<Document, Integer> {
      * @return 汽车
      */
     List<Document> findByCarId(Long carId);
+    /**
+     * 根据汽车详情id获得图片信息
+     *
+     * @param carDetailId 汽车详情id
+     * @return 汽车
+     */
+    List<Document> findByCarDetailId(Long carDetailId);
 
 }

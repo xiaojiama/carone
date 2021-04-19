@@ -33,7 +33,7 @@ public class DocumentController {
     //上传文件
     @PostMapping("/upload")
     @ResponseBody
-    public JSON upload(@RequestParam("file") MultipartFile file, Long carId){
+    public JSON upload(@RequestParam("file") MultipartFile file, Long carId,Long carDetailId){
         Assert.notNull(file, "上传文件不能为空");
         // 拿到文件名
         String filename = System.currentTimeMillis()+file.getOriginalFilename();
@@ -50,9 +50,19 @@ public class DocumentController {
             System.out.println(savepath);
             //将上传的文件信息写入数据库
             Document documentFile=new Document();
-            documentFile.setCarId(carId);
+            if(carId!=null){
+                documentFile.setCarId(carId);
+            }else {
+                documentFile.setCarId(0L);
+            }
+            if(carDetailId!=null){
+                documentFile.setCarDetailId(carDetailId);
+            }else {
+                documentFile.setCarDetailId(0L);
+            }
             documentFile.setName(file.getOriginalFilename());
             documentFile.setPath(savepath);
+            documentFile.setSaveName(filename);
             documentFile.setTime(new Timestamp(new Date().getTime()));
             documentRepository.save(documentFile);
             // 上传图片到 -》 “绝对路径”

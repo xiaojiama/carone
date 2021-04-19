@@ -113,11 +113,19 @@ public class CarController {
         model.addAttribute("detail",carDetail);
         return "system/car/car-detail";
     }
-    //查询所有操作
+    //查询该汽车下所有文件
     @GetMapping("/document/{id}")
     @ResponseBody
-    public Result listDocument(@PathVariable("id") Long id) {
+    public Result listFile(@PathVariable("id") Long id) {
         List<Document> documentList = documentRepository.findByCarId(id);
+
+        return Result.ok().code(0).data(documentList);
+    }
+    //查询该汽车详情下所有图片
+    @GetMapping("/document/picture/{carDetailId}")
+    @ResponseBody
+    public Result listPicture(@PathVariable("carDetailId") Long id) {
+        List<Document> documentList = documentRepository.findByCarDetailId(id);
 
         return Result.ok().code(0).data(documentList);
     }

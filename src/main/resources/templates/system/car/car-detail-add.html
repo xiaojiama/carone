@@ -31,7 +31,7 @@
                         <span style="color: red">*</span>车牌
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="number"  name="number" th:value="${CarDetail.number}" required="" placeholder="请输入车牌号" lay-verify="number" autocomplete="off" class="layui-input">
+                        <input type="text" id="number"  name="number" th:value="${CarDetail.number}" required="" placeholder="请输入车牌号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -287,15 +287,6 @@
             ,error: function(){
                 //请求异常回调
             }
-        });
-
-        form.verify({
-            name: function(value){
-                if(value.length < 2){
-                    return '汽车名至少2个字符';
-                }
-            },
-            price:[/^$|^[0-9]{0,5}$/, '只能是数字且范围0~99999！']
         });
         form.on('submit(car-save)', function(data){
             var datas = data.field;

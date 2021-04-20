@@ -113,6 +113,22 @@ public class CarController {
         model.addAttribute("detail",carDetail);
         return "system/car/car-detail";
     }
+    //  查询该汽车下详情的全部内容
+    @GetMapping("/user/detail/{id}")
+    @ApiOperation(value = "汽车+详情页面")
+    public String getUserCarDetail(@PathVariable("id") Long id,Model model){
+        Car car = carService.findById(id);
+        Optional<CarDetail> det = carDetailRepository.findByCarId(id);
+
+        CarDetail carDetail = new CarDetail();
+
+        if(det.isPresent()){
+            carDetail = det.get();
+        }
+        model.addAttribute("car",car);
+        model.addAttribute("detail",carDetail);
+        return "system/car/user-detail";
+    }
     //查询该汽车下所有文件
     @GetMapping("/document/{id}")
     @ResponseBody

@@ -67,14 +67,142 @@
 	<!-- container -->
 	<div class="container">
 		<div class="row">
-			<!-- Article content -->
-			<section class="col-sm-12 maincontent">
-				<h3>Cost</h3>
-				<p>
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				</p>
+			<div class="layui-row">
+				<div class="layui-row">
+					<div class="layui-col-md12">
+						<h2 style="width:30%" th:text="${car.name}"></h2>
+					</div>
+					<hr>
+					<div class="layui-col-md7">
+						<div class="layui-col-md2">
+							&nbsp;
+						</div>
+						<div class="layui-col-md8">
+							<div class="layui-carousel" id="test10">
+								<div carousel-item="" id="demoList1">
 
-			</section>
+								</div>
+							</div>
+						</div>
+						<div class="layui-col-md2">
+							&nbsp;
+						</div>
+						<div class="layui-col-md12">
+							<div class="layui-inline">
+								<label class="layui-form-label">开始日期</label>
+								<div class="layui-input-inline">
+									<input type="text" id="start" name="start" class="layui-input" placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+							<div class="layui-inline">
+								<label class="layui-form-label">结束日期</label>
+								<div class="layui-input-inline">
+									<input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="layui-col-md5">
+						<div class="layui-col-md12">
+							<h2>基本信息</h2>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>品牌 </h2>
+									<p th:text="${car.carBrand.name}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>类型 </h2>
+									<p th:text="${car.carType.name}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>门店 </h2>
+									<p th:text="${car.location.name}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>价格 </h2>
+									<p th:text="${car.price}"></p>
+								</div>
+							</div>
+						</div>
+
+						<hr>
+						<div class="layui-col-md12">
+							<h2>详细信息</h2>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>年代款</h2>
+									<p th:text="${detail.productYear}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>配置款</h2>
+									<p th:text="${detail.level}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>座位数</h2>
+									<p th:text="${detail.seats}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>车门数</h2>
+									<p th:text="${detail.doors}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>燃料类型</h2>
+									<p th:text="${detail.energy.name}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>变速箱类型</h2>
+									<p th:text="${detail.gear.name}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>排量</h2>
+									<p th:text="${detail.displacement}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>驱动方式</h2>
+									<p th:text="${detail.drive}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md6">
+									<h2>天窗</h2>
+									<p th:text="${detail.upWindow}"></p>
+								</div>
+								<div class="layui-col-md6">
+									<h2>雷达</h2>
+									<p th:text="${detail.radar}"></p>
+								</div>
+							</div>
+							<div class="layui-col-md12">
+								<div class="layui-col-md12">
+									<h2>相关证件</h2>
+									<table class="layui-table" lay-even="" lay-skin="nob">
+										<thead>
+										<tr>
+											<th></th>
+										</tr>
+										</thead>
+										<tbody id="demoList"></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div>
+					<input type="hidden" id="carId" th:value="${car.id}" name="carId" >
+					<input type="hidden" id="detailId" th:value="${detail.id}" name="detailId" >
+				</div>
+
+			</div>
 		</div>
 	</div>
 	<!-- /container -->
@@ -276,8 +404,74 @@
 
 
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="component/jquery/jquery.min.js"></script>
 	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="assets/js/custom.js"></script>
+	<script>
+		layui.use(['carousel','upload','laydate','form','jquery'],function(){
+			let form = layui.form;
+			let $ = layui.jquery;
+			let carousel = layui.carousel;
+			let upload = layui.upload;
+			var carId = $("#carId").val();
+			var carDetailId = $("#detailId").val();
+			var laydate = layui.laydate;
+			//自定义格式
+			laydate.render({
+				elem: '#start'
+			});
+			//自定义格式
+			laydate.render({
+				elem: '#end'
+			});
+			//图片轮播
+			var ins = carousel.render({
+				elem: '#test10'
+				,width: '600px'
+				,height: '400px'
+				,interval: 5000
+				,full: false //全屏
+				,arrow: 'none'
+			});
+			$.ajax({
+				url:'/api/car/document/picture/'+carDetailId,
+				dataType:'json',
+				type:'get',
+				success:function(result){
+					var str;
+					for(var i =0;i<result.data.length;i++){
+						str ='<div><img src="/image/'+result.data[i].saveName+'" ></div>'
+						$("#demoList1").append(str)
+						ins.reload({elem: '#test10'});//重置轮播图
+					}
+				}
+			})
+			$.ajax({
+				url:'/api/car/document/'+carId,
+				dataType:'json',
+				type:'get',
+				success:function(result){
+					var str;
+					for(var i =0;i<result.data.length;i++){
+						str ='<tr><td><a href="#" onclick="downLoad('+result.data[i].id+')">'+result.data[i].name+'</a></td></tr>'
+						$("#demoList").append(str)
+					}
+					form.render();
+				}
+			})
+
+		})
+		function downLoad(id){
+			if(id=="undifind"){
+				return false;
+			}else{
+				var link = document.createElement('a');
+				link.href = "/api/document/down?id=" + id;
+				link.click();
+			}
+
+		}
+
+	</script>
 </body>
 </html>

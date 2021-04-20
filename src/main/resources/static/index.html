@@ -131,74 +131,12 @@
             </div>
         </div>
     </section>
-   
-  <section id="packages" class="secpadding">
-        <div class="container">
-             <h2><span>Completed Projects</span></h2>
-              
-        	 <div class="row" id="carList1">
-                <!--<div class="col-md-4 col-sm-6">
-                    <div class="cuadro_intro_hover " style="background-color:#cccccc;">
-                        <p style="text-align:center;">
-                            <img src="assets/images/pic/pic-5.jpg" class="img-responsive" alt="">
-                        </p>
-                        <div class="caption">
-                            <div class="blur"></div>
-                            <div class="caption-text">
-                                <h3>Project Name</h3>
-                                <a class=" btn btn-default" href="#">$4600</i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
-            </div>    
-         </div>
-    </section>
-	
-      <section class="btm-section secpadding">
-	  <div class="container">
-      <div class="row">
-      	    <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">New Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-        
-        <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Large Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-         <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Our Clients</h3></div> 
-            <blockquote class="blockquote-1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid</p>
-					<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-				</blockquote></div>
-         
-      </div></div>
-      </section>
-      
+
     	 
     <footer id="footer">
-	 
 		<div class="footer2">
 			<div class="container">
 				<div class="row">
-
 					<div class="col-md-6 panel">
 						<div class="panel-body">
 							<p class="simplenav">
@@ -211,7 +149,6 @@
 							</p>
 						</div>
 					</div>
-
 					<div class="col-md-6 panel">
 						<div class="panel-body">
 							<p class="text-right">
@@ -256,24 +193,15 @@
                 debugger
                 var str;
                 for(var i =0;i<result.data.length;i++){
-                    str ='<div class="col-md-4 col-sm-6 col-xs-12">' +
-                        '<div class="thumbnail thumbnail4">' +
-                        '<img src="/image/'+result.data[i].imgUrl+'" >' +
-                        '<div class="caption">' +
-                        '<h4><a href="#">'+result.data[i].name+'</a></h4>' +
-                        '<p>'+result.data[i].description+'</p>' +
-                        '<a href="#" data-title="查看详情" class="btn-link"><span>Read More</span></a>' +
-                        '</div></div></div>'
-                    str1='<div class="col-md-4 col-sm-6">' +
+                    str='<div class="col-md-4 col-sm-6">' +
                         ' <div class="cuadro_intro_hover " style="background-color:#cccccc;"><p style="text-align:center;">' +
                         '<img src="/image/'+result.data[i].imgUrl+'" class="img-responsive" alt=""></p>' +
                         '<div class="caption"><div class="blur"></div>' +
                         '<div class="caption-text">' +
                         '<h3>'+result.data[i].name+'</h3>' +
-                        '<a class=" btn btn-default" href="#">$'+result.data[i].price+'</i></a>' +
-                        '</div></div></div></div>'
+                        '<a class=" btn btn-default" href="/api/car/user/detail/'+result.data[i].id+'">$'+result.data[i].price+'</i></a>' +
+                        '</div></div></div></div>';
                     jQuery("#carList").append(str);
-                    jQuery("#carList1").append(str1);
                 }
             }
         })

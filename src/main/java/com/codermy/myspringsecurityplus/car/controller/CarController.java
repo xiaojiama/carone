@@ -123,7 +123,7 @@ public class CarController {
         }
         model.addAttribute("car",car);
         model.addAttribute("detail",carDetail);
-        return "system/car/user-detail";
+        return "../static/price.html";
     }
     //查询该汽车下所有文件
     @GetMapping("/document/{id}")

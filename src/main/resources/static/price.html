@@ -6,6 +6,7 @@
 	<meta name="description" content="Real Estate Builders Free Responsive Website Templates - icon">
 	<meta name="author" content="webThemez.com">
 	<title>Free html5 responsive web template</title>
+	<base href="/">
 	<link rel="favicon" href="assets/images/favicon.png">
 	<link rel="stylesheet" media="screen" href="http://fonts.googleapis.com/css?family=Open+Sans:300,400,700">
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -14,11 +15,15 @@
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="component/layui/css/layui.css">
+
+	<script type='text/javascript' src='assets/js/jquery.min.js'></script>
+	<script src="component/layui/layui.js"></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/custom.js"></script>
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
-	<script src="component/layui/layui.js"></script>
 	<![endif]-->
 	<style>
 		*, :after, :before {
@@ -32,12 +37,12 @@
 			background-color: #E5E5FF
 		}
 		body {
-			color: #73879C;
-			background: #ECF0F1;
-			font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
-			font-size: 13px;
-			font-weight: 400;
-			line-height: 1.471
+			color: #73879C !important;;
+			background: #ECF0F1!important;
+			font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif!important;
+			font-size: 13px!important;
+			font-weight: 400!important;
+			line-height: 1.471!important;
 		}
 	</style>
 </head>
@@ -110,19 +115,13 @@
 	</div>
 	<div class="row flat">
 		<div class="layui-col-md12">
-			<div class="layui-col-md1">
-				&nbsp;
-			</div>
-			<div class="layui-col-md6">
-				<div class="layui-col-md10">
+			<div class="layui-col-md7">
+				<div class="layui-col-md12">
 					<div class="layui-carousel" id="test10">
 						<div carousel-item="" id="demoList1">
 
 						</div>
 					</div>
-				</div>
-				<div class="layui-col-md2">
-					&nbsp;
 				</div>
 				<div class="layui-col-md12">
 					<div class="layui-inline">
@@ -137,6 +136,7 @@
 							<input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
 						</div>
 					</div>
+					<button class="layui-btn" lay-event="add">预约车辆</button>
 				</div>
 			</div>
 			<div class="layui-col-md5">
@@ -171,50 +171,60 @@
 						<div class="layui-col-md6">
 							<h2>年代款</h2>
 							<p th:text="${detail.productYear}"></p>
+							<hr>
 						</div>
 						<div class="layui-col-md6">
 							<h2>配置款</h2>
 							<p th:text="${detail.level}"></p>
+							<hr>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
 							<h2>座位数</h2>
 							<p th:text="${detail.seats}"></p>
+							<hr>
 						</div>
 						<div class="layui-col-md6">
 							<h2>车门数</h2>
 							<p th:text="${detail.doors}"></p>
+							<hr>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
 							<h2>燃料类型</h2>
 							<p th:text="${detail.energy.name}"></p>
+							<hr>
 						</div>
 						<div class="layui-col-md6">
 							<h2>变速箱类型</h2>
 							<p th:text="${detail.gear.name}"></p>
+							<hr>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
 							<h2>排量</h2>
 							<p th:text="${detail.displacement}"></p>
+							<hr>
 						</div>
 						<div class="layui-col-md6">
 							<h2>驱动方式</h2>
 							<p th:text="${detail.drive}"></p>
+							<hr>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
 							<h2>天窗</h2>
 							<p th:text="${detail.upWindow}"></p>
+							<hr>
 						</div>
 						<div class="layui-col-md6">
 							<h2>雷达</h2>
 							<p th:text="${detail.radar}"></p>
+							<hr>
 						</div>
 					</div>
 					<div class="layui-col-md12">
@@ -230,21 +240,21 @@
 							</table>
 						</div>
 					</div>
+					<div>
+						<input type="hidden" id="carId" th:value="${car.id}" name="carId" >
+						<input type="hidden" id="detailId" th:value="${detail.id}" name="detailId" >
+					</div>
 				</div>
 			</div>
 		</div>
-
-		
 
 	</div>
 </section>
 
 <footer id="footer">
-
 	<div class="footer2">
 		<div class="container">
 			<div class="row">
-
 				<div class="col-md-6 panel">
 					<div class="panel-body">
 						<p class="simplenav">
@@ -276,18 +286,18 @@
 
 
 <!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/custom.js"></script>
+
 <script>
 	layui.use(['carousel','upload','laydate','form','jquery'],function(){
 		let form = layui.form;
 		let $ = layui.jquery;
 		let carousel = layui.carousel;
 		let upload = layui.upload;
-		var carId = $("#carId").val();
-		var carDetailId = $("#detailId").val();
+		var carId = jQuery("#carId").val();
+		var carDetailId = jQuery("#detailId").val();
 		var laydate = layui.laydate;
+
+
 		//自定义格式
 		laydate.render({
 			elem: '#start'
@@ -305,7 +315,7 @@
 			,full: false //全屏
 			,arrow: 'none'
 		});
-		$.ajax({
+		jQuery.ajax({
 			url:'/api/car/document/picture/'+carDetailId,
 			dataType:'json',
 			type:'get',
@@ -313,12 +323,12 @@
 				var str;
 				for(var i =0;i<result.data.length;i++){
 					str ='<div><img src="/image/'+result.data[i].saveName+'" ></div>'
-					$("#demoList1").append(str)
+					jQuery("#demoList1").append(str)
 					ins.reload({elem: '#test10'});//重置轮播图
 				}
 			}
 		})
-		$.ajax({
+		jQuery.ajax({
 			url:'/api/car/document/'+carId,
 			dataType:'json',
 			type:'get',
@@ -326,14 +336,14 @@
 				var str;
 				for(var i =0;i<result.data.length;i++){
 					str ='<tr><td><a href="#" onclick="downLoad('+result.data[i].id+')">'+result.data[i].name+'</a></td></tr>'
-					$("#demoList").append(str)
+					jQuery("#demoList").append(str)
 				}
 				form.render();
 			}
 		})
 
 	})
-	function downLoad(id){
+	jQuery(function downLoad(id){
 		if(id=="undifind"){
 			return false;
 		}else{
@@ -342,7 +352,7 @@
 			link.click();
 		}
 
-	}
+	})
 
 </script>
 </body>

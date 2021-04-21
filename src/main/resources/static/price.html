@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,465 +13,337 @@
 	<!-- Custom styles for our template -->
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="component/layui/css/layui.css">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
+	<script src="component/layui/layui.js"></script>
 	<![endif]-->
+	<style>
+		*, :after, :before {
+			box-sizing: border-box
+		}
+		div.box {
+			height: 100px;
+			padding: 10px;
+			overflow: auto;
+			border: 1px solid #8080FF;
+			background-color: #E5E5FF
+		}
+		body {
+			color: #73879C;
+			background: #ECF0F1;
+			font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
+			font-size: 13px;
+			font-weight: 400;
+			line-height: 1.471
+		}
+	</style>
 </head>
 
 <body>
-	<!-- Fixed navbar -->
-	<div class="navbar navbar-inverse">
-		<div class="container">
-			<div class="navbar-header">
-				<!-- Button for smallest screens -->
-				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
-				<a class="navbar-brand" href="index.html">
-					<img src="assets/images/logo.png" alt="Techro HTML5 template"></a>
-			</div>
-			<div class="navbar-collapse collapse">
-				<ul class="nav navbar-nav pull-right mainNav">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-						<li><a href="services.html">Services</a></li>
-					<li class="active"><a href="price.html">Price</a></li>
-					<li><a href="projects.html">Projects</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="sidebar-right.html">Right Sidebar</a></li>
-							<li><a href="#">Dummy Link1</a></li>
-							<li><a href="#">Dummy Link2</a></li>
-							<li><a href="#">Dummy Link3</a></li>
-						</ul>
-					</li>
-					<li><a href="contact.html">Contact</a></li>
-				</ul>
-			</div>
-			<!--/.nav-collapse -->
+<!-- Fixed navbar -->
+<div class="navbar navbar-inverse">
+	<div class="container">
+		<div class="navbar-header">
+			<!-- Button for smallest screens -->
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
+			<a class="navbar-brand" href="index.html">
+				<img src="assets/images/logo.png" alt="Techro HTML5 template"></a>
 		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav pull-right mainNav">
+				<li><a href="index.html">Home</a></li>
+				<li><a href="about.html">About</a></li>
+				<li><a href="services.html">Services</a></li>
+				<li class="active"><a href="price.html">Price</a></li>
+				<li><a href="projects.html">Projects</a></li>
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
+					<ul class="dropdown-menu">
+						<li><a href="sidebar-right.html">Right Sidebar</a></li>
+						<li><a href="#">Dummy Link1</a></li>
+						<li><a href="#">Dummy Link2</a></li>
+						<li><a href="#">Dummy Link3</a></li>
+					</ul>
+				</li>
+				<li><a href="contact.html">Contact</a></li>
+			</ul>
+		</div>
+		<!--/.nav-collapse -->
 	</div>
-	<!-- /.navbar -->
+</div>
+<!-- /.navbar -->
 
-	<header id="head" class="secondary">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-8">
-					<h1>Our Price</h1>
-				</div>
-			</div>
-		</div>
-	</header>
-
-	<!-- container -->
+<header id="head" class="secondary">
 	<div class="container">
 		<div class="row">
-			<div class="layui-row">
-				<div class="layui-row">
-					<div class="layui-col-md12">
-						<h2 style="width:30%" th:text="${car.name}"></h2>
-					</div>
-					<hr>
-					<div class="layui-col-md7">
-						<div class="layui-col-md2">
-							&nbsp;
-						</div>
-						<div class="layui-col-md8">
-							<div class="layui-carousel" id="test10">
-								<div carousel-item="" id="demoList1">
-
-								</div>
-							</div>
-						</div>
-						<div class="layui-col-md2">
-							&nbsp;
-						</div>
-						<div class="layui-col-md12">
-							<div class="layui-inline">
-								<label class="layui-form-label">开始日期</label>
-								<div class="layui-input-inline">
-									<input type="text" id="start" name="start" class="layui-input" placeholder="yyyy-MM-dd">
-								</div>
-							</div>
-							<div class="layui-inline">
-								<label class="layui-form-label">结束日期</label>
-								<div class="layui-input-inline">
-									<input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="layui-col-md5">
-						<div class="layui-col-md12">
-							<h2>基本信息</h2>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>品牌 </h2>
-									<p th:text="${car.carBrand.name}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>类型 </h2>
-									<p th:text="${car.carType.name}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>门店 </h2>
-									<p th:text="${car.location.name}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>价格 </h2>
-									<p th:text="${car.price}"></p>
-								</div>
-							</div>
-						</div>
-
-						<hr>
-						<div class="layui-col-md12">
-							<h2>详细信息</h2>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>年代款</h2>
-									<p th:text="${detail.productYear}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>配置款</h2>
-									<p th:text="${detail.level}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>座位数</h2>
-									<p th:text="${detail.seats}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>车门数</h2>
-									<p th:text="${detail.doors}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>燃料类型</h2>
-									<p th:text="${detail.energy.name}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>变速箱类型</h2>
-									<p th:text="${detail.gear.name}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>排量</h2>
-									<p th:text="${detail.displacement}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>驱动方式</h2>
-									<p th:text="${detail.drive}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md6">
-									<h2>天窗</h2>
-									<p th:text="${detail.upWindow}"></p>
-								</div>
-								<div class="layui-col-md6">
-									<h2>雷达</h2>
-									<p th:text="${detail.radar}"></p>
-								</div>
-							</div>
-							<div class="layui-col-md12">
-								<div class="layui-col-md12">
-									<h2>相关证件</h2>
-									<table class="layui-table" lay-even="" lay-skin="nob">
-										<thead>
-										<tr>
-											<th></th>
-										</tr>
-										</thead>
-										<tbody id="demoList"></tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div>
-					<input type="hidden" id="carId" th:value="${car.id}" name="carId" >
-					<input type="hidden" id="detailId" th:value="${detail.id}" name="detailId" >
-				</div>
-
+			<div class="col-sm-8">
+				<h1>Our Price</h1>
 			</div>
 		</div>
 	</div>
-	<!-- /container -->
+</header>
 
-	<section class="container">
-		<div class="heading">
-			<!-- Heading -->
-			<h3>Range</h3>
-			<p>At lorem Ipsum available, but the majority have suffered alteration in some form by injected humour.</p>
-			<br />
-		</div>
-		<div class="row flat">
-			<div class="col-lg-3 col-md-3 col-xs-6">
-				<ul class="plan plan1">
-					<li class="plan-name">Basic
-					</li>
-					<li class="plan-price">
-						<strong>$29</strong> Fee
-					</li>
-					<li>
-						<strong>08</strong> Responsive
-					</li>
-					<li>
-						<strong>12</strong> HTML5/CSS
-					</li>
-					<li>
-						<strong>15</strong> Flex
-					</li>
-					<li>
-						<strong>10</strong> Mobile App
-					</li>
-					<li>
-						<strong>Live</strong> Demo
-					</li>
-					<li class="plan-action">
-						<a href="#" class="btn">Signup</a>
-					</li>
-				</ul>
+<!-- container -->
+<div class="container">
+	<div class="row">
+		<!-- Article content -->
+		<section class="col-sm-12 maincontent">
+			<h3>Cost</h3>
+			<p>
+				Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+			</p>
+
+		</section>
+	</div>
+</div>
+<!-- /container -->
+
+<section class="container">
+	<div class="heading">
+		<!-- Heading -->
+		<h3>Range</h3>
+		<p>At lorem Ipsum available, but the majority have suffered alteration in some form by injected humour.</p>
+		<br />
+	</div>
+	<div class="row flat">
+		<div class="layui-col-md12">
+			<div class="layui-col-md1">
+				&nbsp;
 			</div>
+			<div class="layui-col-md6">
+				<div class="layui-col-md10">
+					<div class="layui-carousel" id="test10">
+						<div carousel-item="" id="demoList1">
 
-			<div class="col-lg-3 col-md-3 col-xs-6">
-				<ul class="plan plan2 featured">
-					<li class="plan-name">Standard
-					</li>
-					<li class="plan-price">
-						<strong>$59</strong> Fee
-					</li>
-					<li>
-						<strong>08</strong> Responsive
-					</li>
-					<li>
-						<strong>12</strong> HTML5/CSS
-					</li>
-					<li>
-						<strong>15</strong> Flex
-					</li>
-					<li>
-						<strong>10</strong> Mobile App
-					</li>
-					<li>
-						<strong>Live</strong> Demo
-					</li>
-					<li class="plan-action">
-						<a href="#" class="btn">Signup</a>
-					</li>
-				</ul>
-			</div>
-
-			<div class="col-lg-3 col-md-3 col-xs-6">
-				<ul class="plan plan3">
-					<li class="plan-name">Advanced
-					</li>
-					<li class="plan-price">
-						<strong>$79</strong> Fee
-					</li>
-					<li>
-						<strong>08</strong> Responsive
-					</li>
-					<li>
-						<strong>12</strong> HTML5/CSS
-					</li>
-					<li>
-						<strong>15</strong> Flex
-					</li>
-					<li>
-						<strong>10</strong> Mobile App
-					</li>
-					<li>
-						<strong>Live</strong> Demo
-					</li>
-					<li class="plan-action">
-						<a href="#" class="btn">Signup</a>
-					</li>
-				</ul>
-			</div>
-
-			<div class="col-lg-3 col-md-3 col-xs-6">
-				<ul class="plan plan4">
-					<li class="plan-name">Mighty
-					</li>
-					<li class="plan-price">
-						<strong>$109</strong> Fee
-					</li>
-					<li>
-						<strong>08</strong> Responsive
-					</li>
-					<li>
-						<strong>12</strong> HTML5/CSS
-					</li>
-					<li>
-						<strong>15</strong> Flex
-					</li>
-					<li>
-						<strong>10</strong> Mobile App
-					</li>
-					<li>
-						<strong>Live</strong> Demo
-					</li>
-					<li class="plan-action">
-						<a href="#" class="btn">Signup</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</section>
-
-	 <section class="btm-section secpadding">
-	  <div class="container">
-      <div class="row">
-      	    <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">New Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-        
-        <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Large Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-         <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Our Clients</h3></div> 
-            <blockquote class="blockquote-1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid</p>
-					<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-				</blockquote></div>
-         
-      </div></div>
-      </section>
-      
-    	 
-    <footer id="footer">
-	 
-		<div class="footer2">
-			<div class="container">
-				<div class="row">
-
-					<div class="col-md-6 panel">
-						<div class="panel-body">
-							<p class="simplenav">
-								<a href="index.html">Home</a> |
-								<a href="about.html">About</a> |
-								<a href="services.html">Services</a> |
-								<a href="price.html">Price</a> |
-								<a href="projects.html">Projects</a> |
-								<a href="contact.html">Contact</a>
-							</p>
 						</div>
 					</div>
-
-					<div class="col-md-6 panel">
-						<div class="panel-body">
-							<p class="text-right">
-								Copyright &copy; 2015. Template by <a href="http://webthemez.com/" rel="develop">WebThemez.com</a>
-							</p>
-						</div>
-					</div>
-
 				</div>
-				<!-- /row of panels -->
+				<div class="layui-col-md2">
+					&nbsp;
+				</div>
+				<div class="layui-col-md12">
+					<div class="layui-inline">
+						<label class="layui-form-label">开始日期</label>
+						<div class="layui-input-inline">
+							<input type="text" id="start" name="start" class="layui-input" placeholder="yyyy-MM-dd">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">结束日期</label>
+						<div class="layui-input-inline">
+							<input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-col-md5">
+				<div class="layui-col-md12">
+					<h2>基本信息</h2>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>品牌 </h2>
+							<p th:text="${car.carBrand.name}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>类型 </h2>
+							<p th:text="${car.carType.name}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>门店 </h2>
+							<p th:text="${car.location.name}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>价格 </h2>
+							<p th:text="${car.price}"></p>
+						</div>
+					</div>
+				</div>
+
+				<hr>
+				<div class="layui-col-md12">
+					<h2>详细信息</h2>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>年代款</h2>
+							<p th:text="${detail.productYear}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>配置款</h2>
+							<p th:text="${detail.level}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>座位数</h2>
+							<p th:text="${detail.seats}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>车门数</h2>
+							<p th:text="${detail.doors}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>燃料类型</h2>
+							<p th:text="${detail.energy.name}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>变速箱类型</h2>
+							<p th:text="${detail.gear.name}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>排量</h2>
+							<p th:text="${detail.displacement}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>驱动方式</h2>
+							<p th:text="${detail.drive}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md6">
+							<h2>天窗</h2>
+							<p th:text="${detail.upWindow}"></p>
+						</div>
+						<div class="layui-col-md6">
+							<h2>雷达</h2>
+							<p th:text="${detail.radar}"></p>
+						</div>
+					</div>
+					<div class="layui-col-md12">
+						<div class="layui-col-md12">
+							<h2>相关证件</h2>
+							<table class="layui-table" lay-even="" lay-skin="nob">
+								<thead>
+								<tr>
+									<th></th>
+								</tr>
+								</thead>
+								<tbody id="demoList"></tbody>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-	</footer>
+
+		
+
+	</div>
+</section>
+
+<footer id="footer">
+
+	<div class="footer2">
+		<div class="container">
+			<div class="row">
+
+				<div class="col-md-6 panel">
+					<div class="panel-body">
+						<p class="simplenav">
+							<a href="index.html">Home</a> |
+							<a href="about.html">About</a> |
+							<a href="services.html">Services</a> |
+							<a href="price.html">Price</a> |
+							<a href="projects.html">Projects</a> |
+							<a href="contact.html">Contact</a>
+						</p>
+					</div>
+				</div>
+
+				<div class="col-md-6 panel">
+					<div class="panel-body">
+						<p class="text-right">
+							Copyright &copy; 2015. Template by <a href="http://webthemez.com/" rel="develop">WebThemez.com</a>
+						</p>
+					</div>
+				</div>
+
+			</div>
+			<!-- /row of panels -->
+		</div>
+	</div>
+</footer>
 
 
 
 
-	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script type="text/javascript" src="component/jquery/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/custom.js"></script>
-	<script>
-		layui.use(['carousel','upload','laydate','form','jquery'],function(){
-			let form = layui.form;
-			let $ = layui.jquery;
-			let carousel = layui.carousel;
-			let upload = layui.upload;
-			var carId = $("#carId").val();
-			var carDetailId = $("#detailId").val();
-			var laydate = layui.laydate;
-			//自定义格式
-			laydate.render({
-				elem: '#start'
-			});
-			//自定义格式
-			laydate.render({
-				elem: '#end'
-			});
-			//图片轮播
-			var ins = carousel.render({
-				elem: '#test10'
-				,width: '600px'
-				,height: '400px'
-				,interval: 5000
-				,full: false //全屏
-				,arrow: 'none'
-			});
-			$.ajax({
-				url:'/api/car/document/picture/'+carDetailId,
-				dataType:'json',
-				type:'get',
-				success:function(result){
-					var str;
-					for(var i =0;i<result.data.length;i++){
-						str ='<div><img src="/image/'+result.data[i].saveName+'" ></div>'
-						$("#demoList1").append(str)
-						ins.reload({elem: '#test10'});//重置轮播图
-					}
+<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="assets/js/custom.js"></script>
+<script>
+	layui.use(['carousel','upload','laydate','form','jquery'],function(){
+		let form = layui.form;
+		let $ = layui.jquery;
+		let carousel = layui.carousel;
+		let upload = layui.upload;
+		var carId = $("#carId").val();
+		var carDetailId = $("#detailId").val();
+		var laydate = layui.laydate;
+		//自定义格式
+		laydate.render({
+			elem: '#start'
+		});
+		//自定义格式
+		laydate.render({
+			elem: '#end'
+		});
+		//图片轮播
+		var ins = carousel.render({
+			elem: '#test10'
+			,width: '600px'
+			,height: '400px'
+			,interval: 5000
+			,full: false //全屏
+			,arrow: 'none'
+		});
+		$.ajax({
+			url:'/api/car/document/picture/'+carDetailId,
+			dataType:'json',
+			type:'get',
+			success:function(result){
+				var str;
+				for(var i =0;i<result.data.length;i++){
+					str ='<div><img src="/image/'+result.data[i].saveName+'" ></div>'
+					$("#demoList1").append(str)
+					ins.reload({elem: '#test10'});//重置轮播图
 				}
-			})
-			$.ajax({
-				url:'/api/car/document/'+carId,
-				dataType:'json',
-				type:'get',
-				success:function(result){
-					var str;
-					for(var i =0;i<result.data.length;i++){
-						str ='<tr><td><a href="#" onclick="downLoad('+result.data[i].id+')">'+result.data[i].name+'</a></td></tr>'
-						$("#demoList").append(str)
-					}
-					form.render();
-				}
-			})
-
-		})
-		function downLoad(id){
-			if(id=="undifind"){
-				return false;
-			}else{
-				var link = document.createElement('a');
-				link.href = "/api/document/down?id=" + id;
-				link.click();
 			}
+		})
+		$.ajax({
+			url:'/api/car/document/'+carId,
+			dataType:'json',
+			type:'get',
+			success:function(result){
+				var str;
+				for(var i =0;i<result.data.length;i++){
+					str ='<tr><td><a href="#" onclick="downLoad('+result.data[i].id+')">'+result.data[i].name+'</a></td></tr>'
+					$("#demoList").append(str)
+				}
+				form.render();
+			}
+		})
 
+	})
+	function downLoad(id){
+		if(id=="undifind"){
+			return false;
+		}else{
+			var link = document.createElement('a');
+			link.href = "/api/document/down?id=" + id;
+			link.click();
 		}
 
-	</script>
+	}
+
+</script>
 </body>
 </html>

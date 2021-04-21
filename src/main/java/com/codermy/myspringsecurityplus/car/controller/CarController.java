@@ -101,14 +101,10 @@ public class CarController {
     public String getCarDetail(@PathVariable("id") Long id,Model model){
         Car car = carService.findById(id);
         Optional<CarDetail> det = carDetailRepository.findByCarId(id);
-
         CarDetail carDetail = new CarDetail();
-
         if(det.isPresent()){
             carDetail = det.get();
         }
-
-
         model.addAttribute("car",car);
         model.addAttribute("detail",carDetail);
         return "system/car/car-detail";

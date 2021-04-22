@@ -1,12 +1,15 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
+import com.codermy.myspringsecurityplus.admin.entity.MyUser;
+import com.codermy.myspringsecurityplus.admin.service.UserService;
 import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import com.codermy.myspringsecurityplus.car.service.CarRecordService;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +21,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.bouncycastle.asn1.x500.style.RFC4519Style.o;
 
 /*
  * CarRecord controller
@@ -32,6 +37,8 @@ public class CarRecordController {
     private CarRecordService carRecordService;
     @Resource
     private CarService carService;
+    @Resource
+    private UserService userService;
 
     @GetMapping("/index")
     @ApiOperation(value = "汽车列表页面")
@@ -42,8 +49,11 @@ public class CarRecordController {
     @GetMapping(value = "/toAdd/{carId}")
     @ApiOperation(value = "添加汽车详情页面")
     public String addCarRecord(@PathVariable("carId") Long carId,Model model) {
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        MyUser user = userService.getUserByName(name);
         Car car = carService.findById(carId);
         model.addAttribute("car",car);
+        model.addAttribute("user",user);
         return "../static/test.html";
     }
     @GetMapping(value = "/toEdit")

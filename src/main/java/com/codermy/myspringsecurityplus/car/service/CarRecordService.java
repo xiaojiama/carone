@@ -50,8 +50,9 @@ public class CarRecordService {
         c.setTimeLong(days);
         c.setStatus(cr.getStatus());
         c.setDeposit(cr.getDeposit());
-        Double rent = cr.getRent()*days;
-        c.setRent(cr.getRent());
+        c.setPrice(cr.getPrice());
+        Double rent = cr.getPrice()*days;
+        c.setRent(rent);
         c.setUserId(cr.getUserId());
         c.setCreateTime(cr.getCreateTime());
         c.setEndTime(cr.getEndTime());

@@ -42,12 +42,14 @@ public class CarRecord {
      * 押金
      */
     private Double deposit;
-
+    //真实名称
     private String name;
-
+    //电话
     private String phone;
-
+    //身份证
     private String identity;
+    //日租金
+    private Double price;
     /**
      * 租金
      */

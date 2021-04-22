@@ -44,7 +44,7 @@
                         <span style="color: red">*</span>开始日期
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="start" name="createTime" class="layui-input" lay-verify="required" placeholder="yyyy-MM-dd">
+                        <input type="text" id="start" name="createTime" class="layui-input" lay-verify="required" placeholder="yyyy-MM-dd" onmouseUp   ="sum(this)">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -52,7 +52,19 @@
                         <span style="color: red">*</span>结束日期
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="end" name="endTime" class="layui-input" lay-verify="required"  placeholder="yyyy-MM-dd">
+                        <input type="text" id="end" name="endTime" class="layui-input" lay-verify="required"  placeholder="yyyy-MM-dd" onmouseUp   ="sum(this)">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"> 押金</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="deposit" th:value="${car.deposit}" name="deposit" class="layui-input" lay-verify="required"   readonly="true">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">租金/天</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="price" th:value="${car.price}" name="price"  class="layui-input" lay-verify="required"   readonly="true">
                     </div>
                 </div>
                 <div class="layui-upload">
@@ -62,18 +74,17 @@
                         <div class="layui-upload-list" id="demo2"></div>
                     </blockquote>
                 </div>
-                <div>
+                <div class="layui-form-item">
                     <input type="hidden" id="carId" th:value="${car.id}" name="carId" >
-                    <input type="hidden" id="price" th:value="${car.price}" name="price" >
-                    <input type="hidden" id="deposit" th:value="${car.deposit}" name="deposit" >
-                    <input type="hidden" id="customerId" sec:authentication="principal.MyUser.userId" name="customerId" >
-                    <input type="hidden" id="na" sec:authentication="principal.MyUser.nickName" name="na" >
+                    <input type="hidden" id="customerId" th:value="${user.userId}" sec:authentication="principal.MyUser.userId" name="customerId" >
+                    <input type="hidden" id="na" th:value="${user.nickName}" sec:authentication="principal.MyUser.nickName" name="na" >
                 </div>
             </div>
         </div>
     </div>
     <div class="bottom">
         <div class="button-container">
+            预计总价：<input type="text" id="result" style="width: 80px" readonly="true">
             <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="car-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
@@ -160,9 +171,28 @@
             return false;
         });
     })
+    function sum(obj) {
+        debugger
+        var start = $("#start").val();
+        var end = $("#end").val();
+        var deposit = $("#deposit").val();
+        var price = $("#price").val();
 
-</script>
-<script>
+        var days = DateDiff(start, end);
+
+        function DateDiff(start, end){
+            start = new Date(start);
+            end = new Date(end);
+            if(end > start){
+                days = parseInt(Math.abs(end - start) / 1000 / 60 / 60 / 24);
+            }else{
+                days = '0';
+            }
+            return days;
+        }
+        var num = days*price+deposit;
+        $('#result').attr('value',num);
+    }
 </script>
 </body>
 </html>

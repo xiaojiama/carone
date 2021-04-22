@@ -342,22 +342,6 @@
             }
         });
     }
-    function getOn(){
-        $.ajax({
-            url:'/api/carDetail/selectByCarId/'+$("#carId").val(),
-            dataType:'json',
-            type:'get',
-            success:function(result){
-                $("input[name='seats'][value='" + result.data.seats + "']").next().click();
-                $("input[name='doors'][value='" +  result.data.doors + "']").next().click();
-                $("input[name='drive'][value='" +  result.data.drive + "']").next().click();
-                $("input[name='upWindow'][value='" + result.data.upWindow + "']").next().click();
-                $("input[name='radar'][value='" +  result.data.radar + "']").next().click();
-                $("input[name='gps'][value='" + result.data.gps + "']").next().click();
-                form.render();
-            }
-        })
-    }
 </script>
 <script>
 </script>

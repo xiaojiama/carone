@@ -45,7 +45,13 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">单价</label>
+                    <label class="layui-form-label">押金</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deposit" th:value="${Car.deposit}" name="deposit" required="" lay-verify="deposit" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单价/天</label>
                     <div class="layui-input-block">
                         <input type="text" id="price" th:value="${Car.price}" name="price" required="" lay-verify="price" autocomplete="off" class="layui-input">
                     </div>
@@ -56,6 +62,13 @@
                         <select name="brandId" id="brandId" >
                             <option th:value="${Car.carBrand.id}" th:text="${Car.carBrand.name}" >请选择</option>
                         </select>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>是否出租</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" name="radar" value="已出租" title="已出租"  >
+                        <input type="radio" name="radar" value="未出租" title="未出租" checked>
                     </div>
                 </div>
                 <div class="layui-upload">

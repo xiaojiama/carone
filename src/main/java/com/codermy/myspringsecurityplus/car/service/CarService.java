@@ -90,6 +90,8 @@ public class CarService {
             Car c = new Car();
             c.setName(car.getName());//汽车名称
             c.setPrice(car.getPrice());//价格
+            c.setDeposit(c.getDeposit());//押金
+            c.setStatus("未出租");
             c.setCreateTime(new Date());
             c.setUpdateTime(new Date());
             c.setUserId(car.getUserId());
@@ -129,6 +131,8 @@ public class CarService {
         if (c.isPresent()) {
             c.get().setName(car.getName());//汽车名称
             c.get().setPrice(car.getPrice());//价格
+            c.get().setDeposit(car.getDeposit());//押金
+            c.get().setStatus(car.getStatus());
             c.get().setImgUrl(car.getImgUrl());//图片
             c.get().setUpdateTime(new Date());//更新时间
             c.get().setUserId(car.getUserId());

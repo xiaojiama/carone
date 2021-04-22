@@ -1,8 +1,10 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
 import cn.hutool.core.lang.Assert;
+import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import com.codermy.myspringsecurityplus.car.service.CarRecordService;
+import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,8 @@ import java.util.Map;
 public class CarRecordController {
     @Resource
     private CarRecordService carRecordService;
+    @Resource
+    private CarService carService;
 
     @GetMapping("/index")
     @ApiOperation(value = "汽车列表页面")
@@ -35,11 +39,12 @@ public class CarRecordController {
         return "system/car/CarRecord";
     }
 
-    @GetMapping(value = "/toAdd")
+    @GetMapping(value = "/toAdd/{carId}")
     @ApiOperation(value = "添加汽车详情页面")
-    public String addCarRecord(Model model) {
-        model.addAttribute("CarRecord",new CarRecord());
-        return "/system/car/carRecord-add";
+    public String addCarRecord(@PathVariable("carId") Long carId,Model model) {
+        Car car = carService.findById(carId);
+        model.addAttribute("car",car);
+        return "../static/test.html";
     }
     @GetMapping(value = "/toEdit")
     @ApiOperation(value = "修改汽车页面")

@@ -45,7 +45,13 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label">单价</label>
+                    <label class="layui-form-label">押金</label>
+                    <div class="layui-input-block">
+                        <input type="text" id="deposit" th:value="${Car.deposit}" name="deposit" required="" lay-verify="deposit" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">单价/天</label>
                     <div class="layui-input-block">
                         <input type="text" id="price" th:value="${Car.price}" name="price" required="" lay-verify="price" autocomplete="off" class="layui-input">
                     </div>

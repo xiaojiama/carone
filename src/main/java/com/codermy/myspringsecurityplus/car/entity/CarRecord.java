@@ -43,6 +43,11 @@ public class CarRecord {
      */
     private Double deposit;
 
+    private String name;
+
+    private String phone;
+
+    private String identity;
     /**
      * 租金
      */

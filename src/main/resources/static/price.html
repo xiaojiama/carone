@@ -16,7 +16,8 @@
 	<link rel="stylesheet" href="assets/css/style.css">
 	<link rel="stylesheet" href="component/layui/css/layui.css">
 
-	<script type='text/javascript' src='assets/js/jquery.min.js'></script>
+	<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+	<script src="https://cdn.bootcdn.net/ajax/libs/fancybox/3.5.6/jquery.fancybox.min.js"></script>
 	<script src="component/layui/layui.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/custom.js"></script>
@@ -85,16 +86,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-8">
-				<h1>Our Price</h1>
+				<h1>汽车详情</h1>
 			</div>
 		</div>
 	</div>
 </header>
 
-<!-- container -->
+<!-- container
 <div class="container">
 	<div class="row">
-		<!-- Article content -->
+		 Article content
 		<section class="col-sm-12 maincontent">
 			<h3>Cost</h3>
 			<p>
@@ -104,7 +105,7 @@
 		</section>
 	</div>
 </div>
-<!-- /container -->
+ /container -->
 
 <section class="container">
 	<div class="heading">
@@ -124,42 +125,40 @@
 					</div>
 				</div>
 				<div class="layui-col-md12">
-					<div class="layui-inline">
-						<label class="layui-form-label">开始日期</label>
-						<div class="layui-input-inline">
-							<input type="text" id="start" name="start" class="layui-input" placeholder="yyyy-MM-dd">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">结束日期</label>
-						<div class="layui-input-inline">
-							<input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
-						</div>
-					</div>
-					<button class="layui-btn" lay-event="add">预约车辆</button>
+
+					<button class="layui-btn" id="addCar" >预约车辆</button>
 				</div>
 			</div>
 			<div class="layui-col-md5">
 				<div class="layui-col-md12">
 					<h2>基本信息</h2>
+					<br/>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>品牌 </h2>
+							<h3>品牌 </h3>
+							<br/>
 							<p th:text="${car.carBrand.name}"></p>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>类型 </h2>
+							<h3>类型 </h3>
+							<br/>
 							<p th:text="${car.carType.name}"></p>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>门店 </h2>
+							<h3>门店 </h3>
+							<br/>
 							<p th:text="${car.location.name}"></p>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>价格 </h2>
+							<h3>价格 </h3>
+							<br/>
 							<p th:text="${car.price}"></p>
+							<br/>
 						</div>
 					</div>
 				</div>
@@ -167,69 +166,81 @@
 				<hr>
 				<div class="layui-col-md12">
 					<h2>详细信息</h2>
+					<br/>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>年代款</h2>
+							<h3>年代款</h3>
+							<br/>
 							<p th:text="${detail.productYear}"></p>
-							<hr>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>配置款</h2>
+							<h3>配置款</h3>
+							<br/>
 							<p th:text="${detail.level}"></p>
-							<hr>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>座位数</h2>
+							<h3>座位数</h3>
+							<br/>
 							<p th:text="${detail.seats}"></p>
-							<hr>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>车门数</h2>
+							<h3>车门数</h3>
+							<br/>
 							<p th:text="${detail.doors}"></p>
-							<hr>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>燃料类型</h2>
+							<h3>燃料类型</h3>
+							<br/>
 							<p th:text="${detail.energy.name}"></p>
-							<hr>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>变速箱类型</h2>
+							<h3>变速箱类型</h3>
+							<br/>
 							<p th:text="${detail.gear.name}"></p>
-							<hr>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>排量</h2>
+							<h3>排量</h3>
+							<br/>
 							<p th:text="${detail.displacement}"></p>
-							<hr>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>驱动方式</h2>
+							<h3>驱动方式</h3>
+							<br/>
 							<p th:text="${detail.drive}"></p>
-							<hr>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md6">
-							<h2>天窗</h2>
+							<h3>天窗</h3>
+							<br/>
 							<p th:text="${detail.upWindow}"></p>
-							<hr>
+							<br/>
 						</div>
 						<div class="layui-col-md6">
-							<h2>雷达</h2>
+							<h3>雷达</h3>
+							<br/>
 							<p th:text="${detail.radar}"></p>
-							<hr>
+							<br/>
 						</div>
 					</div>
 					<div class="layui-col-md12">
 						<div class="layui-col-md12">
-							<h2>相关证件</h2>
+							<h3>相关证件</h3>
+							<br/>
 							<table class="layui-table" lay-even="" lay-skin="nob">
 								<thead>
 								<tr>
@@ -293,19 +304,9 @@
 		let $ = layui.jquery;
 		let carousel = layui.carousel;
 		let upload = layui.upload;
-		var carId = jQuery("#carId").val();
-		var carDetailId = jQuery("#detailId").val();
-		var laydate = layui.laydate;
+		var carId = $("#carId").val();
+		var carDetailId = $("#detailId").val();
 
-
-		//自定义格式
-		laydate.render({
-			elem: '#start'
-		});
-		//自定义格式
-		laydate.render({
-			elem: '#end'
-		});
 		//图片轮播
 		var ins = carousel.render({
 			elem: '#test10'
@@ -315,7 +316,7 @@
 			,full: false //全屏
 			,arrow: 'none'
 		});
-		jQuery.ajax({
+		$.ajax({
 			url:'/api/car/document/picture/'+carDetailId,
 			dataType:'json',
 			type:'get',
@@ -328,7 +329,7 @@
 				}
 			}
 		})
-		jQuery.ajax({
+		$.ajax({
 			url:'/api/car/document/'+carId,
 			dataType:'json',
 			type:'get',
@@ -341,9 +342,23 @@
 				form.render();
 			}
 		})
+		$('#addCar').on("click",function(){
+			layer.open({
+				//调整弹框的大小
+				area:['500px','600px'],
+				shadeClose:true,//点击旁边地方自动关闭
+				//动画
+				anim:2,
+				//弹出层的基本类型
+				type: 2,
+				//刚才定义的弹窗页面
+				content: '/api/carRecord/toAdd/'+carId, //这里content是一个URL，如果你不想让iframe出现滚动条，你还可以content: ['http://sentsin.com', 'no']
+
+			});
+		});
 
 	})
-	jQuery(function downLoad(id){
+	function downLoad(id){
 		if(id=="undifind"){
 			return false;
 		}else{
@@ -352,7 +367,7 @@
 			link.click();
 		}
 
-	})
+	}
 
 </script>
 </body>

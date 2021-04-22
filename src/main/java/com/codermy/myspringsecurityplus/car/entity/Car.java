@@ -55,9 +55,11 @@ public class Car{
     //价格
     private BigDecimal price;
 
-    private Integer isonline;
+    //押金
+    private Double deposit;
 
-    private Integer isdeleted;
+    //状态
+    private String status;
 
     private Integer userId;
 
@@ -81,12 +83,17 @@ public class Car{
         return "Car{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", carType=" + carType +
+                ", carBrand=" + carBrand +
+                ", location=" + location +
+                ", carDetail=" + carDetail +
                 ", imgUrl='" + imgUrl + '\'' +
                 ", files='" + files + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", isonline=" + isonline +
-                ", isdeleted=" + isdeleted +
+                ", deposit=" + deposit +
+                ", status='" + status + '\'' +
+                ", userId=" + userId +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

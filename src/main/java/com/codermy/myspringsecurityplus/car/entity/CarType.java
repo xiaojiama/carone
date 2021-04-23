@@ -23,5 +23,6 @@ public class CarType{
     @OneToMany(mappedBy = "carType",cascade= CascadeType.ALL,fetch=FetchType.LAZY)
     private List<Car> carList;
 
-
+    //汽车类型图片地址
+    private String imgUrl;
 }

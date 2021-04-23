@@ -52,42 +52,37 @@
                             <div class="layui-col-md2">
                                 &nbsp;
                             </div>
-                            <div class="layui-col-md12">
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">开始日期</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="start" name="start" class="layui-input" placeholder="yyyy-MM-dd">
-                                    </div>
-                                </div>
-                                <div class="layui-inline">
-                                    <label class="layui-form-label">结束日期</label>
-                                    <div class="layui-input-inline">
-                                        <input type="text" id="end" name="end" class="layui-input"  placeholder="yyyy-MM-dd">
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="layui-col-md5">
                             <div class="layui-col-md12">
                                 <h2>基本信息</h2>
+                                <br/>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>品牌 </h2>
+                                        <h3>品牌 </h3>
+                                        <br/>
                                         <p th:text="${car.carBrand.name}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>类型 </h2>
+                                        <h3>类型 </h3>
+                                        <br/>
                                         <p th:text="${car.carType.name}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>门店 </h2>
+                                        <h3>门店 </h3>
+                                        <br/>
                                         <p th:text="${car.location.name}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>价格 </h2>
+                                        <h3>价格 </h3>
+                                        <br/>
                                         <p th:text="${car.price}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                             </div>
@@ -95,59 +90,81 @@
                             <hr>
                             <div class="layui-col-md12">
                                 <h2>详细信息</h2>
+                                <br/>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>年代款</h2>
+                                        <h3>年代款</h3>
+                                        <br/>
                                         <p th:text="${detail.productYear}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>配置款</h2>
+                                        <h3>配置款</h3>
+                                        <br/>
                                         <p th:text="${detail.level}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>座位数</h2>
+                                        <h3>座位数</h3>
+                                        <br/>
                                         <p th:text="${detail.seats}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>车门数</h2>
+                                        <h3>车门数</h3>
+                                        <br/>
                                         <p th:text="${detail.doors}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>燃料类型</h2>
+                                        <h3>燃料类型</h3>
+                                        <br/>
                                         <p th:text="${detail.energy.name}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>变速箱类型</h2>
+                                        <h3>变速箱类型</h3>
+                                        <br/>
                                         <p th:text="${detail.gear.name}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>排量</h2>
+                                        <h3>排量</h3>
+                                        <br/>
                                         <p th:text="${detail.displacement}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>驱动方式</h2>
+                                        <h3>驱动方式</h3>
+                                        <br/>
                                         <p th:text="${detail.drive}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md6">
-                                        <h2>天窗</h2>
+                                        <h3>天窗</h3>
+                                        <br/>
                                         <p th:text="${detail.upWindow}"></p>
+                                        <br/>
                                     </div>
                                     <div class="layui-col-md6">
-                                        <h2>雷达</h2>
+                                        <h3>雷达</h3>
+                                        <br/>
                                         <p th:text="${detail.radar}"></p>
+                                        <br/>
                                     </div>
                                 </div>
                                 <div class="layui-col-md12">
                                     <div class="layui-col-md12">
-                                        <h2>相关证件</h2>
+                                        <h3>相关证件</h3>
+                                        <br/>
                                         <table class="layui-table" lay-even="" lay-skin="nob">
                                             <thead>
                                             <tr>
@@ -174,22 +191,14 @@
 </form>
 <script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
 <script>
-    layui.use(['carousel','upload','laydate','form','jquery'],function(){
+    layui.use(['carousel','upload','form','jquery'],function(){
         let form = layui.form;
         let $ = layui.jquery;
         let carousel = layui.carousel;
         let upload = layui.upload;
         var carId = $("#carId").val();
         var carDetailId = $("#detailId").val();
-        var laydate = layui.laydate;
-        //自定义格式
-        laydate.render({
-            elem: '#start'
-        });
-        //自定义格式
-        laydate.render({
-            elem: '#end'
-        });
+
         //图片轮播
         var ins = carousel.render({
             elem: '#test10'

@@ -41,9 +41,9 @@ public class CarRecordController {
     private UserService userService;
 
     @GetMapping("/index")
-    @ApiOperation(value = "汽车列表页面")
+    @ApiOperation(value = "汽车订单页面")
     public String index(){
-        return "system/car/CarRecord";
+        return "system/car/car-record";
     }
 
     @GetMapping(value = "/toAdd/{carId}")

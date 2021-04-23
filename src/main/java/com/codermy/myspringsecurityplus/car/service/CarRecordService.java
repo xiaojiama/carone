@@ -45,17 +45,20 @@ public class CarRecordService {
         long createTime = cr.getCreateTime().getTime();
         int days = (int) ((endTime - createTime) / (1000*3600*24));
         CarRecord c = new CarRecord();
-        c.setCustomerId(cr.getCustomerId());
-        c.setCarId(cr.getCarId());
-        c.setTimeLong(days);
-        c.setStatus(cr.getStatus());
-        c.setDeposit(cr.getDeposit());
-        c.setPrice(cr.getPrice());
+        c.setCustomerId(cr.getCustomerId());//客户Id
+        c.setCarId(cr.getCarId());//汽车Id
+        c.setTimeLong(days);//租赁时长
+        c.setStatus(cr.getStatus());//此订单状态 进行中，申请中，已完成
+        c.setDeposit(cr.getDeposit());//押金
+        c.setName(cr.getName());//真实名称
+        c.setPhone(cr.getPhone());//电话
+        c.setIdentity(cr.getIdentity());//身份证
+        c.setPrice(cr.getPrice()); //日租金
         Double rent = cr.getPrice()*days;
-        c.setRent(rent);
-        c.setUserId(cr.getUserId());
-        c.setCreateTime(cr.getCreateTime());
-        c.setEndTime(cr.getEndTime());
+        c.setRent(rent); //租金
+        c.setUserId(cr.getUserId());//工作人员id
+        c.setCreateTime(cr.getCreateTime());//租车时间
+        c.setEndTime(cr.getEndTime());//还车时间
         carRecordRepository.save(c);
         return 0;
 
@@ -72,15 +75,20 @@ public class CarRecordService {
         long createTime = cr.getCreateTime().getTime();
         int days = (int) ((endTime - createTime) / (1000*3600*24));
         if (c.isPresent()) {
-            c.get().setCustomerId(cr.getCustomerId());
-            c.get().setCarId(cr.getCarId());
-            c.get().setTimeLong(days);
-            c.get().setStatus(cr.getStatus());
-            c.get().setDeposit(cr.getDeposit());
-            c.get().setRent(cr.getRent());
-            c.get().setUserId(cr.getUserId());
-            c.get().setCreateTime(cr.getCreateTime());
-            c.get().setEndTime(cr.getEndTime());
+            c.get().setCustomerId(cr.getCustomerId());//客户Id
+            c.get().setCarId(cr.getCarId());//汽车Id
+            c.get().setTimeLong(days);//租赁时长
+            c.get().setStatus(cr.getStatus());//此订单状态 进行中，申请中，已完成
+            c.get().setDeposit(cr.getDeposit());//押金
+            c.get().setName(cr.getName());//真实名称
+            c.get().setPhone(cr.getPhone());//电话
+            c.get().setIdentity(cr.getIdentity());//身份证
+            c.get().setPrice(cr.getPrice()); //日租金
+            Double rent = cr.getPrice()*days;
+            c.get().setRent(rent); //租金
+            c.get().setUserId(cr.getUserId());//工作人员id
+            c.get().setCreateTime(cr.getCreateTime());//租车时间
+            c.get().setEndTime(cr.getEndTime());//还车时间
             carRecordRepository.save(c.get());
         }else{
             return 1;

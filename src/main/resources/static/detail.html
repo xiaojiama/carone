@@ -241,6 +241,24 @@
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
                             parent.location.reload();
                         });
+                        $.ajax({
+                            url:'/pay',
+                            data:JSON.stringify(datas),
+                            dataType:'json',
+                            contentType:'application/json',
+                            type:'post',
+                            success:function(result){
+                                if(result.success){
+                                    layer.msg(result.msg,{icon:1,time:1000},function(){
+                                        parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                        parent.location.reload();
+                                    });
+
+                                }else{
+                                    layer.msg(result.msg,{icon:2,time:1000});
+                                }
+                            }
+                        })
                     }else{
                         layer.msg(result.msg,{icon:2,time:1000});
                     }

@@ -1,6 +1,5 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
-import cn.hutool.core.lang.Assert;
 import com.codermy.myspringsecurityplus.admin.entity.MyUser;
 import com.codermy.myspringsecurityplus.admin.service.UserService;
 import com.codermy.myspringsecurityplus.car.entity.Car;
@@ -13,16 +12,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
-import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import static org.bouncycastle.asn1.x500.style.RFC4519Style.o;
 
 /*
  * CarRecord controller
@@ -54,7 +47,7 @@ public class CarRecordController {
         Car car = carService.findById(carId);
         model.addAttribute("car",car);
         model.addAttribute("user",user);
-        return "../static/test.html";
+        return "detail.html";
     }
     @GetMapping(value = "/toEdit")
     @ApiOperation(value = "修改汽车页面")

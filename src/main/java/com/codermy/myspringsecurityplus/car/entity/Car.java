@@ -53,10 +53,10 @@ public class Car{
     //描述
     private String description;
     //价格
-    private BigDecimal price;
+    private int price;
 
     //押金
-    private Double deposit;
+    private int deposit;
 
     //状态
     private String status;

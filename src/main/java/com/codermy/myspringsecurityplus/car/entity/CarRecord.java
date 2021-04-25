@@ -5,10 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
@@ -41,7 +38,7 @@ public class CarRecord {
     /**
      * 押金
      */
-    private Double deposit;
+    private int deposit;
     //真实名称
     private String name;
     //电话
@@ -49,19 +46,27 @@ public class CarRecord {
     //身份证
     private String identity;
     //日租金
-    private Double price;
+    private int price;
     /**
      * 租金
      */
-    private Double rent;
+    private int rent;
     /**
      * 工作人员id
      */
     private Integer userId;
 
+    @JSONField(format = "yyyy-MM-dd")  //FastJson包使用注解
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8") //Jackson包使用注解
+    @DateTimeFormat(pattern = "yyyy-MM-dd")   //格式化前台日期参数注解
     private Date createTime;
 
+    @JSONField(format = "yyyy-MM-dd")  //FastJson包使用注解
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8") //Jackson包使用注解
+    @DateTimeFormat(pattern = "yyyy-MM-dd")   //格式化前台日期参数注解
     private Date endTime;
 
+    private String carName;
 
+    private String carImgUrl;
 }

@@ -3,8 +3,10 @@ package com.codermy.myspringsecurityplus.car.repository;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CarRecordRepository extends JpaRepository<CarRecord, Integer> {

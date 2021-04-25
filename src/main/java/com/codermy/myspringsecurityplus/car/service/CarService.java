@@ -92,6 +92,7 @@ public class CarService {
             c.setPrice(car.getPrice());//价格
             c.setDeposit(c.getDeposit());//押金
             c.setStatus("未出租");
+            c.setDeposit(car.getDeposit());//押金
             c.setCreateTime(new Date());
             c.setUpdateTime(new Date());
             c.setUserId(car.getUserId());

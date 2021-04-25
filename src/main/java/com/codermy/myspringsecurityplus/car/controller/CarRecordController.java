@@ -47,7 +47,7 @@ public class CarRecordController {
         Car car = carService.findById(carId);
         model.addAttribute("car",car);
         model.addAttribute("user",user);
-        return "detail.html";
+        return "../static/detail.html";
     }
     @GetMapping(value = "/toEdit")
     @ApiOperation(value = "修改汽车页面")
@@ -82,8 +82,8 @@ public class CarRecordController {
     @ResponseBody
     public Result addCarRecord(@RequestBody CarRecord c) throws IOException {
         //新增
-        int status = carRecordService.add(c);
-        return Result.ok().data(carRecordService.list());
+        CarRecord carRecord = carRecordService.add(c);
+        return Result.ok().data(carRecord);
 
     }
     ///编辑操作

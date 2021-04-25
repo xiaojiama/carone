@@ -1,8 +1,11 @@
 package com.codermy.myspringsecurityplus.car.controller;
 
+import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import com.codermy.myspringsecurityplus.car.service.AlipayService;
+import com.codermy.myspringsecurityplus.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +18,10 @@ public class PayController {
     private AlipayService alipayService;
 
     @RequestMapping("/pay")
-    public String payController(@RequestParam("order number") String id,@RequestParam("order name") String name,@RequestParam("payment amount") String amount ) throws Exception {
-        Integer pay=Integer.valueOf(amount);
-        String pays = alipayService.webPagePay(id, pay, name);
-        return pays;
+    public Result payController(@RequestBody CarRecord c) throws Exception {
+        String orderNum = String.valueOf(c.getId());
+        String pays = alipayService.webPagePay(orderNum,c.getRent(), c.getCarName());
+        return Result.ok().data("<div>aaaa</div>");
     }
 
 }

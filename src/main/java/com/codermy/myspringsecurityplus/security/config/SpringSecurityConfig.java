@@ -79,7 +79,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/swagger-ui.html",
                         "/webjars/**",
                         "/v2/**",
-                        "/druid/**");
+                        "/druid/**",
+                        "/upload/**",
+                        "/assets/**");
     }
 
     /**
@@ -110,7 +112,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 //任何人都能访问这个请求
-                .antMatchers("/captcha","/admin/user/register").permitAll()
+                .antMatchers("/captcha","/admin/user/register","/api/car/selectAll","/api/car/user/detail/**","/api/car/document/picture/**","/api/car/document/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

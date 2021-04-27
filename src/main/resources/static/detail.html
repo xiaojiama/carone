@@ -74,8 +74,8 @@
                 </div>
                 <div class="layui-form-item">
                     <input type="hidden" id="carId" th:value="${car.id}" name="carId" >
-                    <input type="hidden" id="customerId" th:value="${user.userId}" sec:authentication="principal.MyUser.userId" name="customerId" >
-                    <input type="hidden" id="na" th:value="${user.nickName}" sec:authentication="principal.MyUser.nickName" name="na" >
+                    <input type="hidden" id="customerId" th:value="${user.userId}"  name="customerId" >
+                    <input type="hidden" id="na" th:value="${user.nickName}"  name="na" >
                 </div>
             <div class="bottom">
                 <div class="button-container">
@@ -94,7 +94,42 @@
     </div>
 
 </form>
-<div style="display: none;" id="orderPay"></div>
+<form class="layui-form" style="display: none;" id="orderPay" action="/pay" method="post">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="layui-form-item">
+                <label class="layui-form-label"> 订单号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="order_number"  name="order_number" class="layui-input" lay-verify="required"  readonly="true">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"> 订单名称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="order_name"  name="order_name" class="layui-input" lay-verify="required"  readonly="true">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"> 付款金额</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="payment_amount"  name="payment_amount" class="layui-input" lay-verify="required"  readonly="true">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" >
+                <i class="layui-icon layui-icon-ok"></i>
+                下单
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
 <script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
 <script>
     layui.use(['upload','form','laydate','jquery'],function(){
@@ -241,7 +276,42 @@
                             parent.location.reload();
                         });*/
                         debugger
-                       goPay(result.data[0]);
+                        $("#orderData").hide();
+                        $("#orderPay").show();
+                        $("#orderPay").html('<div class="mainBox">' +
+                            '        <div class="main-container">' +
+                            '            <div class="layui-form-item">' +
+                            '                <label class="layui-form-label"> 订单号</label>' +
+                            '                <div class="layui-input-inline">' +
+                            '                    <input type="text" id="order_number"  name="order_number" class="layui-input" lay-verify="required" value="'+ result.data[0].id +'" readonly="true">' +
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="layui-form-item">' +
+                            '                <label class="layui-form-label"> 订单名称</label>' +
+                            '                <div class="layui-input-inline">' +
+                            '                    <input type="text" id="order_name"  name="order_name" class="layui-input" lay-verify="required" value="'+ result.data[0].carName +'" readonly="true">' +
+                            '                </div>' +
+                            '            </div>' +
+                            '            <div class="layui-form-item">' +
+                            '                <label class="layui-form-label"> 付款金额</label>' +
+                            '                <div class="layui-input-inline">' +
+                            '                    <input type="text" id="payment_amount"  name="payment_amount" class="layui-input" lay-verify="required" value="'+ result.data[0].rent +'" readonly="true">' +
+                            '                </div>' +
+                            '            </div>' +
+                            '        </div>' +
+                            '    </div>' +
+                            '    <div class="bottom">' +
+                            '        <div class="button-container">' +
+                            '            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" >' +
+                            '                <i class="layui-icon layui-icon-ok"></i>' +
+                            '                下单' +
+                            '            </button>' +
+                            '            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">' +
+                            '                <i class="layui-icon layui-icon-refresh"></i>' +
+                            '                重置' +
+                            '            </button>' +
+                            '        </div>' +
+                            '    </div>')
 
                     }else{
                         layer.msg(result.msg,{icon:2,time:1000});
@@ -271,24 +341,6 @@
         }
         var num = parseInt(days)*parseInt(price)+parseInt(deposit);
         $('#result').attr('value',num);
-    }
-    function goPay(data) {
-        $.ajax({
-            url:'/pay',
-            data:JSON.stringify(data),
-            dataType:'json',
-            contentType:'application/json',
-            type:'post',
-            success:function(result){
-                debugger
-                $("#orderData").hide();
-                $("#orderPay").show();
-                var str = result.data[0];
-                $("#orderPay").html(str);
-
-            }
-        })
-
     }
 </script>
 </body>

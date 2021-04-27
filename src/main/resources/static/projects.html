@@ -15,11 +15,24 @@
 	<link rel="stylesheet" type="text/css" href="assets/css/isotope.css" media="screen" />
 	<link rel="stylesheet" href="assets/js/fancybox/jquery.fancybox.css" type="text/css" media="screen" />
 	<link rel="stylesheet" href="assets/css/style.css">
+	<link rel="stylesheet" href="component/layui/css/layui.css">
+	<link rel="stylesheet" href="component/pear/css/pear.css">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
 	<script src="assets/js/html5shiv.js"></script>
 	<script src="assets/js/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		img{
+			width: 360px;
+			height: 270px;
+			object-fit: scale-down;
+			background-size:contain;
+		}
+		#search {
+			background-color: #FF822F !important;
+		}
+	</style>
 </head>
 
 <body>
@@ -34,10 +47,10 @@
 			</div>
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-nav pull-right mainNav">
-					<li><a href="index.html">Home</a></li>
-					<li><a href="about.html">About</a></li>
-						<li><a href="services.html">Services</a></li>
-					<li><a href="price.html">Price</a></li>
+					<li><a href="index.html">首页</a></li>
+					<li><a href="about.html">关于我们</a></li>
+					<li><a href="services.html">Services</a></li>
+					<!--<li><a href="price.html">Price</a></li>-->
 					<li class="active"><a href="projects.html">Projects</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
@@ -73,11 +86,73 @@
 				<section id="portfolio" class="page-section section appear clearfix">
 					<br />
 					<br />
-					<p>
-						At lorem Ipsum available, but the majority have suffered alteration in some form by injected huffered altehe majority have suffered alteration in some form by injected huffered alteration in some form by injected humour.uffered alteration in some form by injected h
-					<br />
-						<br />
-					</p>
+					<div class="col-md-12">
+						<div class="layui-card">
+						<div class="layui-card-body">
+							<form class="layui-form" action="">
+								<div class="layui-form-item">
+									<div class="layui-form-item">
+										<label class="layui-form-label"><span style="color: red">*</span>选择地区</label>
+										<div class="layui-input-inline">
+											<select id="provinceId" name="provinceId" lay-filter="provinceId">
+												<option value="">请选择省</option>
+											</select>
+										</div>
+										<div class="layui-input-inline" >
+											<select id="cityId" name="cityId" lay-filter="cityId" >
+												<option value="">请选择市</option>
+											</select>
+										</div>
+										<div class="layui-input-inline">
+											<select id="locationId" name="locationId" lay-filter="locationId">
+												<option value="">请选择门店</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="layui-form-item">
+										<label class="layui-form-label">汽车类型</label>
+										<div class="layui-input-block">
+											<select name="typeId" id="typeId" >
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+									<div id="slideTest10" class="demo-slider"></div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">单价/天</label>
+										<div class="layui-input-block">
+											<input type="text" id="price" name="price" required="" lay-verify="price" autocomplete="off" class="layui-input">
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">汽车品牌</label>
+										<div class="layui-input-block">
+											<select name="brandId" id="brandId" >
+												<option value="">请选择</option>
+											</select>
+										</div>
+									</div>
+									<div class="layui-form-item">
+										<label class="layui-form-label">汽车名称</label>
+										<div class="layui-input-inline">
+											<input type="text" name="realName" placeholder="" class="layui-input">
+										</div>
+									</div>
+
+									<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="role-query">
+										<i class="layui-icon layui-icon-search" id="search"></i>
+										查询
+									</button>
+									<button type="reset" class="pear-btn pear-btn-md">
+										<i class="layui-icon layui-icon-refresh"></i>
+										重置
+									</button>
+								</div>
+							</form>
+						</div>
+					</div></div>
+
 
 
 					<div class="row">
@@ -90,127 +165,8 @@
 							</ul>
 						</nav>
 						<div class="col-md-12">
-							<div class="row">
-								<div class="portfolio-items isotopeWrapper clearfix" id="3">
+							<div class="row"  id="carList">
 
-									<article class="col-sm-4 isotopeItem webdesign">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img1.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img1.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem photography">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img2.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img2.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-
-									<article class="col-sm-4 isotopeItem photography">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img3.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img3.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem print">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img4.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img4.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem photography">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img5.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img5.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem webdesign">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img6.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="assets/images/portfolio/img6.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem print">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img7.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="images/portfolio/img7.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem photography">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img8.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="images/portfolio/img8.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-
-									<article class="col-sm-4 isotopeItem print">
-										<div class="portfolio-item">
-											<img src="assets/images/portfolio/img9.jpg" alt="" />
-											<div class="portfolio-desc align-center">
-												<div class="folio-info">
-													<a href="images/portfolio/img9.jpg" class="fancybox">
-														<h5>Project Title</h5>
-														<i class="fa fa-link fa-2x"></i></a>
-												</div>
-											</div>
-										</div>
-									</article>
-								</div>
 
 							</div>
 
@@ -225,44 +181,7 @@
 	</section>
 	<!-- /container -->
 
-	 <section class="btm-section secpadding">
-	  <div class="container">
-      <div class="row">
-      	    <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">New Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-        
-        <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Large Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-         <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Our Clients</h3></div> 
-            <blockquote class="blockquote-1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid</p>
-					<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-				</blockquote></div>
-         
-      </div></div>
-      </section>
-      
-    	 
+
     <footer id="footer">
 	 
 		<div class="footer2">
@@ -296,14 +215,164 @@
 		</div>
 	</footer>
 
+	<script type='text/javascript' src='assets/js/jquery.min.js'></script>
+	<script type='text/javascript' src='assets/js/fancybox/jquery.fancybox.pack.js'></script>
 
+	<script type='text/javascript' src='assets/js/jquery.mobile.customized.min.js'></script>
+	<script type='text/javascript' src='component/layui/layui.js'></script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/custom.js"></script>
 
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 	<script src="assets/js/jquery.cslider.js"></script>
 	<script src="assets/js/jquery.isotope.min.js"></script>
-	<script src="assets/js/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
 	<script src="assets/js/custom.js"></script>
+	<script>
+		layui.use(['slider','form','jquery'],function(){
+			getCarType();
+			getCarBrand();
+			getProvince();
+			let form = layui.form;
+			let $ = layui.jquery;
+			var slider = layui.slider;
+			slider.render({
+				elem: '#slideTest10'
+				,value: [30, 60] //初始值
+				,range: true //范围选择
+			});
+			form.on('submit(car-save)', function(data){
+				var datas = data.field;
+				$.ajax({
+					url:'/api/car/add',
+					data:JSON.stringify(datas),
+					dataType:'json',
+					contentType:'application/json',
+					type:'post',
+					success:function(result){
+						if(result.success){
+							layer.msg(result.msg,{icon:1,time:1000},function(){
+								parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+								parent.location.reload();
+							});
+						}else{
+							layer.msg(result.msg,{icon:2,time:1000});
+						}
+					}
+				})
+				return false;
+			});
+			form.on('select(provinceId)',function(data){
+				debugger
+				var provinceId = data.value;
+				$.ajax({
+					url:'/api/car/city/'+provinceId,
+					success:function(res){
+						if(res.success){
+							for(var i =0;i<res.data.length;i++){
+								$("#cityId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+							}
+							//重新渲染
+							layui.form.render("select");
+						}else{
+							layer.msg(res.message);
+						}
+					}
+				})
+			});
+			form.on('select(cityId)',function(data){
+				debugger
+				var cityId = data.value;
+				$.ajax({
+					url:'/api/car/location/'+cityId,
+					success:function(res){
+						if(res.success){
+							for(var i =0;i<res.data.length;i++){
+								$("#locationId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+							}
+							//重新渲染
+							layui.form.render("select");
+						}else{
+							layer.msg(res.message);
+						}
+					}
+				})
+			});
+		})
+		function getCarType(){
+			jQuery.ajax({
+				url:'/api/car/type',
+				success:function(res){
+					if(res.success){
+						for(var i =0;i<res.data.length;i++){
+							jQuery("#typeId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+						}
+						//重新渲染
+						layui.form.render("select");
+					}else{
+						layer.msg(res.message);
+					}
+				}
+			});
+		}
+		function getCarBrand(){
+			jQuery.ajax({
+				url:'/api/car/brand',
+				success:function(res){
+					if(res.success){
+						for(var i =0;i<res.data.length;i++){
+							jQuery("#brandId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+						}
+						//重新渲染
+						layui.form.render("select");
+					}else{
+						layer.msg(res.message);
+					}
+				}
+			});
+		}
+		function getProvince(){
+			debugger
+			jQuery.ajax({
+				url:'/api/car/province',
+				success:function(res){
+					if(res.success){
+						for(var i =0;i<res.data.length;i++){
+							jQuery("#provinceId").append("<option value=\""+res.data[i].id+"\">"+res.data[i].name+"</option>");
+						}
+						//重新渲染
+						layui.form.render("select");
+					}else{
+						layer.msg(res.message);
+					}
+				}
+			});
+		}
+
+		jQuery.ajax({
+			url:'/api/car/selectAll',
+			dataType:'json',
+			type:'get',
+			success:function(result){
+				var str='';
+				for(var i =0;i<result.data.length;i++){
+					str+='<article class="col-sm-4 isotopeItem webdesign"> ' +
+							'<div class="portfolio-item"> ' +
+							'<img src="/image/'+result.data[i].imgUrl+'"  alt="" /> ' +
+							'<div class="portfolio-desc align-center"> ' +
+							'<div class="folio-info"> ' +
+							'<a href="/image/'+result.data[i].imgUrl+'"  class="fancybox"> ' +
+							'<h5>$'+result.data[i].price+'</h5> ' +
+							'<i class="fa fa-link fa-2x"></i></a> </div> </div> </div> ' +
+							'<div class="caption"> ' +
+							'<h4 align="center"> <a href="/api/car/user/detail/'+result.data[i].id+'">'+result.data[i].name+' </a> </h4> ' +
+							'</div> ' +
+							'</article>';
+
+
+				}
+				jQuery("#carList").html('<div class="portfolio-items isotopeWrapper clearfix">'+str+'</div>');
+			}
+		})
+	</script>
 </body>
 </html>

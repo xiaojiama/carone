@@ -3,13 +3,17 @@ package com.codermy.myspringsecurityplus.car.repository;
 import com.codermy.myspringsecurityplus.car.entity.Car;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.lang.Nullable;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
-public interface CarRepository extends JpaRepository<Car, Integer> {
+public interface CarRepository extends JpaRepository<Car, Integer> , JpaSpecificationExecutor<Car> {
     /**
      * 根据汽车id获得汽车
      *
@@ -36,5 +40,7 @@ public interface CarRepository extends JpaRepository<Car, Integer> {
      Optional<Car> deleteById(Long id);
      //分页展示
      Page<Car> findAll(Pageable pageable);
+
+
 
 }

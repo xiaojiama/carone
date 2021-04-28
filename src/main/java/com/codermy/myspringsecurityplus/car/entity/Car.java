@@ -77,6 +77,12 @@ public class Car{
     //不存入表
     @Transient
     private int locationId;
+    //不存入表
+    @Transient
+    private Integer minPrice;
+    //不存入表
+    @Transient
+    private Integer maxPrice;
 
     @Override
     public String toString() {

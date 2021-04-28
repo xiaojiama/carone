@@ -202,6 +202,16 @@ public class CarController {
 
         return map;
     }
+    //  多条件查询
+    @PostMapping("/query")
+    @ResponseBody
+    public Result queryCar(@RequestBody Car c){
+        //新增
+        List<Car> carList = carService.findByCondition(c);
+
+        return Result.ok().data(carList);
+
+    }
     //  新增操作
     @PostMapping("/add")
     @ResponseBody

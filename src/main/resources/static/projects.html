@@ -32,6 +32,9 @@
 		#search {
 			background-color: #FF822F !important;
 		}
+		#slideTest10{
+			padding: 15px 0px;
+		}
 	</style>
 </head>
 
@@ -49,9 +52,8 @@
 				<ul class="nav navbar-nav pull-right mainNav">
 					<li><a href="index.html">首页</a></li>
 					<li><a href="about.html">关于我们</a></li>
-					<li><a href="services.html">Services</a></li>
 					<!--<li><a href="price.html">Price</a></li>-->
-					<li class="active"><a href="projects.html">Projects</a></li>
+					<li class="active"><a href="projects.html">汽车展示</a></li>
 					<li class="dropdown">
 						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
 						<ul class="dropdown-menu">
@@ -61,7 +63,8 @@
 							<li><a href="#">Dummy Link3</a></li>
 						</ul>
 					</li>
-					<li><a href="contact.html">Contact</a></li>
+					<li><a href="personal.html">个人中心</a></li>
+					<li><a href="order.html">订单管理</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
@@ -88,89 +91,82 @@
 					<br />
 					<div class="col-md-12">
 						<div class="layui-card">
-						<div class="layui-card-body">
-							<form class="layui-form" action="">
-								<div class="layui-form-item">
+							<div class="layui-card-body">
+								<form class="layui-form" action="">
 									<div class="layui-form-item">
-										<label class="layui-form-label"><span style="color: red">*</span>选择地区</label>
-										<div class="layui-input-inline">
-											<select id="provinceId" name="provinceId" lay-filter="provinceId">
-												<option value="">请选择省</option>
-											</select>
+										<div class="col-md-6">
+											<div class="layui-form-item">
+												<label class="layui-form-label" style="width: 100px">门店</label>
+												<div class="layui-input-block" style="margin-bottom: 10px">
+													<select id="provinceId" name="provinceId" lay-filter="provinceId">
+														<option value="">请选择省</option>
+													</select>
+												</div>
+												<div class="layui-input-block" style="margin-bottom: 10px">
+													<select id="cityId" name="cityId" lay-filter="cityId" >
+														<option value="">请选择市</option>
+													</select>
+												</div>
+												<div class="layui-input-block" style="margin-bottom: 10px">
+													<select id="locationId" name="locationId" lay-filter="locationId">
+														<option value="">请选择门店</option>
+													</select>
+												</div>
+											</div>
 										</div>
-										<div class="layui-input-inline" >
-											<select id="cityId" name="cityId" lay-filter="cityId" >
-												<option value="">请选择市</option>
-											</select>
-										</div>
-										<div class="layui-input-inline">
-											<select id="locationId" name="locationId" lay-filter="locationId">
-												<option value="">请选择门店</option>
-											</select>
-										</div>
-									</div>
+										<div class="col-md-6">
+											<div class="layui-form-item">
+												<label class="layui-form-label" style="width: 100px">汽车类型</label>
+												<div class="layui-input-block">
+													<select name="typeId" id="typeId" >
+														<option value="">请选择</option>
+													</select>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<label class="layui-form-label" style="width: 100px">汽车品牌</label>
+												<div class="layui-input-block">
+													<select name="brandId" id="brandId" >
+														<option value="">请选择</option>
+													</select>
+												</div>
+											</div>
+											<div class="layui-form-item">
+												<label class="layui-form-label">单价/天</label>
+												<div class="layui-input-block">
+													<div id="slideTest10" class="demo-slider"></div>
+												</div>
 
-									<div class="layui-form-item">
-										<label class="layui-form-label">汽车类型</label>
-										<div class="layui-input-block">
-											<select name="typeId" id="typeId" >
-												<option value="">请选择</option>
-											</select>
+											</div>
 										</div>
-									</div>
-									<div id="slideTest10" class="demo-slider"></div>
-									<div class="layui-form-item">
-										<label class="layui-form-label">单价/天</label>
-										<div class="layui-input-block">
-											<input type="text" id="price" name="price" required="" lay-verify="price" autocomplete="off" class="layui-input">
+										<div style="text-align:center">
+											<button  class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="car-query" id="search">
+												<i class="layui-icon layui-icon-search" ></i>
+												查询
+											</button>
+											<button type="reset" class="pear-btn pear-btn-md">
+												<i class="layui-icon layui-icon-refresh"></i>
+												重置
+											</button>
 										</div>
-									</div>
-									<div class="layui-form-item">
-										<label class="layui-form-label">汽车品牌</label>
-										<div class="layui-input-block">
-											<select name="brandId" id="brandId" >
-												<option value="">请选择</option>
-											</select>
-										</div>
-									</div>
-									<div class="layui-form-item">
-										<label class="layui-form-label">汽车名称</label>
-										<div class="layui-input-inline">
-											<input type="text" name="realName" placeholder="" class="layui-input">
-										</div>
-									</div>
 
-									<button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="role-query">
-										<i class="layui-icon layui-icon-search" id="search"></i>
-										查询
-									</button>
-									<button type="reset" class="pear-btn pear-btn-md">
-										<i class="layui-icon layui-icon-refresh"></i>
-										重置
-									</button>
-								</div>
-							</form>
+										<div>
+											<input type="hidden" name="minPrice" placeholder="" id="minPrice">
+											<input type="hidden" name="maxPrice" placeholder="" id="maxPrice">
+										</div>
+
+									</div>
+								</form>
+							</div>
 						</div>
-					</div></div>
-
-
+					</div>
 
 					<div class="row">
-						<nav id="filter" class="col-md-12 text-center">
-							<ul>
-								<li><a href="#" class="current btn-theme btn-small" data-filter="*">All</a></li>
-								<li><a href="#" class="btn-theme btn-small" data-filter=".webdesign">Villas</a></li>
-								<li><a href="#" class="btn-theme btn-small" data-filter=".photography">Shopping Mall</a></li>
-								<li><a href="#" class="btn-theme btn-small" data-filter=".print">Township</a></li>
-							</ul>
-						</nav>
 						<div class="col-md-12">
 							<div class="row"  id="carList">
 
 
 							</div>
-
-
 						</div>
 					</div>
 
@@ -180,8 +176,6 @@
 
 	</section>
 	<!-- /container -->
-
-
     <footer id="footer">
 	 
 		<div class="footer2">
@@ -193,10 +187,10 @@
 							<p class="simplenav">
 								<a href="index.html">Home</a> |
 								<a href="about.html">About</a> |
-								<a href="services.html">Services</a> |
+								<a href="order.html">Services</a> |
 								<a href="price.html">Price</a> |
 								<a href="projects.html">Projects</a> |
-								<a href="contact.html">Contact</a>
+								<a href="personal.html">Contact</a>
 							</p>
 						</div>
 					</div>
@@ -237,8 +231,45 @@
 			var slider = layui.slider;
 			slider.render({
 				elem: '#slideTest10'
-				,value: [30, 60] //初始值
+				,max:1000
+				,min:0
+				,step:10
+				,value: [200, 600] //初始值
 				,range: true //范围选择
+				,change: function(value){
+					$("#minPrice").val(value[0]);//得到开始值
+					$("#maxPrice").val(value[1]);//得到结尾值
+				}
+			});
+			form.on('submit(car-query)', function(data){
+				var datas = data.field;
+				$.ajax({
+					url:'/api/car/query',
+					data:JSON.stringify(datas),
+					dataType:'json',
+					contentType:'application/json',
+					type:'post',
+					success:function(result){
+						debugger
+						var str='';
+						for(var i =0;i<result.data.length;i++){
+							str+='<article class="col-sm-4 isotopeItem webdesign"> ' +
+									'<div class="portfolio-item"> ' +
+									'<img src="/image/'+result.data[i].imgUrl+'"  alt="" /> ' +
+									'<div class="portfolio-desc align-center"> ' +
+									'<div class="folio-info"> ' +
+									'<a href="/image/'+result.data[i].imgUrl+'"  class="fancybox"> ' +
+									'<h5>$'+result.data[i].price+'</h5> ' +
+									'<i class="fa fa-link fa-2x"></i></a> </div> </div> </div> ' +
+									'<div class="caption"> ' +
+									'<h4 align="center"> <a href="/api/car/user/detail/'+result.data[i].id+'">'+result.data[i].name+' </a> </h4> ' +
+									'</div> ' +
+									'</article>';
+						}
+						$("#carList").html('<div class="portfolio-items isotopeWrapper clearfix">'+str+'</div>');
+					}
+				})
+				return false;
 			});
 			form.on('submit(car-save)', function(data){
 				var datas = data.field;

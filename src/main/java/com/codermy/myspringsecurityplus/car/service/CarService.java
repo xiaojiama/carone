@@ -1,5 +1,6 @@
 package com.codermy.myspringsecurityplus.car.service;
 
+import com.mysql.cj.util.StringUtils;
 import com.codermy.myspringsecurityplus.car.entity.*;
 import com.codermy.myspringsecurityplus.car.repository.*;
 import org.springframework.data.domain.Page;
@@ -9,6 +10,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -171,6 +174,29 @@ public class CarService {
             carRepository.deleteById(c.getId());
             return 0;
         }
+
+    }
+    public List<Car> findByCondition(Car car){
+        return carRepository.findAll((root, criteriaQuery, criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<Predicate>();
+
+            if (!StringUtils.isNullOrEmpty(car.getName())) {             //汽车名称
+                predicates.add(criteriaBuilder.like(root.get("name"),"%"+car.getName()+"%"));
+            }
+            if (car.getBrandId()!=0) {             //汽车品牌
+                predicates.add(criteriaBuilder.equal(root.<String> get("carBrand").<String> get("id"), car.getBrandId()));
+            }
+            if (car.getTypeId()!=0) {             //汽车类型
+                predicates.add(criteriaBuilder.equal(root.<String> get("carType").<String> get("id"), car.getTypeId()));
+            }
+            if (car.getLocationId()!=0) {             //汽车门店
+                predicates.add(criteriaBuilder.equal(root.<String> get("location").<String> get("id"), car.getLocationId()));
+            }
+            if (car.getMaxPrice()!=null&&car.getMaxPrice()!=null) {          //日租金
+                predicates.add(criteriaBuilder.between(root.get("price"), car.getMinPrice(), car.getMaxPrice()));
+            }
+            return criteriaQuery.where(predicates.toArray(new Predicate[predicates.size()])).getRestriction();
+        });
 
     }
 

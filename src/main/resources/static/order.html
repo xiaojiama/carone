@@ -17,6 +17,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<link rel="stylesheet" href="assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="assets/css/font-awesome.min.css">
 	<!-- Custom styles for our template -->
+
+	<link rel="stylesheet" href="component/layui/css/layui.css">
 	<link rel="stylesheet" href="assets/css/bootstrap-theme.css" media="screen">
 	<link rel="stylesheet" href="assets/css/style.css">
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -41,16 +43,8 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 					<li><a href="index.html">首页</a></li>
 					<li><a href="about.html">关于我们</a></li>
 					<!--<li><a href="price.html">Price</a></li>-->
-					<li><a href="projects.html">Projects</a></li>
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Pages <b class="caret"></b></a>
-						<ul class="dropdown-menu">
-							<li><a href="sidebar-right.html">Right Sidebar</a></li>
-							<li><a href="#">Dummy Link1</a></li>
-							<li><a href="#">Dummy Link2</a></li>
-							<li><a href="#">Dummy Link3</a></li>
-						</ul>
-					</li>
+					<li><a href="projects.html">所有产品</a></li>
+
 					<li><a href="personal.html">个人中心</a></li>
 					<li  class="active"><a href="order.html">订单管理</a></li>
 				</ul>
@@ -69,188 +63,12 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 		</div>
 	</header>
-	<div id="courses">
-		<section class="container">
-			<h3>Constructions</h3>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-cogs fa-2x"></i>
-						<div class="text">
-							<h3>Responsive Design</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-leaf fa-2x"></i>
-						<div class="text">
-							<h3>HTML5/CSS3</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-tachometer fa-2x"></i>
-						<div class="text">
-							<h3>Web Designing</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-eye fa-2x"></i>
-						<div class="text">
-							<h3>Web App Dev</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-quote-right fa-2x"></i>
-						<div class="text">
-							<h3>Data Base</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="featured-box">
-						<i class="fa fa-arrows fa-2x"></i>
-						<div class="text">
-							<h3>Mobile App Dev</h3>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-						</div>
-					</div>
-				</div>
-			</div>
 
-		</section>
-	</div>
-	<!-- container -->
-	<div class="container">
-		<div class="row">
-			<!-- Article content -->
-			<section class="col-sm-12 maincontent">
-				<h3>Responsive Website</h3>
-				<p>
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-				</p>
-				<h3>Bootstrap</h3>
-				<p>Standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-			</section>
+	<div class="layui-card">
+		<div class="layui-card-body">
+			<table id="car-record-table" lay-filter="car-record-table"></table>
 		</div>
-		<div class="row offs1">
-
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="thumbnail thumbnail4">
-                            <img src="assets/images/news2.jpg" alt="">
-
-                            <div class="caption">
-                                <h4>
-                                    <a href="#">
-                                        Aliquam eu aliquet quam
-                                    </a>
-                                </h4>
-
-                                <p>
-                                    Souvlaki ignitus carborundum e pluribus unumfacto lingo est igpay atinlay arquee
-                                    selectus. non provisio incongruous feline nolo contendre. Gratuitous octopus niacin,
-                                    sodium glutimate. Quote meon
-                                </p>
-                                <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="thumbnail thumbnail4">
-                            <img src="assets/images/news3.jpg" alt="">
-
-                            <div class="caption">
-                                <h4>
-                                    <a href="#">
-                                        Factorial non deposit
-                                    </a>
-                                </h4>
-
-                                <p>
-                                    Enumfacto lingo est igpay atinlay arquee selectus.
-                                    non provisio incongruous feline nolo contendre. Grat uitous octopus niacin, sodium
-                                    glutimate. Quote meon an estimate et non interruptus stad
-                                </p>
-                                <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="thumbnail thumbnail4">
-                            <img src="assets/images/news4.jpg" alt="">
-
-                            <div class="caption">
-                                <h4>
-                                    <a href="#">
-                                        Deposit quid proquo
-                                    </a>
-                                </h4>
-
-                                <p>
-                                    Arquee selectus non provisio incongruous feline nolo contendre. Gratuitous octopus
-                                    niacin, sodium gluti mate. Quote meon an estimate et non interruptus stad ium. Sic
-                                    tempus fugit esperanto
-                                </p>
-                                <a href="#" data-title="Read More" class="btn-link"><span>Read More</span></a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
 	</div>
-	<!-- /container -->
-
-	 <section class="btm-section secpadding">
-	  <div class="container">
-      <div class="row">
-      	    <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">New Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-        
-        <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Large Projects</h3></div> 
-            <div class="list styled custom-list">
-            <ul>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">Singapore Township</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">Mega luxury Villas</a></li>
-            <li><a title="Penatibus et magnis dis parturient montes ascetur ridiculus mus." href="#">RNT Commercial Shopping Mall</a></li>
-            <li><a title="Morbi nunc odio gravida at cursus nec luctus a lorem. Maecenas tristique orci." href="#">SVN Independent & Duplex Houses</a></li>
-            <li><a title="Snatoque penatibus et magnis dis partu rient montes ascetur ridiculus mus." href="#">World wide IT park</a></li>
-            <li><a title="Fusce feugiat malesuada odio. Morbi nunc odio gravida at cursus nec luctus." href="#">North Arena SNT Township</a></li>
-            </ul>
-            </div>
-         </div>
-         <div class="col-md-4"><div class="title-box clearfix "><h3 class="title-box_primary">Our Clients</h3></div> 
-            <blockquote class="blockquote-1">
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante. Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid</p>
-					<small>Someone famous in <cite title="Source Title">Source Title</cite></small>
-				</blockquote></div>
-         
-      </div></div>
-      </section>
-      
-    	 
     <footer id="footer">
 	 
 		<div class="footer2">
@@ -288,8 +106,100 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 
 	<!-- JavaScript libs are placed at the end of the document so the pages load faster -->
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-	<script src="assets/js/custom.js"></script>
+	<script type='text/javascript' src='assets/js/jquery.min.js'></script>
+	<script src="component/layui/layui.js"></script>
+	<script type="text/html" id="car-bar">
+		<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
+	</script>
+	<script>
+		layui.use(['table','form','jquery'],function () {
+			let table = layui.table;
+			let form = layui.form;
+			let $ = layui.jquery;
+
+			let MODULE_PATH = "operate/";
+
+			let cols = [
+				[
+					{title: "编号", field: "id", align:'center', width:80},
+					{title: "汽车名称", field: "carName", align:'center', width:100},
+					{title: "开始时间", field: "createTime", align:'center', width:100},
+					{title: "结束时间", field: "endTime", align:'center', width:100},
+					{title: "租赁时长/天", field: "timeLong", align:'center', width:100},
+					{title: "押金", field: "deposit", align:'center', width:100},
+					{title: "租金", field: "rent", align:'center', width:100},
+					{title: "订单状态", field: "status", align:'center', width:100},
+					/*{title: '图片', field: 'carImgUrl', align:'center',templet: function (d) {
+                            return "<div onclick='showBigImage(this)'><img src=\"/image/" + d.imgUrl + "\"  style=\"width: 40px\" lay-event=\"showPic\" ></div>";}},*/
+					{title: '操作', toolbar: '#car-bar', align:'center', width:100}
+				]
+			]
+			var tableIns = table.render({
+				elem: '#car-record-table',
+				url: '/api/carRecord/selectByCustomerId/'+1,
+				page: true ,
+				cols: cols ,
+				skin: 'line',
+				toolbar: '#car-toolbar',
+				defaultToolbar: [{
+					layEvent: 'refresh',
+					icon: 'layui-icon-refresh',
+				}, 'filter', 'print', 'exports']
+			});
+			table.on('tool(car-record-table)', function(obj){
+				if(obj.event === 'remove'){
+					window.remove(obj);
+				} else if(obj.event === 'edit'){
+					window.edit(obj);
+				}
+			});
+			table.on('toolbar(car-record-table)', function(obj){
+				if(obj.event === 'add'){
+					window.add();
+				} else if(obj.event === 'refresh'){
+					window.refresh();
+				} else if(obj.event === 'batchRemove'){
+					window.batchRemove(obj);
+				}
+			});
+
+			form.on('submit(brand-query)', function(data){
+				var formData = data.field;
+				var name = formData.name;
+				tableIns.reload({
+					page: {
+						curr: 1 //重新从第 1 页开始
+					}
+					, where: {//这里传参  向后台
+						queryName: name,
+						//可传多个参数到后台...  ，分隔
+					}
+					, url: '/api/carRecord/selectByName/'+name//后台做模糊搜索接口路径
+					, method: 'get'
+				});
+				return false;
+			});
+
+			form.on('switch(role-status)', function(obj){
+				layer.tips(this.value + ' ' + this.name + '：'+ obj.elem.checked, obj.othis);
+			});
+
+			window.edit = function(obj){
+				var data = obj.data;
+				layer.open({
+					type: 2,
+					title: '修改',
+					shade: 0.1,
+					area: ['500px', '300px'],
+					content: '/api/carRecord/toEdit/?id='+data.id
+				});
+			}
+			window.refresh = function(){
+				table.reload('car-record-table');
+			}
+
+		})
+
+	</script>
 </body>
 </html>

@@ -58,17 +58,24 @@ public class CarRecordController {
     //查询所有操作
     @GetMapping("/selectAll")
     @ResponseBody
-    public Result listResource() {
-        List<CarRecord> CarRecordList = carRecordService.list();
+    public Result list() {
+        List<Object> CarRecordList = carRecordService.list();
 
         return Result.ok().code(0).data(CarRecordList);
     }
 
     //  根据id查询操作
     @GetMapping("/selectById/{id}")
-    public Result getResourceId(@PathVariable("id") Long id){
+    public Result getId(@PathVariable("id") Long id){
         CarRecord r = carRecordService.findById(id);
         return  Result.ok().data((List) r);
+    }
+    //  根据顾客id查询操作
+    @GetMapping("/selectByCustomerId/{id}")
+    @ResponseBody
+    public Result getCustomerId(@PathVariable("id") Long id){
+        List<Object> r = carRecordService.findByCustomerId(id);
+        return  Result.ok().code(0).data( r);
     }
     /*//  根据name查询操作
     @GetMapping("/selectByName")

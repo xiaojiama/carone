@@ -3,6 +3,7 @@ package com.codermy.myspringsecurityplus.car.controller;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.codermy.myspringsecurityplus.car.config.AlipayConfig;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
+import com.codermy.myspringsecurityplus.car.repository.CarRecordRepository;
 import com.codermy.myspringsecurityplus.car.service.AlipayService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,6 +26,9 @@ public class PayController {
     @Autowired
     @Qualifier("alipayService")
     private AlipayService alipayService;
+    @Resource
+    private CarRecordRepository crRepository;
+
 
     @RequestMapping("/pay")
     public String payController(@RequestParam("order_number") String id,
@@ -69,8 +74,9 @@ public class PayController {
             //付款金额
             String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 
-            // 修改叮当状态，改为 支付成功，已付款; 同时新增支付流水
-            //寰呮坊鍔爋rderService.updateOrderStatus(out_trade_no, trade_no, total_amount);
+            // 修改叮当状态，改为 支付成功，已付款; 同时修改汽车状态
+            crRepository.updateStatusById("已支付", out_trade_no);
+            crRepository.updateCarStatusByCarRecordId("已出租",out_trade_no);
 
 
             //Orders order = orderService.getOrderById(out_trade_no);
@@ -88,8 +94,7 @@ public class PayController {
             mv.addObject("flag", "success");
 
         }else {
-            //log.info("鏀粯, 楠岀澶辫触...");
-            System.out.println("鏀粯, 楠岀澶辫触...");
+            System.out.println("未知错误");
         }
 
         return mv;

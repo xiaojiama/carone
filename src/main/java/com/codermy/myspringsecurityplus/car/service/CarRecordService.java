@@ -7,8 +7,7 @@ import com.codermy.myspringsecurityplus.car.repository.CarRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CarRecordService {
@@ -18,8 +17,32 @@ public class CarRecordService {
     private CarRepository carRepository;
 
     //查询全部内容
-    public List<CarRecord> list(){
-        return  carRecordRepository.findAll();
+    public List<Object> list(){
+        List<Object> result = carRecordRepository.findCarRecords();
+        List<Object> list = new ArrayList<>();
+        for (Object row : result) {
+            Object[] rowArray = (Object[]) row;
+            Map<String, Object> mapArr = new HashMap<String, Object>();
+            mapArr.put("id", rowArray[0]);
+            mapArr.put("customerId", rowArray[1]);
+            mapArr.put("carId", rowArray[2]);
+            mapArr.put("timeLong", rowArray[3]);
+            mapArr.put("status", rowArray[4]);
+            mapArr.put("deposit", rowArray[5]);
+            mapArr.put("name", rowArray[6]);
+            mapArr.put("phone", rowArray[7]);
+            mapArr.put("identity", rowArray[8]);
+            mapArr.put("price", rowArray[9]);
+            mapArr.put("rent", rowArray[10]);
+            mapArr.put("userId", rowArray[11]);
+            mapArr.put("createTime", rowArray[12]);
+            mapArr.put("endTime", rowArray[13]);
+            mapArr.put("carName", rowArray[14]);
+            mapArr.put("carImgUrl", rowArray[15]);
+            mapArr.put("userName", rowArray[16]);
+            list.add(mapArr);
+        }
+        return list;
     }
 
     //根据id查询
@@ -27,7 +50,11 @@ public class CarRecordService {
         Optional<CarRecord> r = carRecordRepository.findById(id);
         return r.orElse(null);//存在返回值，不存在返回null
     }
-
+    //根据顾客id查询
+    public List<Object> findByCustomerId(Long id) {
+        List<Object> r = carRecordRepository.findByCustomerId(id);
+        return r;
+    }
     //根据name查询
    /* public CarRecord findByName(String number) {
         Optional<CarRecord> r = carRecordRepository.findByName(number);
@@ -54,7 +81,7 @@ public class CarRecordService {
         c.setCarName(car.get().getName());
         c.setCarImgUrl(car.get().getImgUrl());
         c.setTimeLong(days);//租赁时长
-        c.setStatus(cr.getStatus());//此订单状态 进行中，申请中，已完成
+        c.setStatus("申请中");//此订单状态 进行中，申请中，已完成
         c.setDeposit(cr.getDeposit());//押金
         c.setName(cr.getName());//真实名称
         c.setPhone(cr.getPhone());//电话

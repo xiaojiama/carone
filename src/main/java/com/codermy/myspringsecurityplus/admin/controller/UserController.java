@@ -13,10 +13,13 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author codermy
@@ -131,5 +134,13 @@ public class UserController {
     public Result deleteUser(Integer userId){
         int count = userService.deleteUser(userId);
         return Result.judge(count,"删除用户");
+    }
+    //  根据id查询操作
+    @GetMapping("/selectUser")
+    @ResponseBody
+    public Result getResourceId(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        MyUser user = userService.getUserByName(name);
+        return  Result.ok().data(user);
     }
 }

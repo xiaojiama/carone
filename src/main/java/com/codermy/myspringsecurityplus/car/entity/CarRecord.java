@@ -33,7 +33,7 @@ public class CarRecord {
     /**
      * 此订单状态 进行中，申请中，已完成
      */
-    private int status;
+    private String status;
 
     /**
      * 押金

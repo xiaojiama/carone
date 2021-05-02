@@ -4,6 +4,10 @@ import com.codermy.myspringsecurityplus.car.entity.Car;
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
 import com.codermy.myspringsecurityplus.car.repository.CarRecordRepository;
 import com.codermy.myspringsecurityplus.car.repository.CarRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -51,8 +55,16 @@ public class CarRecordService {
         return r.orElse(null);//存在返回值，不存在返回null
     }
     //根据顾客id查询
-    public List<Object> findByCustomerId(Long id) {
-        List<Object> r = carRecordRepository.findByCustomerId(id);
+    public Page<CarRecord> findByCustomerId(int customerId,String status,int page, int limit, String sortType) {
+        //判断排序类型及排序字段
+        Sort sort = "ascending".equals(sortType) ? Sort.by("id").ascending() : Sort.by("id").descending();
+        Pageable pageable = PageRequest.of(page-1,limit, sort);
+        Page<CarRecord> r = null;
+        if(status.equals("null")){
+            r = carRecordRepository.findByCustomerId(customerId,pageable);
+        }else{
+            r = carRecordRepository.findByCustomerIdAndStatus(customerId,status,pageable);
+        }
         return r;
     }
     //根据name查询
@@ -73,15 +85,15 @@ public class CarRecordService {
     public CarRecord add(CarRecord cr) {
         Optional<Car> car = carRepository.findById(cr.getCarId());
         long endTime = cr.getEndTime().getTime();
-        long createTime = cr.getCreateTime().getTime();
-        int days = (int) ((endTime - createTime) / (1000*3600*24));
+        long startTime = cr.getStartTime().getTime();
+        int days = (int) ((endTime - startTime) / (1000*3600*24));
         CarRecord c = new CarRecord();
         c.setCustomerId(cr.getCustomerId());//客户Id
         c.setCarId(cr.getCarId());//汽车Id
         c.setCarName(car.get().getName());
         c.setCarImgUrl(car.get().getImgUrl());
         c.setTimeLong(days);//租赁时长
-        c.setStatus("申请中");//此订单状态 进行中，申请中，已完成
+        c.setStatus("待付款");//此订单状态 已支付，申请中，已完成，待付款
         c.setDeposit(cr.getDeposit());//押金
         c.setName(cr.getName());//真实名称
         c.setPhone(cr.getPhone());//电话
@@ -90,7 +102,8 @@ public class CarRecordService {
         int rent = cr.getPrice()*days;
         c.setRent(rent); //租金
         c.setUserId(cr.getUserId());//工作人员id
-        c.setCreateTime(cr.getCreateTime());//租车时间
+        c.setCreateTime(new Date());//订单创建时间
+        c.setStartTime(cr.getStartTime());//租车时间
         c.setEndTime(cr.getEndTime());//还车时间
         carRecordRepository.save(c);
         return c;

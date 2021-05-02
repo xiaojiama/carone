@@ -8,6 +8,7 @@ import com.codermy.myspringsecurityplus.car.service.CarRecordService;
 import com.codermy.myspringsecurityplus.car.service.CarService;
 import com.codermy.myspringsecurityplus.common.utils.Result;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,12 @@ public class CarRecordController {
     @Resource
     private UserService userService;
 
+    //获取当前登录的用户信息
+    public MyUser getUser(){
+        String name = SecurityContextHolder.getContext().getAuthentication().getName();
+        MyUser user = userService.getUserByName(name);
+        return  user;
+    }
     @GetMapping("/index")
     @ApiOperation(value = "汽车订单页面")
     public String index(){
@@ -42,8 +49,7 @@ public class CarRecordController {
     @GetMapping(value = "/toAdd/{carId}")
     @ApiOperation(value = "添加汽车详情页面")
     public String addCarRecord(@PathVariable("carId") Long carId,Model model) {
-        String name = SecurityContextHolder.getContext().getAuthentication().getName();
-        MyUser user = userService.getUserByName(name);
+        MyUser user = getUser();
         Car car = carService.findById(carId);
         model.addAttribute("car",car);
         model.addAttribute("user",user);
@@ -71,12 +77,16 @@ public class CarRecordController {
         return  Result.ok().data((List) r);
     }
     //  根据顾客id查询操作
-    @GetMapping("/selectByCustomerId/{id}")
+    @GetMapping("/selectByCustomerId")
     @ResponseBody
-    public Result getCustomerId(@PathVariable("id") Long id){
-        List<Object> r = carRecordService.findByCustomerId(id);
+    public Result getCustomerId(@RequestParam(defaultValue="1", required = false) int page,
+                                @RequestParam(defaultValue = "10", required = false) int size,
+                                @RequestParam(defaultValue = "null", required = false) String status){
+        MyUser user = getUser();
+        Page<CarRecord> r = carRecordService.findByCustomerId(user.getUserId(),status,page,size,"descending");
         return  Result.ok().code(0).data( r);
     }
+
     /*//  根据name查询操作
     @GetMapping("/selectByName")
     public Result getResourceName(CarRecord CarRecord){

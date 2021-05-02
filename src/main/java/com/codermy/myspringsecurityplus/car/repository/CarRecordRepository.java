@@ -1,9 +1,12 @@
 package com.codermy.myspringsecurityplus.car.repository;
 
 import com.codermy.myspringsecurityplus.car.entity.CarRecord;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -11,32 +14,48 @@ import java.util.Optional;
 
 public interface CarRecordRepository extends JpaRepository<CarRecord, Integer> {
     /**
-     * 根据汽车id获得汽车
+     * 根据订单id获得订单
      *
-     * @param id 汽车id
-     * @return 汽车
+     * @param id 订单id
+     * @return 订单
      */
     Optional<CarRecord> findById(Long id);
     /**
-     * 根据汽车id获得汽车
+     * 根据顾客id获得订单
      *
-     * @param id 汽车id
-     * @return 汽车
+     * @param id 顾客id
+     * @return 订单
      */
-    List<Object> findByCustomerId(Long id);
+    @Query(value = "select r.* from t_car_record r where r.customer_id=:customerId " ,
+            countQuery = "SELECT count(*) from (select r.* from t_car_record r where r.customer_id=:customerId) cr"
+            , nativeQuery=true)
+    Page<CarRecord> findByCustomerId(@Param("customerId")int customerId, Pageable pageable);
+
     /**
-     * 根据名称获得汽车
+     * 
+     * @param customerId
+     * @param status
+     * @param pageable
+     * @return
+     */
+    @Query(value = "select r.* from t_car_record r where r.customer_id=:customerId and r.`status`=:status " ,
+            countQuery = "SELECT count(*) from (select r.* from t_car_record r where r.customer_id=:customerId and r.`status`=:status) cr"
+            , nativeQuery=true)
+    Page<CarRecord> findByCustomerIdAndStatus(@Param("customerId")int customerId, @Param("status")String status, Pageable pageable);
+
+    /**
+     * 根据名称获得订单
      *
-     * @param name 汽车名
-     * @return 汽车
+     * @param name 订单名
+     * @return 订单
      */
    // Optional<CarRecord> findByName(String name);
 
     /**
-     * 根据汽车id删除汽车
+     * 根据订单id删除订单
      *
-     * @param id 汽车id
-     * @return 汽车
+     * @param id 订单id
+     * @return 订单
      */
      @Modifying
      @Transactional

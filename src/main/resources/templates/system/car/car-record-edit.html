@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <header th:replace="header::html"></header>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="mainBox">
+        <div class="main-container">
+            <div class="main-container">
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>预计还车日期
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="end" name="endTime" th:value="${{CarRecord.endTime}}" class="layui-input" lay-verify="required"  placeholder="yyyy-MM-dd" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">
+                        <span style="color: red">*</span>实际还车时间
+                    </label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="actualTime" th:value="${{CarRecord.actualTime}}"  name="actualTime" required="" lay-verify="actualTime" placeholder="yyyy-MM-dd" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">超时/天</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="overTime"  name="overTime" required="" lay-verify="overTime" autocomplete="off" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span style="color: red">*</span>是否损坏</label>
+                    <div class="layui-input-inline">
+                        <input type="radio" lay-filter="test1" name="isDamaged" value="否" title="否" checked >
+                        <input type="radio" lay-filter="test1" name="isDamaged" value="是" title="是" >
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label" id="label" style="display: none">赔偿金</label>
+                    <div class="layui-input-inline">
+                        <input type="hidden" id="id" th:value="${CarRecord.id}"  name="id" >
+                        <input type="hidden" id="sign" value="2" name="sign" >
+                        <input type="hidden" id="status" value="已完成" name="status" >
+                        <input type="text" id="damages" style="display: none" name="damages" required="" lay-verify="damages" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="button-container">
+            <button type="submit" class="layui-btn layui-btn-normal layui-btn-sm" lay-submit="" lay-filter="car-save">
+                <i class="layui-icon layui-icon-ok"></i>
+                提交
+            </button>
+            <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">
+                <i class="layui-icon layui-icon-refresh"></i>
+                重置
+            </button>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="/component/jquery/jquery.min.js"></script>
+<script>
+    layui.use(['form','jquery'],function(){
+        sum();
+        let form = layui.form;
+        let $ = layui.jquery;
+        form.on("radio(test1)", function (data) {
+            var value = data.value;
+            if (this.value == '是') {
+                $("#label").css('display','block');
+                $("#damages").css('display','block');
+            } else if (this.value == '否') {
+                $("#label").css('display','none');
+                $("#damages").css('display','none');
+            }
+        });
+        form.verify({
+            name: function(value){
+                if(value.length < 2){
+                    return '汽车名至少2个字符';
+                }
+            },
+            price:[/^$|^[0-9]{0,5}$/, '只能是数字且范围0~99999！']
+        });
+        form.on('submit(car-save)', function(data){
+            var datas = data.field;
+            $.ajax({
+                url:'/api/carRecord/updateStatusById',
+                data:JSON.stringify(datas),
+                dataType:'json',
+                contentType: 'application/json;charset=utf-8',
+                type:'put',
+                success:function(result){
+                    if(result.success){
+                        layer.msg(result.msg,{icon:1,time:1000},function(){
+                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                            parent.location.reload();
+                        });
+                    }else{
+                        layer.msg(result.msg,{icon:2,time:1000});
+                    }
+                }
+            })
+            return false;
+        });
+
+    })
+    function sum() {
+        var start = $("#end").val();
+        var end = $("#actualTime").val();
+
+        var days = DateDiff(start, end);
+
+        function DateDiff(start, end){
+            start = new Date(start);
+            end = new Date(end);
+            if(end > start){
+                days = parseInt(Math.abs(end - start) / 1000 / 60 / 60 / 24);
+            }else{
+                days = '0';
+            }
+            return days;
+        }
+        $('#overTime').attr('value',days);
+    }
+</script>
+</body>
+</html>

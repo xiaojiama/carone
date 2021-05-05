@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /*
@@ -55,6 +56,13 @@ public class CarRecordController {
         model.addAttribute("user",user);
         return "../static/detail.html";
     }
+    @GetMapping(value = "/toUpdate/{id}")
+    @ApiOperation(value = "修改订单页面")
+    public String editCar(@PathVariable("id") Long id,Model model) {
+        CarRecord carRecord = carRecordService.findById(id);
+        model.addAttribute("CarRecord",carRecord);
+        return "system/car/car-record-edit";
+    }
     @GetMapping(value = "/toEdit/{carRecordId}")
     @ApiOperation(value = "修改订单页面")
     public String editCarRecord(@PathVariable("carRecordId") Long carRecordId,Model model) {
@@ -93,12 +101,22 @@ public class CarRecordController {
     }
 
     // 修改订单状态
-    @GetMapping("/updateStatusById")
+    @PutMapping("/updateStatusById")
     @ResponseBody
-    public Result updateStatusById(@RequestParam(defaultValue = "null", required = false) String id,
-                                @RequestParam(defaultValue = "null", required = false) String status){
+    public Result updateStatusById(@RequestBody CarRecord c){
+        //sign : 1为只需要向数据库插入状态的；2.需要插入状态和工作人员id,赔偿金额等数据；3，需要插入状态状态和还车时间；
         MyUser user = getUser();
-        carRecordService.updateStatusById(status,id,user.getUserId());
+        switch (c.getSign()){
+            case 1:
+                carRecordService.updateStatusById(c.getStatus(),c.getId().toString());
+                break;
+            case 2:
+                carRecordService.updateStatusById(c.getStatus(),c.getId().toString(),c.getOverTime(),c.getIsDamaged(),c.getDamages(),user.getUserId());
+                break;
+            case 3:
+                carRecordService.updateStatusById(c.getStatus(),c.getId().toString(),new Date());
+                break;
+        }
         return  Result.ok();
     }
     //  新增操作

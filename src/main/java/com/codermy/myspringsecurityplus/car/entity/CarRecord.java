@@ -71,7 +71,30 @@ public class CarRecord {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")   //格式化前台日期参数注解
     private Date createTime;
 
+    //实际还车时间
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")  //FastJson包使用注解
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8") //Jackson包使用注解
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")   //格式化前台日期参数注解
+    private Date actualTime;
+
+    /**
+     * 超时/天数
+     */
+    private int overTime;
+
+    /**
+     * 是否损坏
+     */
+    private String isDamaged;
+    /**
+     * 赔偿金
+     */
+    private int damages;
+
     private String carName;
 
     private String carImgUrl;
+
+    @Transient
+    private int sign;
 }

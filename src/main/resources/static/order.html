@@ -224,14 +224,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			}
 			window.dropOff = function(obj){
 				var data = obj.data;
+				var json = {"status": "申请中", "id": data.id,"sign":3};
 				layer.confirm('确定要申请还车吗？', {icon: 3, title:'提示'}, function(index) {
 					layer.close(index);
 					let loading = layer.load();
 					$.ajax({
 						url: '/api/carRecord/updateStatusById',
 						dataType: 'json',
-						type: 'get',
-						data: {"status": "申请中", "id": data.id},
+						contentType: 'application/json;charset=utf-8',
+						type: 'put',
+						data: JSON.stringify(json),
 						success: function (result) {
 							layer.close(loading);
 							window.parent.location.reload();

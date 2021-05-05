@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -66,8 +67,18 @@ public interface CarRecordRepository extends JpaRepository<CarRecord, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update t_car_record c set c.status =?1,c.user_Id=?3 where c.id = ?2",nativeQuery = true)
-    int updateStatusById(String status,String id,int userId);
+    @Query(value = "update t_car_record c set c.status =?1,c.actual_time=?3 where c.id = ?2",nativeQuery = true)
+    int updateStatusById(String status, String id, Date actualTime);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update t_car_record c set c.status =?1,c.over_time=?3,c.is_damaged=?4,c.damages=?5,c.user_Id=?6 where c.id = ?2",nativeQuery = true)
+    int updateStatusById(String status, String id, int overTime,String isDamaged,int damages,int userId);
+
+    @Transactional
+    @Modifying(clearAutomatically = true)
+    @Query(value = "update t_car_record c set c.status =?1 where c.id = ?2",nativeQuery = true)
+    int updateStatusById(String status,String id);
 
     @Transactional
     @Modifying(clearAutomatically = true)

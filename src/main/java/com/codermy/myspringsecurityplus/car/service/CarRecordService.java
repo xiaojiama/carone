@@ -67,9 +67,18 @@ public class CarRecordService {
         }
         return r;
     }
+    //修改订单状态以及还车时间数据
+    public void updateStatusById(String status,String id ,Date actualTime) {
+        carRecordRepository.updateStatusById(status, id,actualTime);
+
+    }
+    //修改订单状态以及是否需要赔钱等数据
+    public void updateStatusById(String status, String id, int overTime,String isDamaged,int damages,int userId) {
+        carRecordRepository.updateStatusById(status, id,overTime,isDamaged,damages,userId);
+    }
     //修改订单状态
-    public void updateStatusById(String status,String id ,int userId) {
-        carRecordRepository.updateStatusById(status, id,userId);
+    public void updateStatusById(String status,String id ) {
+        carRecordRepository.updateStatusById(status, id);
 
     }
 

@@ -116,6 +116,7 @@
             formDate = $("#deptId");
         });
         form.on('submit(user-save)', function(data){
+            debugger
             var rolelRadio = $("[name=roleId]:checked");
             if(rolelRadio == undefined || rolelRadio.length <= 0){
                 layer.alert("请给该用户设置角色");

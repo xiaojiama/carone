@@ -67,19 +67,11 @@ public class CarRecordService {
         }
         return r;
     }
-    //根据name查询
-   /* public CarRecord findByName(String number) {
-        Optional<CarRecord> r = carRecordRepository.findByName(number);
-        return r.orElse(null);
-    }*/
-    //判断是否存在
-  /*  public boolean isExist(String number) {
-        Optional<CarRecord> r = carRecordRepository.findByName(number);
-        if (r.isPresent()) {
-            return true;
-        }
-        return false;
-    }*/
+    //修改订单状态
+    public void updateStatusById(String status,String id ,int userId) {
+        carRecordRepository.updateStatusById(status, id,userId);
+
+    }
 
     //新增操作
     public CarRecord add(CarRecord cr) {
@@ -115,19 +107,19 @@ public class CarRecordService {
      * 编辑操作
      * @return
      */
-    public int edit(CarRecord cr) {
+    public CarRecord edit(CarRecord cr) {
         Optional<CarRecord> c = carRecordRepository.findById(cr.getId());
         Optional<Car> car = carRepository.findById(cr.getCarId());
         long endTime = cr.getEndTime().getTime();
-        long createTime = cr.getCreateTime().getTime();
-        int days = (int) ((endTime - createTime) / (1000*3600*24));
+        long startTime = cr.getStartTime().getTime();
+        int days = (int) ((endTime - startTime) / (1000*3600*24));
         if (c.isPresent()) {
             c.get().setCustomerId(cr.getCustomerId());//客户Id
             c.get().setCarId(cr.getCarId());//汽车Id
             c.get().setCarName(car.get().getName());
             c.get().setCarImgUrl(car.get().getImgUrl());
             c.get().setTimeLong(days);//租赁时长
-            c.get().setStatus(cr.getStatus());//此订单状态 进行中，申请中，已完成
+            c.get().setStatus("待付款");//此订单状态 待付款 已支付，申请中，已完成，
             c.get().setDeposit(cr.getDeposit());//押金
             c.get().setName(cr.getName());//真实名称
             c.get().setPhone(cr.getPhone());//电话
@@ -136,14 +128,14 @@ public class CarRecordService {
             int rent = cr.getPrice()*days;
             c.get().setRent(rent); //租金
             c.get().setUserId(cr.getUserId());//工作人员id
-            c.get().setCreateTime(cr.getCreateTime());//租车时间
+            c.get().setCreateTime(new Date());//创建时间
+            c.get().setStartTime(cr.getStartTime());//租车时间
             c.get().setEndTime(cr.getEndTime());//还车时间
             carRecordRepository.save(c.get());
         }else{
-            return 1;
+            return null;
         }
-
-        return 0;
+        return c.get();
     }
 
     //删除

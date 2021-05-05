@@ -41,13 +41,13 @@ public class CarRecordController {
         return  user;
     }
     @GetMapping("/index")
-    @ApiOperation(value = "汽车订单页面")
+    @ApiOperation(value = "订单订单页面")
     public String index(){
         return "system/car/car-record";
     }
 
     @GetMapping(value = "/toAdd/{carId}")
-    @ApiOperation(value = "添加汽车详情页面")
+    @ApiOperation(value = "添加订单详情页面")
     public String addCarRecord(@PathVariable("carId") Long carId,Model model) {
         MyUser user = getUser();
         Car car = carService.findById(carId);
@@ -55,11 +55,16 @@ public class CarRecordController {
         model.addAttribute("user",user);
         return "../static/detail.html";
     }
-    @GetMapping(value = "/toEdit")
-    @ApiOperation(value = "修改汽车页面")
-    public String editCarRecord(Model model, CarRecord CarRecord) {
-        model.addAttribute("CarRecord",carRecordService.findById(CarRecord.getId()));
-        return "system/car/carRecord-edit";
+    @GetMapping(value = "/toEdit/{carRecordId}")
+    @ApiOperation(value = "修改订单页面")
+    public String editCarRecord(@PathVariable("carRecordId") Long carRecordId,Model model) {
+        CarRecord carRecord = carRecordService.findById(carRecordId);
+        MyUser user = getUser();
+        Car car = carService.findById(carRecord.getCarId());
+        model.addAttribute("CarRecord",carRecord);
+        model.addAttribute("car",car);
+        model.addAttribute("user",user);
+        return "../static/detail.html";
     }
     //查询所有操作
     @GetMapping("/selectAll")
@@ -87,13 +92,15 @@ public class CarRecordController {
         return  Result.ok().code(0).data( r);
     }
 
-    /*//  根据name查询操作
-    @GetMapping("/selectByName")
-    public Result getResourceName(CarRecord CarRecord){
-        CarRecord r = carRecordService.findByName(CarRecord.getName());
-        return  Result.ok().data(r);
-    }*/
-
+    // 修改订单状态
+    @GetMapping("/updateStatusById")
+    @ResponseBody
+    public Result updateStatusById(@RequestParam(defaultValue = "null", required = false) String id,
+                                @RequestParam(defaultValue = "null", required = false) String status){
+        MyUser user = getUser();
+        carRecordService.updateStatusById(status,id,user.getUserId());
+        return  Result.ok();
+    }
     //  新增操作
     @PostMapping("/add")
     @ResponseBody
@@ -107,16 +114,8 @@ public class CarRecordController {
     @PutMapping("/edit")
     @ResponseBody
     public Result editCarRecord(@RequestBody CarRecord c) {
-        int status = carRecordService.edit(c);
-        switch (status) {
-            case 0:
-                return Result.ok().data(carRecordService.list());
-            case 1:
-                return Result.error().data(carRecordService.list());
-            default:
-                return Result.error().data(carRecordService.list());
-        }
-
+        CarRecord carRecord = carRecordService.edit(c);
+        return Result.ok().data(carRecord);
     }
     //  删除操作
     @DeleteMapping("/delete/{id}")
@@ -127,7 +126,7 @@ public class CarRecordController {
             case 0:
                 return Result.ok();
             case 1:
-                return Result.error().message("未找到该汽车信息");
+                return Result.error().message("未找到该订单信息");
             default:
                 return Result.error().message("未知错误");
         }

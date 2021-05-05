@@ -10,7 +10,7 @@
 	<div class="layui-card-body">
 		<form class="layui-form" action="">
 			<div class="layui-form-item">
-				<label class="layui-form-label">品牌名称</label>
+				<label class="layui-form-label">状态</label>
 				<div class="layui-input-inline">
 					<input type="text" name="name" placeholder="" class="layui-input">
 				</div>
@@ -34,7 +34,9 @@
 <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.5.1.min.js"></script>
 
 <script type="text/html" id="car-bar">
-	<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i></button>
+	{{# if(d.status=="申请中"){ }}
+	<button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit">处理</button>
+	{{# } }}
 </script>
 
 <script>
@@ -59,7 +61,7 @@
 				{title: "订单状态", field: "status", align:'center', width:100},
 				/*{title: '图片', field: 'carImgUrl', align:'center',templet: function (d) {
 						return "<div onclick='showBigImage(this)'><img src=\"/image/" + d.imgUrl + "\"  style=\"width: 40px\" lay-event=\"showPic\" ></div>";}},*/
-				{title: '操作', toolbar: '#car-bar', align:'center', width:100}
+				{title: '操作', toolbar: '#car-bar', align:'center', templet: function (d) { return d.status}}
 			]
 		]
 		var tableIns = table.render({
@@ -75,22 +77,10 @@
 			}, 'filter', 'print', 'exports']
 		});
 		table.on('tool(car-record-table)', function(obj){
-			if(obj.event === 'remove'){
-				window.remove(obj);
-			} else if(obj.event === 'edit'){
+			if(obj.event === 'edit'){
 				window.edit(obj);
 			}
 		});
-		table.on('toolbar(car-record-table)', function(obj){
-			if(obj.event === 'add'){
-				window.add();
-			} else if(obj.event === 'refresh'){
-				window.refresh();
-			} else if(obj.event === 'batchRemove'){
-				window.batchRemove(obj);
-			}
-		});
-
 		form.on('submit(brand-query)', function(data){
 			var formData = data.field;
 			var name = formData.name;
@@ -114,13 +104,20 @@
 
 		window.edit = function(obj){
 			var data = obj.data;
-			layer.open({
-				type: 2,
-				title: '修改',
-				shade: 0.1,
-				area: ['500px', '300px'],
-				content: '/api/carRecord/toEdit/?id='+data.id
-			});
+			layer.confirm('确定要同意还车吗？', {icon: 3, title:'提示'}, function(index) {
+				layer.close(index);
+				let loading = layer.load();
+				$.ajax({
+					url: '/api/carRecord/updateStatusById',
+					dataType: 'json',
+					type: 'get',
+					data: {"status": "已完成", "id": data.id},
+					success: function (result) {
+						layer.close(loading);
+						window.parent.location.reload();
+					}
+				})
+			})
 		}
 		window.refresh = function(){
 			table.reload('car-record-table');

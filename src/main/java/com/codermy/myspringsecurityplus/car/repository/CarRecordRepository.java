@@ -66,8 +66,8 @@ public interface CarRecordRepository extends JpaRepository<CarRecord, Integer> {
 
     @Transactional
     @Modifying(clearAutomatically = true)
-    @Query(value = "update t_car_record c set c.status =?1 where c.id = ?2",nativeQuery = true)
-    int updateStatusById(String status,String id);
+    @Query(value = "update t_car_record c set c.status =?1,c.user_Id=?3 where c.id = ?2",nativeQuery = true)
+    int updateStatusById(String status,String id,int userId);
 
     @Transactional
     @Modifying(clearAutomatically = true)

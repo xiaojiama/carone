@@ -1,6 +1,11 @@
 server:
   port: 8088
 spring:
+  resources:
+    static-locations: classpath:classpath:/resources/,classpath:/static/,classpath:/public/,classpath:/templates/
+  http:
+    multipart:
+      location: /data/upload_tmp
   profiles:
     active: dev
   application:
@@ -51,6 +56,25 @@ spring:
       enabled: true
       additional-paths: src/main/java
       exclude: WEB-INF/**
+  #Jpa
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  #thymeleaf
+  thymeleaf:
+    cache: false
+    prefix: classpath:/templates/
+    suffix: .html
+    encoding: UTF-8
+    content-type: text/html
+    mode: HTML5
+  #文件上传
+  servlet:
+    multipart:
+      max-file-size: 50MB  # 设置单个文件最大内存
+      max-request-size: 200MB # 设置所有文件最大内存
+      enabled: false
 #mybatis配置
 mybatis:
   type-aliases-package: com.codermy.myspringsecurityplus.entity

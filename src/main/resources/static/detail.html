@@ -18,7 +18,7 @@
                         <span style="color: red">*</span>真实姓名
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="name"  name="name"  required="" placeholder="请输入真实姓名" lay-verify="required" autocomplete="off" class="layui-input">
+                        <input type="text" id="name"  name="name" th:value="${CarRecord.name}"  required="" placeholder="请输入真实姓名" lay-verify="required" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -26,7 +26,7 @@
                         <span style="color: red">*</span>身份证号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="identity"  name="identity"required="" placeholder="请输入身份证号" lay-verify="identity" autocomplete="off" class="layui-input">
+                        <input type="text" id="identity"  name="identity"  th:value="${CarRecord.identity}" required="" placeholder="请输入身份证号" lay-verify="identity" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -34,7 +34,7 @@
                         <span style="color: red">*</span>手机号
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="phone"  name="phone" required="" placeholder="请输入手机号" autocomplete="off" lay-verify="phone" class="layui-input">
+                        <input type="text" id="phone"  name="phone" th:value="${CarRecord.phone}"  required="" placeholder="请输入手机号" autocomplete="off" lay-verify="phone" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -42,7 +42,7 @@
                         <span style="color: red">*</span>开始日期
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="start" name="startTime" class="layui-input" lay-verify="required" placeholder="yyyy-MM-dd" >
+                        <input type="text" id="start" name="startTime" th:value="${{CarRecord.startTime}}" class="layui-input" lay-verify="required" placeholder="yyyy-MM-dd" >
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -50,7 +50,7 @@
                         <span style="color: red">*</span>结束日期
                     </label>
                     <div class="layui-input-inline">
-                        <input type="text" id="end" name="endTime" class="layui-input" lay-verify="required"  placeholder="yyyy-MM-dd" >
+                        <input type="text" id="end" name="endTime" th:value="${{CarRecord.endTime}}" class="layui-input" lay-verify="required"  placeholder="yyyy-MM-dd" >
                     </div>
                 </div>
                 <div class="layui-form-item">
@@ -75,7 +75,7 @@
                 <div class="layui-form-item">
                     <input type="hidden" id="carId" th:value="${car.id}" name="carId" >
                     <input type="hidden" id="customerId" th:value="${user.userId}"  name="customerId" >
-                    <input type="hidden" id="na" th:value="${user.nickName}"  name="na" >
+                    <input type="hidden" id="id" th:value="${CarRecord.id}"  name="id" >
                 </div>
             <div class="bottom">
                 <div class="button-container">
@@ -112,7 +112,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"> 付款金额</label>
                 <div class="layui-input-inline">
-                    <input type="text" id="payment_amount"  name="payment_amount" class="layui-input" lay-verify="required"  readonly="true">
+                    <input type="text" id="payment_amount"  name="payment_amount" th:value="${CarRecord.rent}" class="layui-input" lay-verify="required"  readonly="true">
                 </div>
             </div>
         </div>
@@ -263,12 +263,20 @@
 
         form.on('submit(car-save)', function(data){
             var datas = data.field;
+            var url,type;
+            if(datas.id==null){
+                url = '/api/carRecord/add';
+                type = 'post';
+            }else{
+                url = '/api/carRecord/edit';
+                type = 'put';
+            }
             $.ajax({
-                url:'/api/carRecord/add',
+                url:url,
                 data:JSON.stringify(datas),
                 dataType:'json',
                 contentType:'application/json',
-                type:'post',
+                type:type,
                 success:function(result){
                     if(result.success){
                         /*layer.msg(result.msg,{icon:1,time:1000},function(){

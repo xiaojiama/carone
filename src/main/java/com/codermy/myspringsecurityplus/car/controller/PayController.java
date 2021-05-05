@@ -75,7 +75,7 @@ public class PayController {
             String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 
             // 修改叮当状态，改为 支付成功，已付款; 同时修改汽车状态
-            crRepository.updateStatusById("已支付", out_trade_no);
+            crRepository.updateStatusById("已支付", out_trade_no,0);
             crRepository.updateCarStatusByCarRecordId("已出租",out_trade_no);
 
 
